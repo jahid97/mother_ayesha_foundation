@@ -1,0 +1,146 @@
+{
+  "nav": {
+    "home": "Home",
+    "about": "About",
+    "stories": "Stories",
+    "projects": "Projects",
+    "gallery": "Gallery",
+    "contact": "Contact",
+    "blog": "Blog",
+    "volunteer": "Volunteer Registration",
+    "donate": "Donate",
+    "team": "Board of Members",
+    "additionalLinks": "Additional Links"
+  },
+  "hero": {
+    "slides": [
+      {
+        "title": "Building a Better Bangladesh Through Compassion",
+        "subtitle": "Mother Ayesha Foundation is dedicated to healthcare, education, research, skills development, and social welfare for underprivileged communities across Bangladesh."
+      },
+      {
+        "title": "Empowering Communities Through Education & Skills",
+        "subtitle": "From scholarships and TVET institutes to financial literacy — we equip people with the tools to build self-sufficient, dignified lives."
+      },
+      {
+        "title": "Quality Healthcare for Every Community",
+        "subtitle": "We establish clinics, hospitals, eye care facilities, and elderly care programs to serve those most in need across Bangladesh."
+      },
+      {
+        "title": "Research-Driven Solutions for Sustainable Development",
+        "subtitle": "We connect academia, industry, and government to drive evidence-based policy change aligned with UN SDG 2030 goals."
+      }
+    ],
+    "donateBtn": "Donate Now",
+    "learnBtn": "Learn More"
+  },
+  "focus": {
+    "badge": "What We Do",
+    "heading": "Our Focus Areas",
+    "description": "We provide comprehensive support to communities in Bangladesh through these key programs derived from our Memorandum of Association.",
+    "areas": {
+      "food":       { "label": "Healthcare",        "description": "Community clinics, hospitals & maternal health" },
+      "water":      { "label": "Eye Care",           "description": "Eye hospitals, cataract & vision screening" },
+      "education":  { "label": "Education & TVET",   "description": "Scholarships, TVET institutes & skills training" },
+      "medical":    { "label": "Research & Policy",  "description": "Social, economic & policy research" },
+      "shelter":    { "label": "Elderly Care",        "description": "Old-age homes & elderly care programs" },
+      "counseling": { "label": "Humanitarian Relief", "description": "Disaster aid, zakat, waqf & rehabilitation" }
+    },
+    "cta": "Learn More About Our Programs"
+  },
+  "mission": {
+    "badge": "Our Mission",
+    "heading": "Transforming lives through education, health, and research.",
+    "point1Title": "Social Welfare",
+    "point1Desc": "Charitable, non-political support for underprivileged communities and peoples of Bangladesh on a strictly non-profit basis.",
+    "point2Title": "Sustainable Development",
+    "point2Desc": "Research-backed programs aligned with the UN SDG 2030 objectives including climate, health, and financial inclusion.",
+    "quote": "Through your generosity, we build pathways to education, healthcare, vocational skills, and economic opportunity. We work with communities, government, and academia to create lasting, sustainable change across Bangladesh.",
+    "quoteStrong": "Together, we can create a Bangladesh where every person has the opportunity to thrive.",
+    "cta": "Read About Us",
+    "stats": {
+      "children": "People Supported",
+      "shelters":  "Programs Running",
+      "schools":   "Partner Institutions",
+      "years":     "Years of Service"
+    }
+  },
+  "gallery": {
+    "badge": "Our Gallery",
+    "heading": "Moments of Impact and Hope",
+    "description": "A visual record of our programs, communities, and people across Bangladesh.",
+    "viewAll": "View Full Gallery"
+  },
+  "projects": {
+    "heading": "Every donation, however small, changes a life in Bangladesh",
+    "viewAll": "View All Projects"
+  },
+  "getInvolved": {
+    "badge": "Get Involved",
+    "heading": "There Are Many Ways to Help",
+    "description": "Whether you donate, volunteer, or raise awareness — every action counts and changes lives.",
+    "donateBtn": "Donate Now & Change a Life",
+    "ways": {
+      "volunteer": {
+        "title": "Volunteer",
+        "description": "Give your time and skills to make a direct difference in the lives of communities we serve.",
+        "cta": "Become a Volunteer"
+      },
+      "fundraise": {
+        "title": "Fundraise",
+        "description": "Organise a fundraiser in your community and help us reach more people across Bangladesh.",
+        "cta": "Start Fundraising"
+      },
+      "spread": {
+        "title": "Spread the Word",
+        "description": "Share our mission with your network and help us grow our impact across Bangladesh and beyond.",
+        "cta": "Learn Our Mission"
+      }
+    }
+  },
+  "blog": {
+    "badge": "Blog",
+    "heading": "Stories, Insights, and Updates About Our Mission",
+    "description": "The latest from Mother Ayesha Foundation — program updates, research insights, and community stories.",
+    "viewAll": "View All"
+  },
+  "stories": {
+    "heading": "Featured Stories",
+    "description": "Real stories of hope, resilience, and transformation from the communities we serve.",
+    "viewAll": "View All Stories"
+  },
+  "footer": {
+    "tagline": "An independent, non-profit, non-political, non-governmental and charitable organization registered under the Societies Registration Act 1860 — dedicated to healthcare, education, research, and social welfare in Bangladesh.",
+    "quickLinks": "Quick Links",
+    "contactUs": "Contact Us",
+    "newsletter": {
+      "heading": "Newsletter",
+      "description": "Subscribe to our newsletter to receive updates on our programs and how you can help make a difference.",
+      "placeholder": "Your email address",
+      "button": "Subscribe",
+      "disclaimer": "By subscribing, you agree to our Privacy Policy and consent to receive updates from our organization."
+    },
+    "links": {
+      "about":   "About Us",
+      "causes":  "Our Programs",
+      "projects": "Projects",
+      "gallery": "Gallery",
+      "team":    "Board of Members",
+      "blog":    "Blog",
+      "stories": "Stories",
+      "contact": "Contact Us"
+    },
+    "copyright": "All rights reserved.",
+    "madeWith": "for humanity",
+    "privacy": "Privacy Policy",
+    "terms": "Terms of Service",
+    "cookie": "Cookie Policy"
+  },
+  "common": {
+    "donateNow": "Donate Now",
+    "learnMore": "Learn More",
+    "viewAll": "View All",
+    "readMore": "Read More",
+    "selectLanguage": "Select Language"
+  }
+}

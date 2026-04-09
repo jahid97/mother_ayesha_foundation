@@ -1,0 +1,146 @@
+{
+  "nav": {
+    "home": "Inicio",
+    "about": "Nosotros",
+    "stories": "Historias",
+    "projects": "Proyectos",
+    "gallery": "Galería",
+    "contact": "Contacto",
+    "blog": "Blog",
+    "volunteer": "Registro de Voluntarios",
+    "donate": "Donar",
+    "team": "Junta Directiva",
+    "additionalLinks": "Enlaces Adicionales"
+  },
+  "hero": {
+    "slides": [
+      {
+        "title": "Construyendo un Bangladesh Mejor con Compasión",
+        "subtitle": "Mother Ayesha Foundation está dedicada a la salud, educación, investigación, desarrollo de habilidades y bienestar social para comunidades desfavorecidas en Bangladesh."
+      },
+      {
+        "title": "Empoderando Comunidades a través de la Educación",
+        "subtitle": "Desde becas e institutos de formación profesional hasta educación financiera — equipamos a las personas con herramientas para vidas dignas y autosuficientes."
+      },
+      {
+        "title": "Salud de Calidad para Cada Comunidad",
+        "subtitle": "Establecemos clínicas, hospitales, instalaciones oftalmológicas y programas de atención a personas mayores para servir a quienes más lo necesitan."
+      },
+      {
+        "title": "Soluciones Basadas en Investigación para el Desarrollo",
+        "subtitle": "Conectamos academia, industria y gobierno para impulsar cambios de política alineados con los ODS 2030 de la ONU."
+      }
+    ],
+    "donateBtn": "Donar Ahora",
+    "learnBtn": "Saber Más"
+  },
+  "focus": {
+    "badge": "Lo Que Hacemos",
+    "heading": "Nuestras Áreas de Enfoque",
+    "description": "Brindamos apoyo integral a comunidades en Bangladesh a través de estos programas clave.",
+    "areas": {
+      "food":       { "label": "Salud",              "description": "Clínicas, hospitales y salud materna" },
+      "water":      { "label": "Atención Visual",    "description": "Hospitales oculares y programas de cataratas" },
+      "education":  { "label": "Educación y TVET",   "description": "Becas, institutos técnicos y formación" },
+      "medical":    { "label": "Investigación",      "description": "Investigación social, económica y política" },
+      "shelter":    { "label": "Atención a Mayores", "description": "Residencias y programas de cuidado" },
+      "counseling": { "label": "Ayuda Humanitaria",  "description": "Asistencia humanitaria y rehabilitación" }
+    },
+    "cta": "Conoce Más Sobre Nuestros Programas"
+  },
+  "mission": {
+    "badge": "Nuestra Misión",
+    "heading": "Transformando vidas a través de la educación, la salud y la investigación.",
+    "point1Title": "Bienestar Social",
+    "point1Desc": "Apoyo caritativo, no político, para comunidades desfavorecidas de Bangladesh sin fines de lucro.",
+    "point2Title": "Desarrollo Sostenible",
+    "point2Desc": "Programas respaldados por investigación alineados con los ODS 2030 de la ONU.",
+    "quote": "Con tu generosidad, construimos caminos hacia la educación, la atención médica, las habilidades profesionales y las oportunidades económicas. Trabajamos con comunidades, gobierno y academia para crear un cambio duradero en Bangladesh.",
+    "quoteStrong": "Juntos, podemos crear un Bangladesh donde cada persona tenga la oportunidad de prosperar.",
+    "cta": "Conoce Nuestra Historia",
+    "stats": {
+      "children": "Personas Apoyadas",
+      "shelters":  "Programas Activos",
+      "schools":   "Instituciones Asociadas",
+      "years":     "Años de Servicio"
+    }
+  },
+  "gallery": {
+    "badge": "Nuestra Galería",
+    "heading": "Momentos de Impacto y Esperanza",
+    "description": "Un registro visual de nuestros programas, comunidades y personas en Bangladesh.",
+    "viewAll": "Ver Galería Completa"
+  },
+  "projects": {
+    "heading": "Cada donación, por pequeña que sea, cambia una vida en Bangladesh",
+    "viewAll": "Ver Todos los Proyectos"
+  },
+  "getInvolved": {
+    "badge": "Participa",
+    "heading": "Hay Muchas Formas de Ayudar",
+    "description": "Ya sea que dones, te ofrezcas como voluntario o difundas el mensaje — cada acción cuenta y cambia vidas.",
+    "donateBtn": "Dona Ahora y Cambia una Vida",
+    "ways": {
+      "volunteer": {
+        "title": "Voluntariado",
+        "description": "Dona tu tiempo y habilidades para marcar una diferencia directa en las comunidades que servimos.",
+        "cta": "Hazte Voluntario"
+      },
+      "fundraise": {
+        "title": "Recaudar Fondos",
+        "description": "Organiza una campaña en tu comunidad y ayúdanos a llegar a más personas en Bangladesh.",
+        "cta": "Comenzar Recaudación"
+      },
+      "spread": {
+        "title": "Difunde el Mensaje",
+        "description": "Comparte nuestra misión con tu red y ayúdanos a ampliar nuestro impacto en Bangladesh y más allá.",
+        "cta": "Conoce Nuestra Misión"
+      }
+    }
+  },
+  "blog": {
+    "badge": "Blog",
+    "heading": "Historias, Perspectivas y Actualizaciones sobre Nuestra Misión",
+    "description": "Lo último de Mother Ayesha Foundation — actualizaciones de programas, perspectivas de investigación e historias comunitarias.",
+    "viewAll": "Ver Todo"
+  },
+  "stories": {
+    "heading": "Historias Destacadas",
+    "description": "Historias reales de esperanza, resiliencia y transformación de las comunidades que servimos.",
+    "viewAll": "Ver Todas las Historias"
+  },
+  "footer": {
+    "tagline": "Una organización caritativa independiente, sin fines de lucro y no gubernamental, dedicada a la salud, educación, investigación y bienestar social en Bangladesh.",
+    "quickLinks": "Enlaces Rápidos",
+    "contactUs": "Contáctenos",
+    "newsletter": {
+      "heading": "Boletín Informativo",
+      "description": "Suscríbete a nuestro boletín para recibir actualizaciones sobre nuestro trabajo y cómo puedes ayudar.",
+      "placeholder": "Tu dirección de correo electrónico",
+      "button": "Suscribirse",
+      "disclaimer": "Al suscribirte, aceptas nuestra Política de Privacidad y consientes recibir actualizaciones de nuestra organización."
+    },
+    "links": {
+      "about":    "Sobre Nosotros",
+      "causes":   "Nuestros Programas",
+      "projects": "Proyectos",
+      "gallery":  "Galería",
+      "team":     "Junta Directiva",
+      "blog":     "Blog",
+      "stories":  "Historias",
+      "contact":  "Contáctenos"
+    },
+    "copyright": "Todos los derechos reservados.",
+    "madeWith": "para la humanidad",
+    "privacy": "Política de Privacidad",
+    "terms": "Términos de Servicio",
+    "cookie": "Política de Cookies"
+  },
+  "common": {
+    "donateNow": "Donar Ahora",
+    "learnMore": "Saber Más",
+    "viewAll": "Ver Todo",
+    "readMore": "Leer Más",
+    "selectLanguage": "Seleccionar Idioma"
+  }
+}

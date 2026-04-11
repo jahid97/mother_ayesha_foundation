@@ -7,11 +7,10 @@ import { useRouter } from "next/navigation"
 import { Button } from "@/components/ui/button"
 import { Input } from "@/components/ui/input"
 import { Checkbox } from "@/components/ui/checkbox"
-import { Separator } from "@/components/ui/separator"
 import { useToast } from "@/hooks/use-toast"
 import SiteHeader from "@/components/site-header"
 import Footer from "@/components/footer"
-import { Eye, EyeOff, Mail, Lock, User, Facebook, Github, Loader2, Check, X } from "lucide-react"
+import { Eye, EyeOff, Mail, Lock, User, Loader2, Check, X } from "lucide-react"
 
 export default function SignupPage() {
   const [fullName, setFullName] = useState("")
@@ -95,19 +94,31 @@ export default function SignupPage() {
     setIsLoading(true)
 
     try {
-      // This would be replaced with actual registration logic
-      await new Promise((resolve) => setTimeout(resolve, 1500))
+      const res = await fetch("/api/auth/register", {
+        method: "POST",
+        headers: { "Content-Type": "application/json" },
+        body: JSON.stringify({ name: fullName, email, password }),
+      })
+      const data = await res.json()
+
+      if (!res.ok) {
+        toast({
+          title: "Registration failed",
+          description: data.error || "Please try again later",
+          variant: "destructive",
+        })
+        return
+      }
 
       toast({
         title: "Account created",
-        description: "Welcome to Mother Aysha Foundation",
+        description: "Your account has been created. Please sign in.",
       })
-
       router.push("/login")
     } catch (error) {
       toast({
         title: "Registration failed",
-        description: "Please try again later",
+        description: "Something went wrong. Please try again.",
         variant: "destructive",
       })
     } finally {
@@ -337,34 +348,6 @@ export default function SignupPage() {
                     )}
                   </Button>
                 </form>
-
-                <div className="mt-6">
-                  <div className="relative">
-                    <div className="absolute inset-0 flex items-center">
-                      <Separator className="w-full" />
-                    </div>
-                    <div className="relative flex justify-center text-xs uppercase">
-                      <span className="bg-white px-2 text-[#5a5a5a]">Or sign up with</span>
-                    </div>
-                  </div>
-
-                  <div className="mt-6 grid grid-cols-2 gap-3">
-                    <Button
-                      variant="outline"
-                      className="flex items-center justify-center gap-2 border-gray-300 text-[#3d3d3d] transition-all duration-200 hover:bg-blue-50 hover:border-blue-200 hover:text-blue-600"
-                    >
-                      <Facebook className="h-4 w-4 text-blue-600" />
-                      <span>Facebook</span>
-                    </Button>
-                    <Button
-                      variant="outline"
-                      className="flex items-center justify-center gap-2 border-gray-300 text-[#3d3d3d] transition-all duration-200 hover:bg-gray-100 hover:border-gray-400"
-                    >
-                      <Github className="h-4 w-4" />
-                      <span>GitHub</span>
-                    </Button>
-                  </div>
-                </div>
 
                 <div className="mt-6 text-center text-sm">
                   <span className="text-[#5a5a5a]">Already have an account? </span>

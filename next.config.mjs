@@ -20,8 +20,13 @@ const nextConfig = {
     ignoreBuildErrors: true,
   },
   images: {
-    unoptimized: true,
+    formats: ["image/avif", "image/webp"],
+    remotePatterns: [
+      { protocol: "https", hostname: "**" },
+      { protocol: "http",  hostname: "**" },
+    ],
   },
+  serverExternalPackages: ["@prisma/client", "@prisma/adapter-neon", "@neondatabase/serverless", "bcryptjs"],
   experimental: {
     webpackBuildWorker: true,
     parallelServerBuildTraces: true,

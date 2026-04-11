@@ -3,26 +3,42 @@
 import { useState, useEffect, useRef, useCallback } from "react"
 import Image from "next/image"
 import Link from "next/link"
-import { useLanguage } from "@/lib/language-context"
 
-const slideImages = [
-  { src: "/placeholder.svg?height=700&width=1920&text=Children+Smiling", alt: "Children smiling and showing artwork" },
-  { src: "/placeholder.svg?height=700&width=1920&text=Education+Programs", alt: "Children in education programs" },
-  { src: "/placeholder.svg?height=700&width=1920&text=Clean+Water+Initiative", alt: "Clean water initiative for children" },
-  { src: "/placeholder.svg?height=700&width=1920&text=Medical+Care+Support", alt: "Medical care support for orphaned children" },
+const slides = [
+  {
+    src: "/placeholder.svg?height=700&width=1920&text=Children+Smiling",
+    alt: "Children smiling and showing artwork",
+    title: "Building a Better Bangladesh Through Compassion",
+    subtitle: "Mother Ayesha Foundation is dedicated to healthcare, education, research, skills development, and social welfare for underprivileged communities across Bangladesh.",
+  },
+  {
+    src: "/placeholder.svg?height=700&width=1920&text=Education+Programs",
+    alt: "Children in education programs",
+    title: "Empowering Communities Through Education & Skills",
+    subtitle: "From scholarships and TVET institutes to financial literacy — we equip people with the tools to build self-sufficient, dignified lives.",
+  },
+  {
+    src: "/placeholder.svg?height=700&width=1920&text=Clean+Water+Initiative",
+    alt: "Clean water initiative for children",
+    title: "Quality Healthcare for Every Community",
+    subtitle: "We establish clinics, hospitals, eye care facilities, and elderly care programs to serve those most in need across Bangladesh.",
+  },
+  {
+    src: "/placeholder.svg?height=700&width=1920&text=Medical+Care+Support",
+    alt: "Medical care support",
+    title: "Research-Driven Solutions for Sustainable Development",
+    subtitle: "We connect academia, industry, and government to drive evidence-based policy change aligned with UN SDG 2030 goals.",
+  },
 ]
 
 export default function Hero() {
   const [currentIndex, setCurrentIndex] = useState(0)
   const intervalRef = useRef(null)
-  const { t } = useLanguage()
-
-  const slides = t("hero.slides")
 
   const startInterval = useCallback(() => {
     if (intervalRef.current) clearInterval(intervalRef.current)
     intervalRef.current = setInterval(() => {
-      setCurrentIndex((prev) => (prev + 1) % slideImages.length)
+      setCurrentIndex((prev) => (prev + 1) % slides.length)
     }, 5000)
   }, [])
 
@@ -36,17 +52,15 @@ export default function Hero() {
     startInterval()
   }
 
-  const prev = () => goTo((currentIndex - 1 + slideImages.length) % slideImages.length)
-  const next = () => goTo((currentIndex + 1) % slideImages.length)
+  const prev = () => goTo((currentIndex - 1 + slides.length) % slides.length)
+  const next = () => goTo((currentIndex + 1) % slides.length)
 
-  const currentSlide = Array.isArray(slides) ? slides[currentIndex] : null
-  const title = currentSlide?.title ?? slideImages[currentIndex].alt
-  const subtitle = currentSlide?.subtitle ?? ""
+  const { title, subtitle } = slides[currentIndex]
 
   return (
     <section className="relative h-[600px] md:h-[700px] overflow-hidden">
       {/* Slides */}
-      {slideImages.map((slide, index) => (
+      {slides.map((slide, index) => (
         <div
           key={index}
           className={`absolute inset-0 transition-opacity duration-1000 ${
@@ -85,13 +99,13 @@ export default function Hero() {
               href="/donate"
               className="bg-[#4db6ac] hover:bg-[#3d9d93] text-white font-bold py-3 px-8 rounded-full text-lg transition-colors shadow-lg"
             >
-              {t("hero.donateBtn")}
+              Donate Now
             </Link>
             <Link
               href="/about-us"
               className="bg-white/20 backdrop-blur-sm hover:bg-white/30 text-white font-bold py-3 px-8 rounded-full text-lg transition-colors border border-white/40"
             >
-              {t("hero.learnBtn")}
+              Learn More
             </Link>
           </div>
         </div>
@@ -99,7 +113,7 @@ export default function Hero() {
 
       {/* Slide indicators */}
       <div className="absolute bottom-6 left-1/2 -translate-x-1/2 flex space-x-2 z-20">
-        {slideImages.map((_, index) => (
+        {slides.map((_, index) => (
           <button
             key={index}
             onClick={() => goTo(index)}

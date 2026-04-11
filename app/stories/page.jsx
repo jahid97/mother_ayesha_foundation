@@ -1,19 +1,21 @@
 import SiteHeader from "@/components/site-header"
 import Footer from "@/components/footer"
-import { getAllStories } from "@/lib/stories-data"
+import { prisma } from "@/lib/db"
 import Image from "next/image"
 import Link from "next/link"
 import { Badge } from "@/components/ui/badge"
 import { ArrowRight } from "lucide-react"
 import AnimateOnScroll from "@/components/animate-on-scroll"
 
+export const revalidate = 3600
+
 export const metadata = {
   title: "Stories | Mother Aysha Foundation",
   description: "Read inspiring stories of hope, resilience, and transformation from our work around the world.",
 }
 
-export default function StoriesPage() {
-  const stories = getAllStories()
+export default async function StoriesPage() {
+  const stories = await prisma.story.findMany({ orderBy: { createdAt: "desc" } })
 
   return (
     <>
@@ -55,7 +57,7 @@ export default function StoriesPage() {
             {stories.map((story, index) => (
               <AnimateOnScroll key={story.id} variant="up" delay={(index % 3) * 100}>
                 <Link
-                  href={`/stories/${story.id}`}
+                  href={`/stories/${story.slug}`}
                   className="group block transform transition-all duration-300 hover:-translate-y-2 h-full"
                 >
                   <div className="bg-white rounded-lg overflow-hidden shadow-sm transition-all duration-300 group-hover:shadow-lg h-full flex flex-col">

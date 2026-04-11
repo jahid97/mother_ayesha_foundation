@@ -1,0 +1,142 @@
+generator client {
+  provider = "prisma-client"
+  output   = "../lib/generated/prisma"
+}
+
+datasource db {
+  provider = "postgresql"
+}
+
+// ─── Users (auth + admin) ────────────────────────────────────────────────────
+model User {
+  id        String   @id @default(cuid())
+  name      String
+  email     String   @unique
+  password  String
+  role      String   @default("user") // "user" | "admin"
+  createdAt DateTime @default(now())
+}
+
+// ─── Contact form submissions ────────────────────────────────────────────────
+model ContactMessage {
+  id        Int      @id @default(autoincrement())
+  name      String
+  email     String
+  message   String   @db.Text
+  read      Boolean  @default(false)
+  createdAt DateTime @default(now())
+}
+
+// ─── Newsletter subscribers ──────────────────────────────────────────────────
+model NewsletterSubscriber {
+  id        Int      @id @default(autoincrement())
+  email     String   @unique
+  createdAt DateTime @default(now())
+}
+
+// ─── Donations ───────────────────────────────────────────────────────────────
+model Donation {
+  id            Int      @id @default(autoincrement())
+  firstName     String
+  lastName      String
+  email         String
+  phone         String?
+  amount        Float
+  currency      String   @default("BDT")
+  isRecurring   Boolean  @default(false)
+  paymentMethod String
+  message       String?  @db.Text
+  status        String   @default("pending") // pending | completed | failed
+  projectId     String?
+  project       Project? @relation(fields: [projectId], references: [id])
+  createdAt     DateTime @default(now())
+}
+
+// ─── Projects ────────────────────────────────────────────────────────────────
+model Project {
+  id              String   @id
+  title           String
+  category        String
+  status          String
+  location        String
+  startDate       String
+  endDate         String
+  targetAmount    String
+  raisedAmount    String
+  progress        Int
+  image           String?
+  description     String   @db.Text
+  longDescription String?  @db.Text
+  goals           String[]
+  challenges      String[]
+  achievements    String[]
+  featured        Boolean  @default(false)
+  createdAt       DateTime @default(now())
+  updatedAt       DateTime @updatedAt
+  donations       Donation[]
+}
+
+// ─── Blog posts ──────────────────────────────────────────────────────────────
+model BlogPost {
+  id          Int      @id @default(autoincrement())
+  slug        String   @unique
+  title       String
+  description String   @db.Text
+  content     String   @db.Text
+  author      String
+  date        String
+  category    String
+  image       String?
+  featured    Boolean  @default(true)
+  createdAt   DateTime @default(now())
+  updatedAt   DateTime @updatedAt
+}
+
+// ─── Impact stories ──────────────────────────────────────────────────────────
+model Story {
+  id        Int      @id @default(autoincrement())
+  slug      String   @unique
+  title     String
+  excerpt   String   @db.Text
+  content   String   @db.Text
+  author    String
+  date      String
+  category  String
+  image     String?
+  featured  Boolean  @default(true)
+  createdAt DateTime @default(now())
+  updatedAt DateTime @updatedAt
+}
+
+// ─── Gallery images ──────────────────────────────────────────────────────────
+model GalleryImage {
+  id       Int     @id @default(autoincrement())
+  src      String
+  alt      String
+  category String
+  location String
+  date     String
+  featured Boolean @default(false)
+}
+
+// ─── Password Reset Tokens ───────────────────────────────────────────────────
+model PasswordResetToken {
+  id        Int      @id @default(autoincrement())
+  email     String
+  token     String   @unique
+  expiresAt DateTime
+  createdAt DateTime @default(now())
+}
+
+// ─── Board Members ────────────────────────────────────────────────────────────
+model BoardMember {
+  id        Int      @id @default(autoincrement())
+  name      String
+  role      String
+  bio       String?  @db.Text
+  image     String?
+  email     String?
+  order     Int      @default(0)
+  createdAt DateTime @default(now())
+  updatedAt DateTime @updatedAt
+}

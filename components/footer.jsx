@@ -1,12 +1,13 @@
 "use client"
 
+import { useState } from "react"
 import Link from "next/link"
 import Image from "next/image"
 import { Button } from "@/components/ui/button"
 import { Input } from "@/components/ui/input"
 import { Mail, Phone, MapPin, Heart } from "lucide-react"
-import { useLanguage } from "@/lib/language-context"
 import { siteConfig } from "@/lib/siteConfig"
+import { toast } from "sonner"
 
 const socialIcons = {
   Facebook: (
@@ -41,21 +42,42 @@ const socialIcons = {
   ),
 }
 
-const quickLinkKeys = ["about", "causes", "projects", "gallery", "team", "blog", "stories", "contact"]
-const quickLinkHrefs = {
-  about: "/about-us",
-  causes: "/projects",
-  projects: "/projects",
-  gallery: "/gallery",
-  team: "/board-of-members",
-  blog: "/blog",
-  stories: "/stories",
-  contact: "/contact-us",
-}
+const quickLinks = [
+  { label: "About Us",        href: "/about-us" },
+  { label: "Our Programs",    href: "/projects" },
+  { label: "Projects",        href: "/projects" },
+  { label: "Gallery",         href: "/gallery" },
+  { label: "Board of Members", href: "/board-of-members" },
+  { label: "Blog",            href: "/blog" },
+  { label: "Stories",         href: "/stories" },
+  { label: "Contact Us",      href: "/contact-us" },
+]
 
 export function Footer() {
   const currentYear = new Date().getFullYear()
-  const { t } = useLanguage()
+  const [email, setEmail] = useState("")
+  const [subscribing, setSubscribing] = useState(false)
+
+  const handleNewsletter = async (e) => {
+    e.preventDefault()
+    if (!email) return
+    setSubscribing(true)
+    try {
+      const res = await fetch("/api/newsletter", {
+        method: "POST",
+        headers: { "Content-Type": "application/json" },
+        body: JSON.stringify({ email }),
+      })
+      const data = await res.json()
+      if (!res.ok) throw new Error(data.error || "Failed to subscribe.")
+      toast.success("Subscribed!", { description: "Thank you for subscribing to our newsletter." })
+      setEmail("")
+    } catch (err) {
+      toast.error(err.message)
+    } finally {
+      setSubscribing(false)
+    }
+  }
 
   return (
     <footer className="bg-[#3d3d3d] text-white pt-16 pb-8">
@@ -75,7 +97,7 @@ export function Footer() {
               </div>
               <h2 className="text-xl font-bold leading-tight">Mother Ayesha Foundation</h2>
             </div>
-            <p className="text-gray-300 mb-6">{t("footer.tagline")}</p>
+            <p className="text-gray-300 mb-6">An independent, non-profit, non-political, non-governmental and charitable organization registered under the Societies Registration Act 1860 — dedicated to healthcare, education, research, and social welfare in Bangladesh.</p>
             <div className="flex space-x-3">
               {Object.entries(socialIcons).map(([name, icon]) => (
                 <Link
@@ -93,18 +115,18 @@ export function Footer() {
           {/* Quick Links */}
           <div>
             <h3 className="text-lg font-bold mb-6 relative inline-block">
-              {t("footer.quickLinks")}
+              Quick Links
               <span className="absolute -bottom-2 left-0 w-12 h-1 bg-[#4db6ac]"></span>
             </h3>
             <ul className="space-y-3">
-              {quickLinkKeys.map((key) => (
-                <li key={key}>
+              {quickLinks.map(({ label, href }) => (
+                <li key={label}>
                   <Link
-                    href={quickLinkHrefs[key]}
+                    href={href}
                     className="text-gray-300 hover:text-[#4db6ac] transition-colors duration-200 flex items-center"
                   >
                     <span className="mr-2">›</span>
-                    {t(`footer.links.${key}`)}
+                    {label}
                   </Link>
                 </li>
               ))}
@@ -114,7 +136,7 @@ export function Footer() {
           {/* Contact Information */}
           <div>
             <h3 className="text-lg font-bold mb-6 relative inline-block">
-              {t("footer.contactUs")}
+              Contact Us
               <span className="absolute -bottom-2 left-0 w-12 h-1 bg-[#4db6ac]"></span>
             </h3>
             <ul className="space-y-4">
@@ -140,7 +162,7 @@ export function Footer() {
             <div className="mt-6">
               <Link href="/donate">
                 <Button className="bg-[#4db6ac] hover:bg-[#3d9d93] text-white">
-                  {t("common.donateNow")}
+                  Donate Now
                 </Button>
               </Link>
             </div>
@@ -149,43 +171,46 @@ export function Footer() {
           {/* Newsletter */}
           <div>
             <h3 className="text-lg font-bold mb-6 relative inline-block">
-              {t("footer.newsletter.heading")}
+              Newsletter
               <span className="absolute -bottom-2 left-0 w-12 h-1 bg-[#4db6ac]"></span>
             </h3>
-            <p className="text-gray-300 mb-4">{t("footer.newsletter.description")}</p>
-            <div className="space-y-3">
+            <p className="text-gray-300 mb-4">Subscribe to our newsletter to receive updates on our programs and how you can help make a difference.</p>
+            <form onSubmit={handleNewsletter} className="space-y-3">
               <Input
                 type="email"
-                placeholder={t("footer.newsletter.placeholder")}
+                value={email}
+                onChange={(e) => setEmail(e.target.value)}
+                placeholder="Your email address"
+                required
                 className="bg-white/10 border-white/20 text-white placeholder:text-gray-400 focus:border-[#4db6ac]"
               />
-              <Button className="w-full bg-[#4db6ac] hover:bg-[#3d9d93] text-white">
-                {t("footer.newsletter.button")}
+              <Button type="submit" disabled={subscribing} className="w-full bg-[#4db6ac] hover:bg-[#3d9d93] text-white">
+                {subscribing ? "Subscribing..." : "Subscribe"}
               </Button>
-            </div>
-            <p className="text-xs text-gray-400 mt-3">{t("footer.newsletter.disclaimer")}</p>
+            </form>
+            <p className="text-xs text-gray-400 mt-3">By subscribing, you agree to our Privacy Policy and consent to receive updates from our organization.</p>
           </div>
         </div>
 
         {/* Bottom Bar */}
         <div className="pt-8 border-t border-white/10 flex flex-col md:flex-row justify-between items-center">
           <p className="text-gray-400 text-sm mb-4 md:mb-0">
-            © {currentYear} Mother Ayesha Foundation. {t("footer.copyright")}
+            © {currentYear} Mother Ayesha Foundation. All rights reserved.
           </p>
           <div className="flex flex-wrap justify-center gap-4 text-sm text-gray-400">
             <Link href="/privacy-policy" className="hover:text-[#4db6ac] transition-colors">
-              {t("footer.privacy")}
+              Privacy Policy
             </Link>
             <Link href="/terms-of-service" className="hover:text-[#4db6ac] transition-colors">
-              {t("footer.terms")}
+              Terms of Service
             </Link>
             <Link href="/cookie-policy" className="hover:text-[#4db6ac] transition-colors">
-              {t("footer.cookie")}
+              Cookie Policy
             </Link>
             <div className="flex items-center">
               <span>Made with</span>
               <Heart className="h-3 w-3 mx-1 text-[#4db6ac]" />
-              <span>{t("footer.madeWith")}</span>
+              <span>for humanity</span>
             </div>
           </div>
         </div>

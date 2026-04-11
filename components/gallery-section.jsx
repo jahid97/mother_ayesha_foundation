@@ -6,17 +6,12 @@ import Link from "next/link"
 import { Button } from "@/components/ui/button"
 import { useInView } from "react-intersection-observer"
 import { X } from "lucide-react"
-import { galleryImages, featuredGalleryImageIds } from "@/lib/gallery-data"
-import { useLanguage } from "@/lib/language-context"
 
-export default function GallerySection() {
-  const { t } = useLanguage()
+export default function GallerySection({ images = [] }) {
   const [ref, inView] = useInView({ triggerOnce: true, threshold: 0.1, rootMargin: "200px 0px" })
   const [selectedImage, setSelectedImage] = useState(null)
   const [selectedImageAlt, setSelectedImageAlt] = useState("")
   const [isLoaded, setIsLoaded] = useState(false)
-
-  const featuredImages = galleryImages.filter((img) => featuredGalleryImageIds.includes(img.id)).slice(0, 8)
 
   useEffect(() => {
     const timer = setTimeout(() => setIsLoaded(true), 300)
@@ -30,14 +25,14 @@ export default function GallerySection() {
       <div className="container mx-auto px-4">
         <div className="text-center mb-12">
           <span className="inline-block bg-[#4db6ac]/10 text-[#4db6ac] font-medium px-4 py-1 rounded-full text-sm mb-4">
-            {t("gallery.badge")}
+            Our Gallery
           </span>
-          <h2 className="text-3xl md:text-4xl font-bold text-[#3d3d3d] mb-4">{t("gallery.heading")}</h2>
-          <p className="text-[#5a5a5a] max-w-2xl mx-auto">{t("gallery.description")}</p>
+          <h2 className="text-3xl md:text-4xl font-bold text-[#3d3d3d] mb-4">Moments of Impact and Hope</h2>
+          <p className="text-[#5a5a5a] max-w-2xl mx-auto">A visual record of our programs, communities, and people across Bangladesh.</p>
         </div>
 
         <div className="grid grid-cols-2 md:grid-cols-3 lg:grid-cols-4 gap-4">
-          {featuredImages.map((image) => (
+          {images.map((image) => (
             <div
               key={image.id}
               className="relative group overflow-hidden rounded-lg shadow-md cursor-pointer"
@@ -67,7 +62,7 @@ export default function GallerySection() {
 
         <div className="text-center mt-10">
           <Link href="/gallery">
-            <Button className="bg-[#4db6ac] hover:bg-[#3d9d93] text-white">{t("gallery.viewAll")}</Button>
+            <Button className="bg-[#4db6ac] hover:bg-[#3d9d93] text-white">View Full Gallery</Button>
           </Link>
         </div>
       </div>

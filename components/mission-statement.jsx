@@ -8,11 +8,15 @@ import AnimatedCounter from "@/components/animated-counter"
 import { Heart, Users, Home, BookOpen, Award } from "lucide-react"
 import { cn } from "@/lib/utils"
 import Link from "next/link"
-import { useLanguage } from "@/lib/language-context"
+
+const stats = [
+  { icon: Users,    end: 50000, suffix: "+", label: "People Supported",     delay: "" },
+  { icon: Home,     end: 30,    suffix: "+", label: "Programs Running",     delay: "delay-200" },
+  { icon: BookOpen, end: 10,    suffix: "+", label: "Partner Institutions", delay: "delay-400" },
+  { icon: Award,    end: 25,    suffix: "+", label: "Years of Service",     delay: "delay-600" },
+]
 
 export default function MissionStatement() {
-  const { t } = useLanguage()
-
   const [ref, inView] = useInView({ triggerOnce: true, threshold: 0.1, rootMargin: "200px 0px" })
   const [statsContainerRef, statsInView] = useInView({ triggerOnce: true, threshold: 0.1, rootMargin: "200px 0px" })
 
@@ -23,13 +27,6 @@ export default function MissionStatement() {
     window.addEventListener("error", errorHandler)
     return () => window.removeEventListener("error", errorHandler)
   }, [])
-
-  const stats = [
-    { icon: Users,    end: 50000, suffix: "+", key: "mission.stats.children",  delay: "" },
-    { icon: Home,     end: 30,    suffix: "+", key: "mission.stats.shelters",  delay: "delay-200" },
-    { icon: BookOpen, end: 10,    suffix: "+", key: "mission.stats.schools",   delay: "delay-400" },
-    { icon: Award,    end: 25,    suffix: "+", key: "mission.stats.years",     delay: "delay-600" },
-  ]
 
   return (
     <section ref={ref} className="py-20 relative overflow-hidden bg-[#faf6ed]">
@@ -51,10 +48,10 @@ export default function MissionStatement() {
         <div className="grid md:grid-cols-2 gap-12 items-center">
           <div className={cn("transition-all duration-1000 transform", inView ? "opacity-100 translate-x-0" : "opacity-0 -translate-x-10")}>
             <div className="inline-block bg-[#4db6ac]/10 px-4 py-1 rounded-full text-[#4db6ac] font-medium text-sm mb-4">
-              {t("mission.badge")}
+              Our Mission
             </div>
             <h2 className="text-4xl md:text-5xl font-bold text-[#3d3d3d] mb-6 leading-tight">
-              {t("mission.heading")}
+              Transforming lives through education, health, and research.
             </h2>
 
             <div className="flex flex-col md:flex-row gap-6 mt-8">
@@ -63,8 +60,8 @@ export default function MissionStatement() {
                   <Heart className="h-5 w-5 text-[#4db6ac]" />
                 </div>
                 <div>
-                  <h3 className="font-medium text-[#3d3d3d] mb-1">{t("mission.point1Title")}</h3>
-                  <p className="text-sm text-[#5a5a5a] px-2">{t("mission.point1Desc")}</p>
+                  <h3 className="font-medium text-[#3d3d3d] mb-1">Social Welfare</h3>
+                  <p className="text-sm text-[#5a5a5a] px-2">Charitable, non-political support for underprivileged communities and peoples of Bangladesh on a strictly non-profit basis.</p>
                 </div>
               </div>
               <div className="flex items-start">
@@ -72,8 +69,8 @@ export default function MissionStatement() {
                   <BookOpen className="h-5 w-5 text-[#4db6ac]" />
                 </div>
                 <div>
-                  <h3 className="font-medium text-[#3d3d3d] mb-1">{t("mission.point2Title")}</h3>
-                  <p className="text-sm text-[#5a5a5a] px-2">{t("mission.point2Desc")}</p>
+                  <h3 className="font-medium text-[#3d3d3d] mb-1">Sustainable Development</h3>
+                  <p className="text-sm text-[#5a5a5a] px-2">Research-backed programs aligned with the UN SDG 2030 objectives including climate, health, and financial inclusion.</p>
                 </div>
               </div>
             </div>
@@ -83,13 +80,13 @@ export default function MissionStatement() {
             <div className="bg-white rounded-lg p-8 shadow-lg border border-gray-100 relative">
               <div className="absolute -top-5 -left-5 text-6xl text-[#4db6ac]/20 font-serif">"</div>
               <p className="text-[#5a5a5a] mb-6 relative z-10">
-                {t("mission.quote")}
-                <span className="block mt-4 font-medium text-[#3d3d3d]">{t("mission.quoteStrong")}</span>
+                Through your generosity, we build pathways to education, healthcare, vocational skills, and economic opportunity. We work with communities, government, and academia to create lasting, sustainable change across Bangladesh.
+                <span className="block mt-4 font-medium text-[#3d3d3d]">Together, we can create a Bangladesh where every person has the opportunity to thrive.</span>
               </p>
               <div className="flex flex-wrap gap-4">
                 <Link href="/about-us#our-mission">
                   <Button variant="outline" className="text-[#3d3d3d] border-[#3d3d3d] hover:bg-[#3d3d3d] hover:text-white transition-colors">
-                    {t("mission.cta")}
+                    Read About Us
                   </Button>
                 </Link>
               </div>
@@ -100,9 +97,9 @@ export default function MissionStatement() {
 
         {/* Impact Statistics */}
         <div ref={statsContainerRef} className="mt-16 grid grid-cols-2 md:grid-cols-4 gap-6 text-center">
-          {stats.map(({ icon: Icon, end, suffix, key, delay }) => (
+          {stats.map(({ icon: Icon, end, suffix, label, delay }) => (
             <div
-              key={key}
+              key={label}
               className={cn(
                 "bg-white p-6 rounded-lg shadow-md border border-gray-100 transition-all duration-700 transform",
                 statsInView ? `opacity-100 translate-y-0 ${delay}` : "opacity-0 translate-y-10",
@@ -114,7 +111,7 @@ export default function MissionStatement() {
               <h3 className="text-3xl font-bold text-[#3d3d3d]">
                 <AnimatedCounter end={end} suffix={suffix} />
               </h3>
-              <p className="text-[#5a5a5a] text-sm mt-1">{t(key)}</p>
+              <p className="text-[#5a5a5a] text-sm mt-1">{label}</p>
             </div>
           ))}
         </div>

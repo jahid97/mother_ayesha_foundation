@@ -16,11 +16,12 @@ import SiteHeader from "@/components/site-header"
 import Footer from "@/components/footer"
 import DonateForm from "@/components/donate-form"
 import Image from "next/image"
+import { prisma } from "@/lib/db"
 
 export default async function DonatePage({ searchParams }) {
-  // In Next.js 15, searchParams is a Promise and must be awaited
   const params = await searchParams
   const projectId = params.project || null
+  const projectDetails = projectId ? await prisma.project.findUnique({ where: { id: projectId } }) : null
 
   return (
     <div className="flex min-h-screen flex-col bg-[#faf6ed]">
@@ -51,7 +52,7 @@ export default async function DonatePage({ searchParams }) {
         </section>
 
         {/* Donation Form Section */}
-        <DonateForm initialProjectId={projectId} />
+        <DonateForm initialProjectId={projectId} projectDetails={projectDetails} />
 
         {/* Other Ways to Help */}
         <section className="py-16 bg-white">
@@ -83,9 +84,9 @@ export default async function DonatePage({ searchParams }) {
                 <p className="text-[#5a5a5a] mb-4">
                   Share your time and skills to make a direct impact on the lives of orphaned children.
                 </p>
-                <a href="/volunteer-registration">
+                <a href="/contact-us">
                   <button className="border border-[#4db6ac] text-[#4db6ac] hover:bg-[#4db6ac] hover:text-white px-4 py-2 rounded-md transition-colors">
-                    Become a Volunteer
+                    Contact Us
                   </button>
                 </a>
               </div>

@@ -1,165 +1,147 @@
 import Image from "next/image"
 import Link from "next/link"
-import { ArrowLeft } from "lucide-react"
+import { ArrowLeft, Calendar, User, Tag } from "lucide-react"
 import SiteHeader from "@/components/site-header"
 import Footer from "@/components/footer"
-import DonationForm from "@/components/donation-form"
-import { blogPosts } from "@/lib/blog-data"
+import { Badge } from "@/components/ui/badge"
+import { prisma } from "@/lib/db"
+import { notFound } from "next/navigation"
 
-// Helper function to find a blog post by its slug
-function getBlogPostBySlug(slug) {
-  return blogPosts.find((post) => post.slug === slug)
+export const revalidate = 3600
+
+export async function generateMetadata({ params }) {
+  const { slug } = await params
+  const post = await prisma.blogPost.findUnique({ where: { slug } })
+  if (!post) return { title: "Post Not Found | Mother Ayesha Foundation" }
+  return {
+    title: `${post.title} | Mother Ayesha Foundation`,
+    description: post.description,
+  }
 }
 
-export default function BlogPostPage({ params }) {
-  // Get the blog post by slug or use the fallback data
-  const blogPost = getBlogPostBySlug(params.slug) || {
-    category: "Children",
-    date: "Friday, April 4, 2023",
-    title: "The Impact of Your Donations: Real Stories from Orphaned Children",
-    content: `Your generosity has the power to transform lives. Every donation, no matter how big or small, brings hope and support to orphaned children around the world. Here are three stories of children who have benefited from your kindness.`,
-    sections: [
-      // Blog post sections with titles, content, bullet points, and conclusions
-      {
-        title: "A Home to Call Their Own",
-        content: `Meet Sophia, a 10-year-old orphan who lived on the streets, scrounging for food and seeking shelter at night. But everything changed when she found a loving home at our Little Angels orphanage. Your donations provided Sophia with:`,
-        bulletPoints: [
-          "A warm bed and a safe place to sleep",
-          "Nutritious meals and access to clean water",
-          "A supportive community and counseling services",
-        ],
-        conclusion: "Today, Sophia is thriving in school and has big dreams for her future.",
-      },
-      {
-        title: "A Chance to Thrive",
-        content: `Your support enabled us to provide educational resources and tutoring to John, a bright and curious 12-year-old orphan. John's love for learning was evident, but he lacked the tools to succeed. Your donations helped us provide:`,
-        bulletPoints: [
-          "School supplies and uniforms",
-          "Tutoring services and academic support",
-          "Access to technology and online resources",
-        ],
-        conclusion:
-          "Today, John excels in school and dreams of becoming a doctor, inspiring others with his determination and passion.",
-      },
-      {
-        title: "A Brighter Future",
-        content: `Thanks to your kindness, we were able to provide medical care and therapy to Maria, a 7-year-old orphan who suffered from a life-threatening illness. Your donations helped us cover:`,
-        bulletPoints: [
-          "Medical expenses and hospital bills",
-          "Therapy sessions and rehabilitation services",
-          "Nutritional support and care",
-        ],
-        conclusion:
-          "Maria is now healthy and full of joy, with a future full of promise. She loves playing with her friends and exploring the world around her.",
-      },
-    ],
-    conclusion: `These stories are just a few examples of the impact your donations have on the lives of orphaned children. Your compassion and generosity bring hope, support, and transformation to those who need it most. Thank you for being a part of our community and for making a difference in the lives of these incredible children.`,
-  }
+export default async function BlogPostPage({ params }) {
+  const { slug } = await params
+  const [post, recentPosts] = await Promise.all([
+    prisma.blogPost.findUnique({ where: { slug } }),
+    prisma.blogPost.findMany({ take: 3, orderBy: { createdAt: "desc" } }),
+  ])
+
+  if (!post) notFound()
 
   return (
     <div className="flex min-h-screen flex-col bg-[#faf6ed]">
       <SiteHeader />
 
       <main className="flex-grow">
-        {/* Article Section */}
         <article className="py-12">
-          <div className="container mx-auto px-4">
-            {/* Back Button */}
-            <Link
-              href="/blog"
-              className="mb-6 inline-flex items-center text-[#4db6ac] hover:text-[#3d9d93] transition-colors"
-            >
+          <div className="container mx-auto px-4 max-w-4xl">
+            {/* Back */}
+            <Link href="/blog" className="mb-8 inline-flex items-center text-[#4db6ac] hover:text-[#3d9d93] transition-colors">
               <ArrowLeft className="mr-2 h-4 w-4" />
-              Back
+              Back to Blog
             </Link>
 
-            {/* Category and Date */}
-            <div className="mb-4">
-              <span className="text-[#4db6ac] mr-2">{blogPost.category}</span>
-              <span className="text-[#5a5a5a]">{blogPost.date}</span>
+            {/* Category & date */}
+            <div className="mb-4 flex items-center gap-3">
+              <Badge className="bg-[#4db6ac] text-white">{post.category}</Badge>
+              <span className="text-sm text-[#5a5a5a]">{post.date}</span>
             </div>
 
             {/* Title */}
-            <h1 className="mb-8 text-4xl font-bold text-[#3d3d3d] md:text-5xl max-w-4xl">{blogPost.title}</h1>
+            <h1 className="mb-6 text-4xl font-bold text-[#3d3d3d] leading-tight">{post.title}</h1>
 
-            {/* Featured Image */}
-            <div className="relative mb-8 h-[400px] overflow-hidden rounded-lg">
-              <Image
-                src="/placeholder.svg?height=800&width=1200&text=Featured+Image"
-                alt="Featured image"
-                fill
-                className="object-cover"
-              />
+            {/* Meta */}
+            <div className="flex flex-wrap items-center gap-4 text-sm text-gray-500 mb-8 pb-6 border-b border-gray-200">
+              <div className="flex items-center gap-1.5">
+                <User className="h-4 w-4 text-[#4db6ac]" />
+                <span>By {post.author}</span>
+              </div>
+              <div className="flex items-center gap-1.5">
+                <Calendar className="h-4 w-4 text-[#4db6ac]" />
+                <span>{post.date}</span>
+              </div>
+              <div className="flex items-center gap-1.5">
+                <Tag className="h-4 w-4 text-[#4db6ac]" />
+                <span>{post.category}</span>
+              </div>
             </div>
 
-            {/* Introduction */}
-            <p className="mb-12 text-lg text-[#5a5a5a] max-w-3xl">{blogPost.content}</p>
+            {/* Featured image */}
+            {post.image && (
+              <div className="relative mb-8 h-[400px] overflow-hidden rounded-xl">
+                <Image src={post.image} alt={post.title} fill className="object-cover" priority />
+              </div>
+            )}
 
-            {/* Story Sections */}
-            <div className="space-y-12 max-w-3xl">
-              {blogPost.sections &&
-                blogPost.sections.map((section, index) => (
-                  <section key={index}>
-                    <h2 className="mb-4 text-2xl font-bold text-[#3d3d3d]">{section.title}</h2>
-                    <p className="mb-4 text-[#5a5a5a]">{section.content}</p>
-                    <ul className="mb-4 space-y-2 pl-6">
-                      {section.bulletPoints.map((point, i) => (
-                        <li key={i} className="text-[#5a5a5a] list-disc">
-                          {point}
-                        </li>
-                      ))}
-                    </ul>
-                    <p className="text-[#5a5a5a] italic">{section.conclusion}</p>
-                  </section>
-                ))}
-            </div>
+            {/* Excerpt */}
+            <p className="text-xl text-[#5a5a5a] font-medium mb-8 leading-relaxed">{post.description}</p>
 
-            {/* Conclusion */}
-            <div className="mt-12 max-w-3xl">
-              <p className="text-[#5a5a5a]">{blogPost.conclusion}</p>
+            {/* Content */}
+            <div
+              className="prose prose-lg max-w-none prose-headings:text-[#3d3d3d] prose-p:text-[#5a5a5a] prose-a:text-[#4db6ac] prose-strong:text-[#3d3d3d]"
+              dangerouslySetInnerHTML={{ __html: post.content }}
+            />
+
+            {/* Author card */}
+            <div className="mt-12 pt-8 border-t border-gray-200 flex items-center gap-4">
+              <div className="h-12 w-12 rounded-full bg-[#4db6ac] flex items-center justify-center shrink-0">
+                <span className="text-white font-bold text-sm">
+                  {post.author.split(" ").map((n) => n[0]).join("")}
+                </span>
+              </div>
+              <div>
+                <p className="font-semibold text-[#3d3d3d]">{post.author}</p>
+                <p className="text-sm text-gray-500">Mother Ayesha Foundation</p>
+              </div>
             </div>
           </div>
         </article>
 
-        {/* Partners Section */}
-        <section className="py-16 bg-white">
-          <div className="container mx-auto px-4 text-center">
-            <p className="mb-8 text-[#3d3d3d]">
-              Over <span className="font-bold text-[#4db6ac]">200+</span> partner currently help us
-            </p>
-            <div className="flex flex-wrap items-center justify-center gap-8">
-              {/* Partner logos */}
-              {["Save the Children", "UNICEF", "American Red Cross", "Amazon", "World Vision"].map((partner) => (
-                <div key={partner} className="relative h-16 w-32">
-                  <Image
-                    src={`/placeholder.svg?height=64&width=128&text=${partner.replace(/\s+/g, "+")}`}
-                    alt={partner}
-                    fill
-                    className="object-contain"
-                  />
-                </div>
-              ))}
+        {/* Recent posts */}
+        {recentPosts.filter((p) => p.id !== post.id).length > 0 && (
+          <section className="py-16 bg-white">
+            <div className="container mx-auto px-4 max-w-4xl">
+              <h2 className="text-2xl font-bold text-[#3d3d3d] mb-8">More Articles</h2>
+              <div className="grid md:grid-cols-3 gap-6">
+                {recentPosts
+                  .filter((p) => p.id !== post.id)
+                  .slice(0, 3)
+                  .map((p) => (
+                    <Link key={p.id} href={`/blog/${p.slug}`} className="group block">
+                      <div className="rounded-lg overflow-hidden bg-[#faf6ed] shadow-sm hover:shadow-md transition-shadow">
+                        <div className="relative h-40">
+                          <Image
+                            src={p.image || "/placeholder.svg"}
+                            alt={p.title}
+                            fill
+                            className="object-cover group-hover:scale-105 transition-transform duration-300"
+                          />
+                        </div>
+                        <div className="p-4">
+                          <Badge className="bg-[#4db6ac]/10 text-[#4db6ac] mb-2 text-xs">{p.category}</Badge>
+                          <h3 className="font-semibold text-[#3d3d3d] text-sm line-clamp-2 group-hover:text-[#4db6ac] transition-colors">{p.title}</h3>
+                        </div>
+                      </div>
+                    </Link>
+                  ))}
+              </div>
             </div>
-          </div>
-        </section>
+          </section>
+        )}
 
-        {/* Donation Section */}
+        {/* CTA */}
         <section className="py-16 bg-[#3d3d3d]">
-          <div className="container mx-auto px-4">
-            <div className="grid items-center gap-8 md:grid-cols-2">
-              <div className="relative h-[400px] overflow-hidden rounded-lg">
-                <Image
-                  src="/placeholder.svg?height=800&width=600&text=Donate+Now"
-                  alt="Donate now"
-                  fill
-                  className="object-cover"
-                />
-                <div className="absolute inset-0 bg-gradient-to-r from-black/60 to-transparent" />
-              </div>
-              <div>
-                <DonationForm />
-              </div>
-            </div>
+          <div className="container mx-auto px-4 text-center">
+            <h2 className="text-2xl font-bold text-white mb-4">Make a Difference Today</h2>
+            <p className="text-gray-300 mb-8 max-w-xl mx-auto">
+              Support our mission to bring healthcare, education, and hope to those who need it most.
+            </p>
+            <Link
+              href="/donate"
+              className="inline-block bg-[#4db6ac] hover:bg-[#3d9d93] text-white font-medium px-8 py-3 rounded-lg transition-colors"
+            >
+              Donate Now
+            </Link>
           </div>
         </section>
       </main>
@@ -168,4 +150,3 @@ export default function BlogPostPage({ params }) {
     </div>
   )
 }
-

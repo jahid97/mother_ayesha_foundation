@@ -1,53 +1,41 @@
-// app/page.jsx
-// This is the homepage of the website
-// It imports and renders various section components
-
-import SiteHeader from "@/components/site-header" // Import the site header component
-import Footer from "@/components/footer" // Import the footer component
-import Hero from "@/components/hero" // Import the hero section component
-import FocusAreasSection from "@/components/focus-areas-section" // Import the focus areas section
-import GallerySection from "@/components/gallery-section" // Import the gallery section
-import FeaturedProjectsSection from "@/components/featured-projects-section" // Import the featured projects section
-import BlogSection from "@/components/blog-section" // Import the blog section
-import FeaturedStoriesSection from "@/components/featured-stories-section" // Import the featured stories section
-import MissionStatement from "@/components/mission-statement" // Import the mission statement component
+import SiteHeader from "@/components/site-header"
+import Footer from "@/components/footer"
+import Hero from "@/components/hero"
+import FocusAreasSection from "@/components/focus-areas-section"
+import GallerySection from "@/components/gallery-section"
+import FeaturedProjectsSection from "@/components/featured-projects-section"
+import BlogSection from "@/components/blog-section"
+import FeaturedStoriesSection from "@/components/featured-stories-section"
+import MissionStatement from "@/components/mission-statement"
 import VolunteerCtaSection from "@/components/volunteer-cta-section"
+import { prisma } from "@/lib/db"
 
-export default function Home() {
+export const revalidate = 60 // re-fetch at most once per minute
+
+export default async function Home() {
+  const [featuredProjects, stories, blogPosts, galleryImages] = await Promise.all([
+    prisma.project.findMany({ where: { featured: true }, take: 3, orderBy: { createdAt: "desc" } }),
+    prisma.story.findMany({ where: { featured: true }, take: 3, orderBy: { createdAt: "desc" } }),
+    prisma.blogPost.findMany({ take: 3, orderBy: { createdAt: "desc" } }),
+    prisma.galleryImage.findMany({ where: { featured: true }, take: 8, orderBy: { id: "asc" } }),
+  ])
+
   return (
     <div className="flex flex-col min-h-screen bg-[#faf6ed]">
-      {/* Header/Navigation */}
       <SiteHeader />
 
       <main className="flex-grow">
-        {/* Hero Section with Slideshow */}
         <Hero />
-
-        {/* Mission Statement - Enhanced with Animation */}
         <MissionStatement />
-
-        {/* Focus Areas Section */}
         <FocusAreasSection />
-
-        {/* Gallery Section */}
-        <GallerySection />
-
-        {/* Projects Section */}
-        <FeaturedProjectsSection />
-
-        {/* Volunteer CTA Section */}
+        <GallerySection images={galleryImages} />
+        <FeaturedProjectsSection projects={featuredProjects} />
         <VolunteerCtaSection />
-
-        {/* Blog Section */}
-        <BlogSection />
-
-        {/* Featured Stories Section */}
-        <FeaturedStoriesSection />
+        <BlogSection posts={blogPosts} />
+        <FeaturedStoriesSection stories={stories} />
       </main>
 
-      {/* Footer */}
       <Footer />
     </div>
   )
 }
-

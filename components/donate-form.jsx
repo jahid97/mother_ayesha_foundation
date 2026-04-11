@@ -10,9 +10,7 @@ import { Label } from "@/components/ui/label"
 import { Tabs, TabsContent, TabsList, TabsTrigger } from "@/components/ui/tabs"
 import { Heart, CreditCard, Landmark, Wallet } from "lucide-react"
 import { toast } from "sonner"
-import { projects } from "@/lib/project-data"
-
-export default function DonateForm({ initialProjectId }) {
+export default function DonateForm({ initialProjectId, projectDetails = null }) {
   const [selectedProject] = useState(initialProjectId)
   const [donationAmount, setDonationAmount] = useState("")
   const [customAmount, setCustomAmount] = useState("")
@@ -34,22 +32,40 @@ export default function DonateForm({ initialProjectId }) {
     }
   }
 
+  const [donorInfo, setDonorInfo] = useState({ firstName: "", lastName: "", email: "", phone: "", message: "" })
+  const [isRecurring, setIsRecurring] = useState(false)
+
+  const handleDonorChange = (e) => setDonorInfo((prev) => ({ ...prev, [e.target.id.replace("-", "")]: e.target.value }))
+
   // Handle form submission
-  const handleSubmit = (e) => {
+  const handleSubmit = async (e) => {
     e.preventDefault()
     setIsSubmitting(true)
-
-    // Simulate form submission
-    setTimeout(() => {
-      setIsSubmitting(false)
+    const amount = donationAmount === "custom" ? customAmount : donationAmount
+    try {
+      const res = await fetch("/api/donate", {
+        method: "POST",
+        headers: { "Content-Type": "application/json" },
+        body: JSON.stringify({
+          ...donorInfo,
+          amount: parseFloat(amount),
+          isRecurring,
+          projectId: selectedProject || null,
+          paymentMethod,
+        }),
+      })
+      const data = await res.json()
+      if (!res.ok) throw new Error(data.error || "Failed to process donation.")
       toast.success("Thank you for your donation!", {
         description: "You will receive a receipt via email shortly.",
       })
-    }, 1500)
+    } catch (err) {
+      toast.error("Donation failed.", { description: err.message })
+    } finally {
+      setIsSubmitting(false)
+    }
   }
 
-  // Find the selected project details
-  const projectDetails = selectedProject ? projects.find((p) => p.id === selectedProject) : null
 
   return (
     <section className="py-16">
@@ -138,7 +154,7 @@ export default function DonateForm({ initialProjectId }) {
                 )}
 
                 <div className="flex items-start space-x-3 mt-4">
-                  <input type="checkbox" id="recurring" className="mt-1" />
+                  <input type="checkbox" id="recurring" className="mt-1" checked={isRecurring} onChange={(e) => setIsRecurring(e.target.checked)} />
                   <Label htmlFor="recurring" className="flex-1 cursor-pointer">
                     <div className="font-medium text-[#3d3d3d]">Make this a monthly donation</div>
                     <div className="text-sm text-[#5a5a5a]">
@@ -154,37 +170,29 @@ export default function DonateForm({ initialProjectId }) {
 
                 <div className="grid grid-cols-1 md:grid-cols-2 gap-4 mb-4">
                   <div>
-                    <Label htmlFor="first-name" className="mb-2 block">
-                      First Name
-                    </Label>
-                    <Input id="first-name" required />
+                    <Label htmlFor="first-name" className="mb-2 block">First Name</Label>
+                    <Input id="first-name" value={donorInfo.firstName} onChange={handleDonorChange} required />
                   </div>
                   <div>
-                    <Label htmlFor="last-name" className="mb-2 block">
-                      Last Name
-                    </Label>
-                    <Input id="last-name" required />
+                    <Label htmlFor="last-name" className="mb-2 block">Last Name</Label>
+                    <Input id="last-name" value={donorInfo.lastName} onChange={handleDonorChange} required />
                   </div>
                   <div>
-                    <Label htmlFor="email" className="mb-2 block">
-                      Email
-                    </Label>
-                    <Input id="email" type="email" required />
+                    <Label htmlFor="email" className="mb-2 block">Email</Label>
+                    <Input id="email" type="email" value={donorInfo.email} onChange={handleDonorChange} required />
                   </div>
                   <div>
-                    <Label htmlFor="phone" className="mb-2 block">
-                      Phone (optional)
-                    </Label>
-                    <Input id="phone" type="tel" />
+                    <Label htmlFor="phone" className="mb-2 block">Phone (optional)</Label>
+                    <Input id="phone" type="tel" value={donorInfo.phone} onChange={handleDonorChange} />
                   </div>
                 </div>
 
                 <div>
-                  <Label htmlFor="message" className="mb-2 block">
-                    Message (optional)
-                  </Label>
+                  <Label htmlFor="message" className="mb-2 block">Message (optional)</Label>
                   <Textarea
                     id="message"
+                    value={donorInfo.message}
+                    onChange={handleDonorChange}
                     placeholder="Share why you're donating or any special instructions"
                     className="min-h-[100px]"
                   />

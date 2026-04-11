@@ -117,10 +117,10 @@ const programs = [
 
 export default function AboutUsPage() {
   const impactStats = [
-    { value: "25+", label: "Years of Service",      color: "text-[#ff4d4d]" },
-    { value: "50,000+", label: "People Served",     color: "text-[#4db6ac]" },
-    { value: "30+",  label: "Active Programs",      color: "text-[#ffa726]" },
-    { value: "10+",  label: "Partner Institutions", color: "text-[#9c27b0]" },
+    { value: "25+", label: "Years of Service", color: "text-[#ff4d4d]" },
+    { value: "50,000+", label: "People Served", color: "text-[#4db6ac]" },
+    { value: "30+", label: "Active Programs", color: "text-[#ffa726]" },
+    { value: "10+", label: "Partner Institutions", color: "text-[#9c27b0]" },
   ]
 
   return (
@@ -169,7 +169,7 @@ export default function AboutUsPage() {
                   <Link href="/donate">
                     <Button className="bg-[#4db6ac] hover:bg-[#3d9d93] text-white">Support Our Mission</Button>
                   </Link>
-                  <Link href="/volunteer-registration">
+                  <Link href="/contact-us">
                     <Button variant="outline" className="border-[#4db6ac] text-[#4db6ac] hover:bg-[#4db6ac] hover:text-white">
                       Join Our Team
                     </Button>
@@ -194,7 +194,7 @@ export default function AboutUsPage() {
               <span className="inline-block bg-[#4db6ac]/10 px-4 py-1 rounded-full text-[#4db6ac] font-medium text-sm mb-4">
                 A MESSAGE FROM OUR CHAIRMAN
               </span>
-              <h2 className="text-3xl font-bold text-[#3d3d3d]">Chairman's Message</h2>
+              <h2 className="text-3xl font-bold text-[#3d3d3d]">In Memory of Ayesha Begum</h2>
             </AnimateOnScroll>
 
             {/* Message */}
@@ -202,7 +202,7 @@ export default function AboutUsPage() {
               <AnimateOnScroll variant="left" className="md:col-span-2 flex flex-col items-center">
                 <div className="relative w-56 h-56 rounded-full overflow-hidden shadow-xl border-4 border-[#4db6ac]/30 mb-6">
                   <Image
-                    src="/placeholder.svg?height=300&width=300&text=Chairman"
+                    src="/board_members/chairman_photo.jpeg?height=300&width=300&text=Chairman"
                     alt="Chairman, Mother Ayesha Foundation"
                     fill
                     className="object-cover"
@@ -217,22 +217,19 @@ export default function AboutUsPage() {
                   <div className="text-7xl text-[#4db6ac]/20 font-serif leading-none absolute -top-4 -left-4">"</div>
                   <div className="space-y-4 text-[#5a5a5a] relative z-10 pl-4">
                     <p>
-                      In the name of Allah, the Most Gracious, the Most Merciful. It is with deep gratitude that
-                      I welcome you to Mother Ayesha Foundation — an institution born out of a sincere desire to
-                      serve humanity and to honour a legacy of compassion, quiet generosity, and care for those
-                      around us.
+                      Ayesha Begum was a woman of extraordinary quiet strength — a devoted mother, a generous
+                      neighbour, and a person who gave without ever expecting anything in return. She lived her
+                      life in humble service to those around her, offering warmth, care, and compassion to all
+                      who crossed her path.
                     </p>
                     <p>
-                      Millions of our fellow citizens — particularly in rural areas and urban fringes — continue
-                      to face barriers that no person should endure: lack of healthcare, absence of educational
-                      opportunity, financial exclusion, and social marginalization. This Foundation exists to
-                      bridge those gaps — through healthcare, education, skills development, research, elderly
-                      care, humanitarian relief, and more.
+                      Her son, Dr. Rafiqul Bhuyan, established this Foundation in her name so that her spirit
+                      of selfless giving would not merely be remembered, but would live on in every life this
+                      organisation touches.
                     </p>
                     <p>
-                      I invite you to join us. Whether through a donation, a partnership, or your time — every
-                      contribution matters. Together, we can build a Bangladesh where every person has the
-                      opportunity to live with dignity and purpose.
+                      This Foundation is her legacy — and every act of charity carried out in its name is a
+                      continuation of the love she gave so freely.
                     </p>
                   </div>
                   <div className="text-7xl text-[#4db6ac]/20 font-serif leading-none text-right">"</div>
@@ -240,133 +237,56 @@ export default function AboutUsPage() {
               </AnimateOnScroll>
             </div>
 
-            {/* In Memory of Ayesha Begum — part of the same section */}
-            <AnimateOnScroll variant="up" delay={100} className="max-w-5xl mx-auto mt-14">
-              <div className="rounded-2xl overflow-hidden border border-[#4db6ac]/20 bg-[#faf6ed]">
-                <div className="h-1 bg-gradient-to-r from-[#4db6ac] via-[#3d9d93] to-[#4db6ac]" />
-                <div className="p-8 flex flex-col md:flex-row gap-8 items-center">
-                  {/* Portrait */}
-                  <div className="flex-shrink-0 flex flex-col items-center">
-                    <div className="relative w-28 h-28 rounded-full overflow-hidden border-4 border-[#4db6ac]/30 shadow-md mb-2">
-                      <Image
-                        src="/placeholder.svg?height=200&width=200&text=Ayesha+Begum"
-                        alt="Ayesha Begum"
-                        fill
-                        className="object-cover"
-                      />
-                    </div>
-                    <p className="text-sm font-semibold text-[#3d3d3d] text-center">Ayesha Begum</p>
-                    <p className="text-xs text-[#4db6ac] text-center italic">In Loving Memory</p>
-                  </div>
-
-                  {/* Divider */}
-                  <div className="hidden md:block w-px self-stretch bg-[#4db6ac]/20" />
-
-                  {/* Text */}
-                  <div className="flex-grow">
-                    <p className="text-[#4db6ac] text-xs font-semibold uppercase tracking-widest mb-3">
-                      In Memory of Ayesha Begum
-                    </p>
-                    <p className="text-[#5a5a5a] leading-relaxed">
-                      The Mother Ayesha Foundation is named in honour of Ayesha Begum — a woman who embodied
-                      quiet service, generosity, and care for those around her. Her son, Dr. Rafiqul Bhuyan,
-                      established this Foundation as a lasting tribute to her spirit: structured,
-                      self-sustaining, and designed to help people long after any individual has passed.
-                    </p>
-                  </div>
-                </div>
-                <div className="h-1 bg-gradient-to-r from-[#4db6ac] via-[#3d9d93] to-[#4db6ac]" />
-              </div>
-            </AnimateOnScroll>
-
           </div>
         </section>
 
         {/* ─── Mission & Vision ─── */}
         <section id="our-mission" className="py-16 bg-[#faf6ed]">
-          <div className="container mx-auto px-4">
-            <div className="grid md:grid-cols-2 gap-12 items-center">
-              <AnimateOnScroll variant="left" className="order-2 md:order-1">
-                <div className="bg-[#3d3d3d] rounded-2xl overflow-hidden shadow-xl h-full flex flex-col">
-                  {/* Top accent */}
-                  <div className="h-1.5 bg-gradient-to-r from-[#4db6ac] to-[#3d9d93]" />
-                  <div className="p-8 flex flex-col justify-between flex-grow">
-                    {/* Big quote */}
-                    <div>
-                      <div className="text-6xl text-[#4db6ac]/30 font-serif leading-none mb-2">"</div>
-                      <blockquote className="text-white text-xl font-light leading-relaxed italic mb-6">
-                        Every person deserves dignity, education, healthcare, and the opportunity to build a
-                        fulfilling life — regardless of who they are or where they come from.
-                      </blockquote>
-                    </div>
+          <div className="container mx-auto px-4 max-w-5xl">
+            <AnimateOnScroll variant="up" className="text-center mb-14">
+              <span className="inline-block bg-[#4db6ac]/10 px-4 py-1 rounded-full text-[#4db6ac] font-medium text-sm mb-4">OUR PURPOSE</span>
+              <h2 className="text-3xl font-bold text-[#3d3d3d]">Mission, Vision & Values</h2>
+            </AnimateOnScroll>
 
-                    {/* Key facts grid */}
-                    <div className="grid grid-cols-2 gap-4 mt-6">
-                      {[
-                        { label: "Registered under", value: "Societies Registration Act 1860" },
-                        { label: "Nature",            value: "Non-Profit, Non-Political, NGO" },
-                        { label: "Area of Operation", value: "Throughout Bangladesh & Abroad" },
-                        { label: "Aligned with",      value: "UN SDG 2030 Goals" },
-                      ].map((fact, i) => (
-                        <div key={i} className="bg-white/5 rounded-lg p-4">
-                          <p className="text-[#4db6ac] text-xs font-semibold uppercase tracking-wide mb-1">{fact.label}</p>
-                          <p className="text-white text-sm">{fact.value}</p>
-                        </div>
-                      ))}
-                    </div>
-
-                    {/* Address */}
-                    <div className="mt-6 border-t border-white/10 pt-4">
-                      <p className="text-gray-400 text-xs">Registered Office</p>
-                      <p className="text-gray-300 text-sm mt-1">
-                        1, Muktijoddha Road (Madrashatul Ma'arif), B Block, Sayeed Nagar, Vatara, Gulshan, Dhaka-1212
-                      </p>
+            <div className="space-y-8">
+              {[
+                {
+                  number: "01",
+                  label: "Mission",
+                  text: "To engage, promote, and advance charitable and social welfare activities among communities and peoples of Bangladesh and other countries of the world, strictly on a Non-Profit basis — through healthcare, education, skills development, research, and humanitarian relief.",
+                },
+                {
+                  number: "02",
+                  label: "Vision",
+                  text: "A Bangladesh where every person — regardless of social, economic, or educational background — has access to quality healthcare, education, economic opportunity, and a dignified life.",
+                },
+                {
+                  number: "03",
+                  label: "Our Approach",
+                  text: "We combine grassroots community engagement with research-backed policy recommendations. By working closely with government ministries, universities, private sector organizations, and international development partners, we create initiatives that are both immediately impactful and sustainable long-term — aligned with the UN SDG 2030 agenda.",
+                },
+                {
+                  number: "04",
+                  label: "Nature of Organization",
+                  text: "An independent, non-profitable, non-political, non-governmental charitable organization registered under the Societies Registration Act 1860. Operating throughout Bangladesh with the capacity to open branch offices abroad as determined by the Board of Trustees.",
+                },
+              ].map((item, i) => (
+                <AnimateOnScroll key={i} variant="up" delay={i * 80}>
+                  <div className="flex gap-6 md:gap-10 items-start group">
+                    {/* Number */}
+                    <span className="text-4xl font-bold text-[#4db6ac]/25 leading-none shrink-0 group-hover:text-[#4db6ac]/50 transition-colors duration-300">
+                      {item.number}
+                    </span>
+                    {/* Divider */}
+                    <div className="w-px self-stretch bg-[#4db6ac]/20 shrink-0 mt-1" />
+                    {/* Content */}
+                    <div className="pb-2">
+                      <h3 className="text-lg font-bold text-[#3d3d3d] mb-2">{item.label}</h3>
+                      <p className="text-[#5a5a5a] leading-relaxed">{item.text}</p>
                     </div>
                   </div>
-                </div>
-              </AnimateOnScroll>
-
-              <AnimateOnScroll variant="right" className="order-1 md:order-2">
-                <span className="text-[#4db6ac] font-medium tracking-wide text-sm">OUR PURPOSE</span>
-                <h2 className="text-3xl font-bold text-[#3d3d3d] mt-2 mb-6">Our Mission & Vision</h2>
-
-                <div className="mb-6 border-l-4 border-[#4db6ac] pl-4">
-                  <h3 className="text-xl font-bold text-[#3d3d3d] mb-2">Mission</h3>
-                  <p className="text-[#5a5a5a]">
-                    To engage, promote, and advance charitable and social welfare activities among communities
-                    and peoples of Bangladesh and other countries of the world, strictly on a Non-Profit basis —
-                    through healthcare, education, skills development, research, and humanitarian relief.
-                  </p>
-                </div>
-
-                <div className="mb-6 border-l-4 border-[#4db6ac] pl-4">
-                  <h3 className="text-xl font-bold text-[#3d3d3d] mb-2">Vision</h3>
-                  <p className="text-[#5a5a5a]">
-                    A Bangladesh where every person — regardless of social, economic, or educational background —
-                    has access to quality healthcare, education, economic opportunity, and a dignified life.
-                  </p>
-                </div>
-
-                <div className="mb-6 border-l-4 border-[#4db6ac] pl-4">
-                  <h3 className="text-xl font-bold text-[#3d3d3d] mb-2">Nature of Organization</h3>
-                  <p className="text-[#5a5a5a]">
-                    The Foundation is an independent, non-profitable, non-political, non-governmental, and
-                    charitable organization, registered under the Societies Registration Act 1860 (Act XXI of
-                    1860). Its area of operation covers the whole of Bangladesh, with the capacity to open
-                    branch offices abroad as determined by the Board of Trustees.
-                  </p>
-                </div>
-
-                <div className="border-l-4 border-[#4db6ac] pl-4">
-                  <h3 className="text-xl font-bold text-[#3d3d3d] mb-2">Our Approach</h3>
-                  <p className="text-[#5a5a5a]">
-                    We combine grassroots community engagement with research-backed policy recommendations.
-                    By working closely with government ministries, universities, private sector organizations,
-                    and international development partners, we create initiatives that are both immediately
-                    impactful and sustainable long-term — aligned with the UN SDG 2030 agenda.
-                  </p>
-                </div>
-              </AnimateOnScroll>
+                </AnimateOnScroll>
+              ))}
             </div>
           </div>
         </section>

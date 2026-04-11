@@ -3,9 +3,13 @@ import SiteHeader from "@/components/site-header"
 import Footer from "@/components/footer"
 import PageHero from "@/components/page-hero"
 import PartnersDisplay from "@/components/partners-display"
-import { blogPosts } from "@/lib/blog-data"
+import { prisma } from "@/lib/db"
 
-export default function BlogPage() {
+export const revalidate = 3600 // re-fetch once per hour
+
+export default async function BlogPage() {
+  const blogPosts = await prisma.blogPost.findMany({ take: 50, orderBy: { createdAt: "desc" } })
+
   return (
     <div className="flex flex-col min-h-screen bg-[#faf6ed]">
       {/* Header/Navigation */}

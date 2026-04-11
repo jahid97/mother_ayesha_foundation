@@ -16,13 +16,16 @@ import { Badge } from "@/components/ui/badge"
 import SiteHeader from "@/components/site-header"
 import Footer from "@/components/footer"
 import { Calendar, MapPin, Target } from "lucide-react"
-import { projects } from "@/lib/project-data"
+import { prisma } from "@/lib/db"
 import PageHero from "@/components/page-hero"
+
+export const revalidate = 3600
 import ImpactStats from "@/components/impact-stats"
 import CallToAction from "@/components/call-to-action"
 import AnimateOnScroll from "@/components/animate-on-scroll"
 
-export default function ProjectsPage() {
+export default async function ProjectsPage() {
+  const projects = await prisma.project.findMany({ orderBy: { createdAt: "desc" } })
   const impactStats = [
     { value: "50,000+", label: "People Supported" },
     { value: "6+",      label: "Program Categories" },
@@ -65,6 +68,7 @@ export default function ProjectsPage() {
                           src={project.image || "/placeholder.svg"}
                           alt={project.title}
                           fill
+                          sizes="(max-width: 768px) 100vw, (max-width: 1200px) 50vw, 33vw"
                           className="object-cover transition-transform duration-500 hover:scale-105"
                         />
                         <div className="absolute top-4 left-4 flex flex-col gap-2">
@@ -265,8 +269,8 @@ export default function ProjectsPage() {
           description="Your support can transform communities across Bangladesh. Choose a project to support or make a general donation to help us where it is needed most."
           primaryButtonText="Donate Now"
           primaryButtonLink="/donate"
-          secondaryButtonText="Become a Volunteer"
-          secondaryButtonLink="/volunteer-registration"
+          secondaryButtonText="Contact Us"
+          secondaryButtonLink="/contact-us"
         />
       </main>
 

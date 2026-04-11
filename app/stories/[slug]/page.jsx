@@ -1,26 +1,18 @@
 import Image from "next/image"
 import Link from "next/link"
 import { notFound } from "next/navigation"
-import { getStoryBySlug, getAllStories } from "@/lib/stories-data"
+import { prisma } from "@/lib/db"
 import SiteHeader from "@/components/site-header"
 import Footer from "@/components/footer"
 import { Badge } from "@/components/ui/badge"
 import { ChevronLeft, Calendar, User, Tag } from "lucide-react"
 
-export async function generateStaticParams() {
-  const stories = getAllStories()
-  return stories.map((story) => ({
-    slug: story.slug,
-  }))
-}
-
 export async function generateMetadata({ params }) {
-  const story = getStoryBySlug(params.slug)
+  const { slug } = await params
+  const story = await prisma.story.findUnique({ where: { slug } })
 
   if (!story) {
-    return {
-      title: "Story Not Found | Mother Aysha Foundation",
-    }
+    return { title: "Story Not Found | Mother Aysha Foundation" }
   }
 
   return {
@@ -29,8 +21,9 @@ export async function generateMetadata({ params }) {
   }
 }
 
-export default function StoryPage({ params }) {
-  const story = getStoryBySlug(params.slug)
+export default async function StoryPage({ params }) {
+  const { slug } = await params
+  const story = await prisma.story.findUnique({ where: { slug } })
 
   if (!story) {
     notFound()

@@ -30,13 +30,13 @@ export default function RootLayout({ children }) {
       </head>
       <body className={inter.className}>
         <Providers>
-        {/* Hidden Google Translate mount point */}
-        <div id="google_translate_element" style={{ display: "none" }} />
+          {/* Hidden Google Translate mount point */}
+          <div id="google_translate_element" style={{ display: "none" }} />
 
-        <InitialLoading />
-        <ScrollToTop />
-        {children}
-        <Toaster richColors position="bottom-right" />
+          <InitialLoading />
+          <ScrollToTop />
+          {children}
+          <Toaster richColors position="bottom-right" />
         </Providers>
 
         {/* Google Translate scripts */}

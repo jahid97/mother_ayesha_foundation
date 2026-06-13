@@ -86,15 +86,13 @@ export function Footer() {
           {/* About Column */}
           <div>
             <div className="flex items-center space-x-3 mb-6">
-              <div className="relative w-10 h-10 rounded-full overflow-hidden bg-white">
-                <Image
-                  src="/logo.png"
-                  alt="Mother Ayesha Foundation Logo"
-                  width={40}
-                  height={40}
-                  className="object-contain p-0.5"
-                />
-              </div>
+              <Image
+                src="/logo.png"
+                alt="Mother Ayesha Foundation Logo"
+                width={44}
+                height={44}
+                className="object-contain"
+              />
               <h2 className="text-xl font-bold leading-tight">Mother Ayesha Foundation</h2>
             </div>
             <p className="text-gray-300 mb-6">An independent, non-profit, non-political, non-governmental and charitable organization registered under the Societies Registration Act 1860 — dedicated to healthcare, education, research, and social welfare in Bangladesh.</p>

@@ -143,26 +143,14 @@ export default function SignupPage() {
             </div>
 
             <div className="overflow-hidden rounded-lg bg-white shadow-lg transition-all duration-300 hover:shadow-xl">
-              <div className="relative h-32 w-full overflow-hidden">
+              <div className="relative h-32 w-full flex items-center justify-center bg-[#3d3d3d]">
                 <Image
-                  src="/placeholder.svg?height=200&width=600&text=Join+Our+Community"
-                  alt="Join Our Community"
-                  fill
-                  className="object-cover transition-transform duration-700 hover:scale-105"
+                  src="/logo.png"
+                  alt="Mother Ayesha Foundation Logo"
+                  width={80}
+                  height={80}
+                  className="object-contain"
                 />
-                <div className="absolute inset-0 bg-gradient-to-r from-[#3d3d3d]/70 to-[#3d3d3d]/70"></div>
-                <div className="absolute inset-0 flex items-center justify-center">
-                  <div className="rounded-full bg-white p-3 shadow-md transition-transform duration-300 hover:scale-105">
-                    <div className="relative h-16 w-16 overflow-hidden rounded-full bg-white">
-                      <Image
-                        src="/logo.png"
-                        alt="Mother Ayesha Foundation Logo"
-                        fill
-                        className="object-contain p-1"
-                      />
-                    </div>
-                  </div>
-                </div>
               </div>
 
               <div className="p-6">

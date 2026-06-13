@@ -70,25 +70,15 @@ export default function InitialLoading() {
           animation: "loadingFadeUp 0.6s ease forwards",
         }}
       >
-        {/* Logo ring */}
+        {/* Logo */}
         <div className="relative mb-6">
-          <div
-            className="absolute inset-0 rounded-full bg-[#4db6ac]/20"
-            style={{ animation: "loadingPulse 1.8s ease-in-out infinite" }}
+          <Image
+            src="/logo.png"
+            alt="Mother Ayesha Foundation"
+            width={88}
+            height={88}
+            className="object-contain"
           />
-          <div className="relative h-20 w-20 rounded-full bg-white shadow-lg flex items-center justify-center overflow-hidden border-2 border-[#4db6ac]/30">
-            <Image
-              src="/logo.png"
-              alt="Mother Ayesha Foundation"
-              fill
-              className="object-contain p-2"
-              onError={(e) => {
-                e.target.style.display = "none"
-              }}
-            />
-            {/* Fallback initials if logo missing */}
-            <span className="text-[#4db6ac] font-bold text-2xl select-none">MA</span>
-          </div>
         </div>
 
         {/* Text */}

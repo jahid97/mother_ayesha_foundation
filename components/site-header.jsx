@@ -182,9 +182,7 @@ export default function SiteHeader() {
 
           {/* Logo */}
           <Link href="/" className="flex items-center space-x-3">
-            <div className="relative w-10 h-10 rounded-full overflow-hidden bg-white">
-              <Image src="/logo.png" alt="Mother Ayesha Foundation Logo" width={40} height={40} className="object-contain p-0.5" />
-            </div>
+            <Image src="/logo.png" alt="Mother Ayesha Foundation Logo" width={44} height={44} className="object-contain" />
             <h1 className="text-xl font-bold text-white leading-tight hidden sm:block">Mother Ayesha Foundation</h1>
           </Link>
 

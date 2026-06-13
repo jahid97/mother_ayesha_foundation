@@ -87,19 +87,14 @@ export default function LoginPage() {
 
             <div className="overflow-hidden rounded-lg bg-white shadow-lg transition-all duration-300 hover:shadow-xl">
               {/* Header image with logo */}
-              <div className="relative h-32 w-full overflow-hidden bg-[#3d3d3d]">
-                <div className="absolute inset-0 flex items-center justify-center">
-                  <div className="rounded-full bg-white p-3 shadow-md transition-transform duration-300 hover:scale-105">
-                    <div className="relative h-16 w-16 overflow-hidden rounded-full bg-white">
-                      <Image
-                        src="/logo.png"
-                        alt="Mother Ayesha Foundation Logo"
-                        fill
-                        className="object-contain p-1"
-                      />
-                    </div>
-                  </div>
-                </div>
+              <div className="relative h-32 w-full flex items-center justify-center bg-[#3d3d3d]">
+                <Image
+                  src="/logo.png"
+                  alt="Mother Ayesha Foundation Logo"
+                  width={80}
+                  height={80}
+                  className="object-contain"
+                />
               </div>
 
               <div className="p-6">

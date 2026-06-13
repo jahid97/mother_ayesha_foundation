@@ -89,8 +89,8 @@ export function Footer() {
               <Image
                 src="/logo.png"
                 alt="Mother Ayesha Foundation Logo"
-                width={44}
-                height={44}
+                width={56}
+                height={56}
                 className="object-contain"
               />
               <h2 className="text-xl font-bold leading-tight">Mother Ayesha Foundation</h2>

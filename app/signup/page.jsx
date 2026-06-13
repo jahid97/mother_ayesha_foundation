@@ -147,8 +147,8 @@ export default function SignupPage() {
                 <Image
                   src="/logo.png"
                   alt="Mother Ayesha Foundation Logo"
-                  width={80}
-                  height={80}
+                  width={108}
+                  height={108}
                   className="object-contain"
                 />
               </div>

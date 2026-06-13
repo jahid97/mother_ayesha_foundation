@@ -75,8 +75,8 @@ export default function InitialLoading() {
           <Image
             src="/logo.png"
             alt="Mother Ayesha Foundation"
-            width={88}
-            height={88}
+            width={120}
+            height={120}
             className="object-contain"
           />
         </div>

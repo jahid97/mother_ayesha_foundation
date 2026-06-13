@@ -155,7 +155,7 @@ export default function ContactPage() {
                 allowFullScreen
                 loading="lazy"
                 referrerPolicy="no-referrer-when-downgrade"
-                title="Mother Aysha Foundation Location"
+                title="Mother Ayesha Foundation Location"
               ></iframe>
             </div>
           </div>

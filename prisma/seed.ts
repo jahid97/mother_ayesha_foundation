@@ -12,16 +12,16 @@ async function main() {
   // ─── Admin User ────────────────────────────────────────────────────────────
   const adminPassword = await bcrypt.hash("Admin@1234", 12)
   await prisma.user.upsert({
-    where: { email: "admin@motheraysha.org" },
+    where: { email: "admin@motherayesha.org" },
     update: {},
     create: {
       name: "Admin",
-      email: "admin@motheraysha.org",
+      email: "admin@motherayesha.org",
       password: adminPassword,
       role: "admin",
     },
   })
-  console.log("✅ Admin user: admin@motheraysha.org / Admin@1234")
+  console.log("✅ Admin user: admin@motherayesha.org / Admin@1234")
 
   // ─── Projects ──────────────────────────────────────────────────────────────
   await prisma.project.deleteMany()

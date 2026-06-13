@@ -258,11 +258,11 @@ export default function DonateForm({ initialProjectId, projectDetails = null }) 
                       <div className="space-y-2 text-sm">
                         <div className="flex justify-between">
                           <span className="font-medium">Bank Name:</span>
-                          <span>Mother Aysha Foundation Bank</span>
+                          <span>Mother Ayesha Foundation Bank</span>
                         </div>
                         <div className="flex justify-between">
                           <span className="font-medium">Account Name:</span>
-                          <span>Mother Aysha Foundation</span>
+                          <span>Mother Ayesha Foundation</span>
                         </div>
                         <div className="flex justify-between">
                           <span className="font-medium">Account Number:</span>

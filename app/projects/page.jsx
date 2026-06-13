@@ -1,7 +1,7 @@
 /**
  * Projects Page Component
  *
- * This page displays all projects of the Mother Aysha Foundation.
+ * This page displays all projects of the Mother Ayesha Foundation.
  * It includes:
  * - A hero section with a description of our projects
  * - A grid of project cards showing all available projects

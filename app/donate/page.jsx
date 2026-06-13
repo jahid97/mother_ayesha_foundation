@@ -1,7 +1,7 @@
 /**
  * Donation Page Component
  *
- * This page allows users to make donations to the Mother Aysha Foundation.
+ * This page allows users to make donations to the Mother Ayesha Foundation.
  * Features include:
  * - Project selection for targeted donations
  * - Multiple donation amount options

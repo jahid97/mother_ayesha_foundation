@@ -86,13 +86,13 @@ export function Footer() {
           {/* About Column */}
           <div>
             <div className="flex items-center space-x-3 mb-6">
-              <div className="relative w-10 h-10 rounded-full overflow-hidden bg-[#4db6ac]">
+              <div className="relative w-10 h-10 rounded-full overflow-hidden bg-white">
                 <Image
-                  src="/placeholder.svg?height=40&width=40&text=MA"
-                  alt="Mother Aysha Foundation Logo"
+                  src="/logo.png"
+                  alt="Mother Ayesha Foundation Logo"
                   width={40}
                   height={40}
-                  className="object-cover"
+                  className="object-contain p-0.5"
                 />
               </div>
               <h2 className="text-xl font-bold leading-tight">Mother Ayesha Foundation</h2>

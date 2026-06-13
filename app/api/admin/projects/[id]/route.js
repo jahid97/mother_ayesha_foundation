@@ -1,4 +1,5 @@
 import { NextResponse } from "next/server"
+import { del } from "@vercel/blob"
 import { prisma } from "@/lib/db"
 import { requireAdmin } from "@/lib/admin-auth"
 
@@ -33,6 +34,10 @@ export async function DELETE(request, { params }) {
 
   const { id } = await params
   try {
+    const project = await prisma.project.findUnique({ where: { id } })
+    if (project?.image?.includes("blob.vercel-storage.com")) {
+      await del(project.image).catch(() => {})
+    }
     await prisma.project.delete({ where: { id } })
     return NextResponse.json({ success: true })
   } catch (err) {

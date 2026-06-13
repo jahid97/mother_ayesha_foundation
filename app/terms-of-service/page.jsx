@@ -28,8 +28,8 @@ export default function TermsOfServicePage() {
               <section>
                 <h2 className="text-xl font-bold text-[#3d3d3d] mb-3">1. Introduction</h2>
                 <p className="text-[#5a5a5a] mb-3">
-                  Welcome to the Mother Aysha Foundation website. These Terms of Service ("Terms") govern your use of
-                  our website located at www.motheraysha.org (the "Website") and all related services offered by Mother
+                  Welcome to the Mother Ayesha Foundation website. These Terms of Service ("Terms") govern your use of
+                  our website located at www.motherayesha.org (the "Website") and all related services offered by Mother
                   Aysha Foundation ("we," "our," or "us").
                 </p>
                 <p className="text-[#5a5a5a]">
@@ -78,7 +78,7 @@ export default function TermsOfServicePage() {
                 <p className="text-[#5a5a5a] mb-3">
                   The Website and its entire contents, features, and functionality (including but not limited to all
                   information, software, text, displays, images, video, and audio, and the design, selection, and
-                  arrangement thereof) are owned by the Mother Aysha Foundation, its licensors, or other providers of
+                  arrangement thereof) are owned by the Mother Ayesha Foundation, its licensors, or other providers of
                   such material and are protected by United States and international copyright, trademark, patent, trade
                   secret, and other intellectual property or proprietary rights laws.
                 </p>
@@ -131,13 +131,13 @@ export default function TermsOfServicePage() {
                 <h2 className="text-xl font-bold text-[#3d3d3d] mb-3">6. Links to Other Websites</h2>
                 <p className="text-[#5a5a5a] mb-3">
                   Our Website may contain links to third-party websites or services that are not owned or controlled by
-                  the Mother Aysha Foundation.
+                  the Mother Ayesha Foundation.
                 </p>
                 <p className="text-[#5a5a5a]">
-                  The Mother Aysha Foundation has no control over, and assumes no responsibility for, the content,
+                  The Mother Ayesha Foundation has no control over, and assumes no responsibility for, the content,
                   privacy policies, or practices of any third-party websites or services. We do not warrant the
                   offerings of any of these entities/individuals or their websites. You acknowledge and agree that the
-                  Mother Aysha Foundation shall not be responsible or liable, directly or indirectly, for any damage or
+                  Mother Ayesha Foundation shall not be responsible or liable, directly or indirectly, for any damage or
                   loss caused or alleged to be caused by or in connection with the use of or reliance on any such
                   content, goods, or services available on or through any such third-party websites or services.
                 </p>
@@ -148,7 +148,7 @@ export default function TermsOfServicePage() {
                 <h2 className="text-xl font-bold text-[#3d3d3d] mb-3">7. Disclaimer of Warranties</h2>
                 <p className="text-[#5a5a5a] mb-3">
                   Your use of our Website is at your sole risk. The Website is provided on an "AS IS" and "AS AVAILABLE"
-                  basis. The Mother Aysha Foundation expressly disclaims all warranties of any kind, whether express or
+                  basis. The Mother Ayesha Foundation expressly disclaims all warranties of any kind, whether express or
                   implied, including but not limited to the implied warranties of merchantability, fitness for a
                   particular purpose, and non-infringement.
                 </p>
@@ -163,7 +163,7 @@ export default function TermsOfServicePage() {
               <section>
                 <h2 className="text-xl font-bold text-[#3d3d3d] mb-3">8. Limitation of Liability</h2>
                 <p className="text-[#5a5a5a] mb-3">
-                  In no event shall the Mother Aysha Foundation, its directors, employees, partners, agents, suppliers,
+                  In no event shall the Mother Ayesha Foundation, its directors, employees, partners, agents, suppliers,
                   or affiliates be liable for any indirect, incidental, special, consequential, or punitive damages,
                   including without limitation, loss of profits, data, use, goodwill, or other intangible losses,
                   resulting from:
@@ -180,7 +180,7 @@ export default function TermsOfServicePage() {
               <section>
                 <h2 className="text-xl font-bold text-[#3d3d3d] mb-3">9. Indemnification</h2>
                 <p className="text-[#5a5a5a]">
-                  You agree to defend, indemnify, and hold harmless the Mother Aysha Foundation, its directors,
+                  You agree to defend, indemnify, and hold harmless the Mother Ayesha Foundation, its directors,
                   employees, partners, agents, suppliers, and affiliates from and against any claims, liabilities,
                   damages, judgments, awards, losses, costs, expenses, or fees (including reasonable attorneys' fees)
                   arising out of or relating to your violation of these Terms or your use of the Website.

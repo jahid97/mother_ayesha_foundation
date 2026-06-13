@@ -3,13 +3,12 @@
 import { useRef, useState } from "react"
 import { Upload, X, Loader2, ImageIcon } from "lucide-react"
 
-/** Returns true only for files we uploaded ourselves (stored in /uploads/) */
-function isLocalUpload(url) {
-  return typeof url === "string" && url.startsWith("/uploads/")
+function isBlobUrl(url) {
+  return typeof url === "string" && url.includes("blob.vercel-storage.com")
 }
 
-async function deleteFromServer(url) {
-  if (!isLocalUpload(url)) return
+async function deleteFromBlob(url) {
+  if (!isBlobUrl(url)) return
   await fetch("/api/upload", {
     method: "DELETE",
     headers: { "Content-Type": "application/json" },
@@ -17,14 +16,6 @@ async function deleteFromServer(url) {
   })
 }
 
-/**
- * Reusable image upload component for admin forms.
- * - Click the area or the button to pick a file
- * - File uploads immediately to /api/upload → saved in public/uploads/
- * - When clearing or replacing a local upload, the old file is deleted from the server
- * - Calls onChange(url) so the parent form gets the stored path
- * - Still shows a URL text input as fallback for pasting external URLs
- */
 export default function ImageUpload({ value, onChange, label = "Image", aspectRatio = "aspect-video" }) {
   const inputRef = useRef(null)
   const [uploading, setUploading] = useState(false)
@@ -46,11 +37,8 @@ export default function ImageUpload({ value, onChange, label = "Image", aspectRa
     setError("")
     setUploading(true)
 
-    // If replacing an existing local upload, delete the old file first
     const previous = value
-    if (isLocalUpload(previous)) {
-      await deleteFromServer(previous)
-    }
+    await deleteFromBlob(previous)
 
     try {
       const body = new FormData()
@@ -72,9 +60,7 @@ export default function ImageUpload({ value, onChange, label = "Image", aspectRa
   }
 
   const handleClear = async () => {
-    if (isLocalUpload(value)) {
-      await deleteFromServer(value)
-    }
+    await deleteFromBlob(value)
     onChange("")
   }
 

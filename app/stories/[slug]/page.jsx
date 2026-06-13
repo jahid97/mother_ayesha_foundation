@@ -12,11 +12,11 @@ export async function generateMetadata({ params }) {
   const story = await prisma.story.findUnique({ where: { slug } })
 
   if (!story) {
-    return { title: "Story Not Found | Mother Aysha Foundation" }
+    return { title: "Story Not Found | Mother Ayesha Foundation" }
   }
 
   return {
-    title: `${story.title} | Mother Aysha Foundation`,
+    title: `${story.title} | Mother Ayesha Foundation`,
     description: story.excerpt,
   }
 }
@@ -37,7 +37,7 @@ export default async function StoryPage({ params }) {
       ${story.excerpt}
     </p>
     <p>
-      At Mother Aysha Foundation, we believe in the power of stories to inspire change and build connections. This story exemplifies our mission to provide care, education, and hope to orphaned children around the world.
+      At Mother Ayesha Foundation, we believe in the power of stories to inspire change and build connections. This story exemplifies our mission to provide care, education, and hope to orphaned children around the world.
     </p>
     <p>
       Through our programs and your generous support, we continue to make a difference in the lives of children who need it most. Every child deserves the opportunity to thrive, and together, we can create lasting change.

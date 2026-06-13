@@ -79,7 +79,7 @@ export default function InitialLoading() {
           <div className="relative h-20 w-20 rounded-full bg-white shadow-lg flex items-center justify-center overflow-hidden border-2 border-[#4db6ac]/30">
             <Image
               src="/logo.png"
-              alt="Mother Aysha Foundation"
+              alt="Mother Ayesha Foundation"
               fill
               className="object-contain p-2"
               onError={(e) => {
@@ -93,7 +93,7 @@ export default function InitialLoading() {
 
         {/* Text */}
         <h1 className="text-2xl font-bold text-[#3d3d3d] tracking-tight mb-1">
-          Mother Aysha Foundation
+          Mother Ayesha Foundation
         </h1>
         <p className="text-sm text-gray-400 mb-8">Helping those who need it most</p>
 

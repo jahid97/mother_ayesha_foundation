@@ -28,7 +28,7 @@ export default function CookiePolicyPage() {
               <section>
                 <h2 className="text-xl font-bold text-[#3d3d3d] mb-3">1. Introduction</h2>
                 <p className="text-[#5a5a5a] mb-3">
-                  This Cookie Policy explains how Mother Aysha Foundation ("we," "our," or "us") uses cookies and
+                  This Cookie Policy explains how Mother Ayesha Foundation ("we," "our," or "us") uses cookies and
                   similar technologies on our website (the "Website"). This policy is designed to help you understand
                   what cookies are, how we use them, and the choices you have regarding their use.
                 </p>

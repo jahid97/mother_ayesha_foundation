@@ -28,7 +28,7 @@ export default function PrivacyPolicyPage() {
               <section>
                 <h2 className="text-xl font-bold text-[#3d3d3d] mb-3">1. Introduction</h2>
                 <p className="text-[#5a5a5a] mb-3">
-                  Mother Aysha Foundation ("we," "our," or "us") is committed to protecting your privacy. This Privacy
+                  Mother Ayesha Foundation ("we," "our," or "us") is committed to protecting your privacy. This Privacy
                   Policy explains how we collect, use, disclose, and safeguard your information when you visit our
                   website, use our services, or interact with us in any way.
                 </p>

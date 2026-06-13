@@ -10,7 +10,7 @@ import AnimateOnScroll from "@/components/animate-on-scroll"
 export const revalidate = 3600
 
 export const metadata = {
-  title: "Stories | Mother Aysha Foundation",
+  title: "Stories | Mother Ayesha Foundation",
   description: "Read inspiring stories of hope, resilience, and transformation from our work around the world.",
 }
 

@@ -1,18 +1,17 @@
 /**
  * File upload API — admin only.
  *
- * POST  /api/upload  — accepts multipart/form-data with a "file" field,
- *                      saves to public/uploads/, returns { url: "/uploads/…" }
- * DELETE /api/upload — accepts JSON { url: "/uploads/…" }, deletes the file.
+ * POST   /api/upload — accepts multipart/form-data with a "file" field,
+ *                      uploads to Vercel Blob, returns { url: "https://…" }
+ * DELETE /api/upload — accepts JSON { url: "https://…" }, deletes from Vercel Blob.
  *
  * Security notes:
  *   - Both endpoints require an active admin session.
- *   - DELETE uses path.basename() to strip any directory traversal (e.g. "../../secret").
- *   - Only paths starting with "/uploads/" are accepted — external URLs are rejected.
+ *   - Only Vercel Blob URLs are accepted for deletion.
  *   - Filenames are sanitised and timestamped to prevent collisions and injection.
  */
 import { NextResponse } from "next/server"
-import { writeFile, mkdir, unlink } from "fs/promises"
+import { put, del } from "@vercel/blob"
 import path from "path"
 import { auth } from "@/auth"
 
@@ -29,9 +28,6 @@ export async function POST(req) {
     return NextResponse.json({ error: "No file provided" }, { status: 400 })
   }
 
-  const bytes = await file.arrayBuffer()
-  const buffer = Buffer.from(bytes)
-
   // Sanitize original filename and make it unique
   const ext = path.extname(file.name).toLowerCase() || ".jpg"
   const base = path.basename(file.name, ext)
@@ -39,13 +35,12 @@ export async function POST(req) {
     .slice(0, 60)
   const unique = `${base}-${Date.now()}${ext}`
 
-  const uploadDir = path.join(process.cwd(), "public", "uploads")
-  await mkdir(uploadDir, { recursive: true })
+  const blob = await put(unique, file, {
+    access: "public",
+    contentType: file.type || "application/octet-stream",
+  })
 
-  const filePath = path.join(uploadDir, unique)
-  await writeFile(filePath, buffer)
-
-  return NextResponse.json({ url: `/uploads/${unique}` })
+  return NextResponse.json({ url: blob.url })
 }
 
 export async function DELETE(req) {
@@ -56,17 +51,13 @@ export async function DELETE(req) {
 
   const { url } = await req.json()
 
-  // Only allow deleting files inside /uploads/ — never anything else
-  if (!url || !url.startsWith("/uploads/")) {
-    return NextResponse.json({ error: "Invalid path" }, { status: 400 })
+  // Only allow deleting valid Vercel Blob URLs
+  if (!url || !url.includes("blob.vercel-storage.com")) {
+    return NextResponse.json({ error: "Invalid URL" }, { status: 400 })
   }
 
-  // Prevent path traversal (e.g. /uploads/../../secret)
-  const filename = path.basename(url)
-  const filePath = path.join(process.cwd(), "public", "uploads", filename)
-
   try {
-    await unlink(filePath)
+    await del(url)
   } catch {
     // File already gone — treat as success
   }

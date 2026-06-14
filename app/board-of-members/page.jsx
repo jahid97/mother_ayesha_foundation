@@ -45,10 +45,24 @@ export default async function TeamPage() {
           <section className="pb-12">
             <div className="container mx-auto px-4 max-w-5xl">
               <AnimateOnScroll variant="up">
-                <div className="bg-[#3d3d3d] text-white rounded-2xl p-10 flex flex-col sm:flex-row items-center sm:items-start gap-8 shadow-lg">
-                  <Avatar member={chairman} size="xl" />
-                  <div>
-                    <p className="text-[#4db6ac] font-semibold text-xs uppercase tracking-widest mb-1">{chairman.role}</p>
+                <div className="bg-[#3d3d3d] text-white rounded-2xl overflow-hidden shadow-lg flex flex-col sm:flex-row">
+                  {/* Photo */}
+                  <div className="relative w-full sm:w-56 h-56 sm:h-auto flex-shrink-0">
+                    {isValidImageSrc(chairman.image) ? (
+                      <Image
+                        src={chairman.image}
+                        alt={chairman.name}
+                        fill
+                        className="object-cover"
+                        sizes="(max-width: 640px) 100vw, 224px"
+                      />
+                    ) : (
+                      <Initials name={chairman.name} className="w-full h-full text-5xl" />
+                    )}
+                  </div>
+                  {/* Text */}
+                  <div className="p-8 flex flex-col justify-center">
+                    <p className="text-[#4db6ac] font-semibold text-xs uppercase tracking-widest mb-2">{chairman.role}</p>
                     <h2 className="text-3xl font-bold mb-3 text-white">{chairman.name}</h2>
                     <p className="text-gray-300 leading-relaxed">{chairman.bio}</p>
                   </div>
@@ -100,32 +114,40 @@ function isValidImageSrc(src) {
   return src.startsWith("/") || src.startsWith("http://") || src.startsWith("https://")
 }
 
-function Avatar({ member, size = "md" }) {
-  const sizes = { xl: "h-28 w-28 text-3xl", md: "h-16 w-16 text-lg" }
-  const initials = member.name.split(" ").map((n) => n[0]).join("").slice(0, 2).toUpperCase()
-
-  if (isValidImageSrc(member.image)) {
-    return (
-      <div className={`${sizes[size]} rounded-full overflow-hidden flex-shrink-0 border-2 border-[#4db6ac]/30`}>
-        <Image src={member.image} alt={member.name} width={112} height={112} className="object-cover w-full h-full" />
-      </div>
-    )
-  }
-
+function Initials({ name, className }) {
+  const letters = name.split(" ").map((n) => n[0]).join("").slice(0, 2).toUpperCase()
   return (
-    <div className={`${sizes[size]} rounded-full bg-[#4db6ac] text-white font-bold flex items-center justify-center flex-shrink-0`}>
-      {initials}
+    <div className={`bg-[#4db6ac] text-white font-bold flex items-center justify-center ${className}`}>
+      {letters}
     </div>
   )
 }
 
 function MemberCard({ member }) {
+  const hasPhoto = isValidImageSrc(member.image)
   return (
-    <div className="flex flex-col items-center text-center bg-white rounded-xl p-7 shadow-md hover:shadow-lg hover:-translate-y-0.5 transition-all duration-300 h-full gap-4">
-      <Avatar member={member} size="md" />
-      <div className="min-w-0">
-        <p className="text-[#4db6ac] text-xs font-semibold uppercase tracking-widest mb-1">{member.role}</p>
-        <h3 className="font-bold text-[#3d3d3d] text-lg leading-snug mb-2">{member.name}</h3>
+    <div className="bg-white rounded-2xl shadow-md hover:shadow-xl hover:-translate-y-1 transition-all duration-300 h-full flex flex-col overflow-hidden">
+      {/* Photo area */}
+      <div className="relative h-52 w-full bg-gray-100">
+        {hasPhoto ? (
+          <Image
+            src={member.image}
+            alt={member.name}
+            fill
+            className="object-cover"
+            sizes="(max-width: 640px) 100vw, (max-width: 1024px) 50vw, 33vw"
+          />
+        ) : (
+          <Initials name={member.name} className="w-full h-full text-4xl" />
+        )}
+        {/* Role badge */}
+        <span className="absolute bottom-3 left-3 bg-[#4db6ac] text-white text-xs font-semibold px-3 py-1 rounded-full uppercase tracking-wide">
+          {member.role}
+        </span>
+      </div>
+      {/* Text */}
+      <div className="p-5 flex flex-col flex-grow">
+        <h3 className="font-bold text-[#3d3d3d] text-lg mb-2">{member.name}</h3>
         {member.bio && <p className="text-[#5a5a5a] text-sm leading-relaxed">{member.bio}</p>}
       </div>
     </div>

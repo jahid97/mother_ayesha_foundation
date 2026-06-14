@@ -66,36 +66,42 @@ function isValidImageSrc(src) {
 
 function MemberRow({ member }) {
   const initials = member.name.split(" ").map((n) => n[0]).join("").slice(0, 2).toUpperCase()
+  const isLead = member.role === "CEO" || member.role === "Chairman"
+  const photoSize = isLead ? "w-32 h-32" : "w-24 h-24"
+  const imgPx = isLead ? 128 : 96
+  const initialsSize = isLead ? "text-3xl" : "text-2xl"
+  const nameSize = isLead ? "text-2xl" : "text-xl"
+  const linePt = isLead ? "pt-16" : "pt-12"
 
   return (
     <div className="flex items-start gap-0 py-8 group">
 
       {/* Left: circle photo */}
-      <div className="flex flex-col items-center flex-shrink-0">
-        <div className="w-20 h-20 rounded-full overflow-hidden border-[3px] border-[#4db6ac] bg-gradient-to-br from-[#4ecdc4] to-[#2196f3] flex items-center justify-center flex-shrink-0 shadow-sm group-hover:shadow-md group-hover:scale-105 transition-all duration-300">
+      <div className="flex-shrink-0">
+        <div className={`${photoSize} rounded-full overflow-hidden border-[3px] border-[#4db6ac] bg-gradient-to-br from-[#4ecdc4] to-[#2196f3] flex items-center justify-center shadow-sm group-hover:shadow-md group-hover:scale-105 transition-all duration-300`}>
           {isValidImageSrc(member.image) ? (
             <Image
               src={member.image}
               alt={member.name}
-              width={80}
-              height={80}
+              width={imgPx}
+              height={imgPx}
               className="object-cover w-full h-full"
             />
           ) : (
-            <span className="text-white font-bold text-xl">{initials}</span>
+            <span className={`text-white font-bold ${initialsSize}`}>{initials}</span>
           )}
         </div>
       </div>
 
-      {/* Horizontal line from circle to content */}
-      <div className="flex items-center self-stretch pt-10">
+      {/* Horizontal connector line */}
+      <div className={`flex items-center self-stretch ${linePt}`}>
         <div className="w-6 h-px bg-[#4db6ac]" />
       </div>
 
       {/* Right: details */}
       <div className="flex-1 min-w-0 pt-2 border-b border-[#3d3d3d]/10 pb-8 pl-5">
         <span className="text-[#4db6ac] text-xs font-bold uppercase tracking-[0.2em]">{member.role}</span>
-        <h3 className="text-xl font-bold text-[#3d3d3d] mt-0.5 mb-2">{member.name}</h3>
+        <h3 className={`font-bold text-[#3d3d3d] mt-0.5 mb-2 ${nameSize}`}>{member.name}</h3>
         {member.bio && (
           <p className="text-[#5a5a5a] text-sm leading-relaxed">{member.bio}</p>
         )}

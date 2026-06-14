@@ -180,12 +180,13 @@ export default function AboutUsPage() {
           </div>
         </section>
 
-        {/* ─── Impact Stats ─── */}
+        {/* ─── Impact Stats — commented out until real numbers are available ───
         <ImpactStats
           title="Our Impact Across Bangladesh"
           description="Through the generosity of our donors and the dedication of our volunteers, we have made a significant and measurable difference in communities across Bangladesh."
           stats={impactStats}
         />
+        */}
 
         {/* ─── Chairman's Message ─── */}
         <section id="chairmans-message" className="py-16 bg-white">

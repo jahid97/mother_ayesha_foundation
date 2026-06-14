@@ -95,7 +95,7 @@ export default function MissionStatement() {
           </div>
         </div>
 
-        {/* Impact Statistics */}
+        {/* Impact Statistics — commented out until real numbers are available
         <div ref={statsContainerRef} className="mt-16 grid grid-cols-2 md:grid-cols-4 gap-6 text-center">
           {stats.map(({ icon: Icon, end, suffix, label, delay }) => (
             <div
@@ -115,6 +115,7 @@ export default function MissionStatement() {
             </div>
           ))}
         </div>
+        */}
       </div>
     </section>
   )

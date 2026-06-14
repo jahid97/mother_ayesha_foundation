@@ -45,26 +45,45 @@ export default async function TeamPage() {
           <section className="pb-12">
             <div className="container mx-auto px-4 max-w-5xl">
               <AnimateOnScroll variant="up">
-                <div className="bg-[#3d3d3d] text-white rounded-2xl overflow-hidden shadow-lg flex flex-col sm:flex-row">
-                  {/* Photo */}
-                  <div className="relative w-full sm:w-56 h-56 sm:h-auto flex-shrink-0">
-                    {isValidImageSrc(chairman.image) ? (
-                      <Image
-                        src={chairman.image}
-                        alt={chairman.name}
-                        fill
-                        className="object-cover"
-                        sizes="(max-width: 640px) 100vw, 224px"
-                      />
-                    ) : (
-                      <Initials name={chairman.name} className="w-full h-full text-5xl" />
-                    )}
-                  </div>
-                  {/* Text */}
-                  <div className="p-8 flex flex-col justify-center">
-                    <p className="text-[#4db6ac] font-semibold text-xs uppercase tracking-widest mb-2">{chairman.role}</p>
-                    <h2 className="text-3xl font-bold mb-3 text-white">{chairman.name}</h2>
-                    <p className="text-gray-300 leading-relaxed">{chairman.bio}</p>
+                <div className="relative rounded-2xl overflow-hidden shadow-xl">
+                  {/* Background gradient */}
+                  <div className="absolute inset-0 bg-gradient-to-br from-[#3d3d3d] via-[#2a2a2a] to-[#1a1a1a]" />
+                  {/* Decorative teal glow */}
+                  <div className="absolute -top-16 -right-16 w-64 h-64 bg-[#4db6ac]/20 rounded-full blur-3xl" />
+                  <div className="absolute -bottom-16 -left-16 w-64 h-64 bg-[#2196f3]/10 rounded-full blur-3xl" />
+
+                  <div className="relative flex flex-col sm:flex-row items-center sm:items-stretch gap-0">
+                    {/* Photo panel */}
+                    <div className="relative w-full sm:w-64 h-64 sm:h-auto flex-shrink-0">
+                      {isValidImageSrc(chairman.image) ? (
+                        <Image
+                          src={chairman.image}
+                          alt={chairman.name}
+                          fill
+                          className="object-cover"
+                          sizes="(max-width: 640px) 100vw, 256px"
+                        />
+                      ) : (
+                        <div className="w-full h-full bg-gradient-to-br from-[#4ecdc4] to-[#2196f3] flex items-center justify-center">
+                          <span className="text-white text-6xl font-bold">
+                            {chairman.name.split(" ").map((n) => n[0]).join("").slice(0, 2).toUpperCase()}
+                          </span>
+                        </div>
+                      )}
+                      {/* Gradient fade into text area on desktop */}
+                      <div className="hidden sm:block absolute inset-y-0 right-0 w-16 bg-gradient-to-r from-transparent to-[#2a2a2a]" />
+                    </div>
+
+                    {/* Text */}
+                    <div className="flex flex-col justify-center px-8 py-10 text-white">
+                      <span className="inline-block bg-gradient-to-r from-[#4ecdc4] to-[#2196f3] text-white text-xs font-bold uppercase tracking-widest px-3 py-1 rounded-full mb-4 w-fit">
+                        {chairman.role}
+                      </span>
+                      <h2 className="text-3xl font-bold mb-3">{chairman.name}</h2>
+                      {chairman.bio && (
+                        <p className="text-gray-300 leading-relaxed max-w-xl">{chairman.bio}</p>
+                      )}
+                    </div>
                   </div>
                 </div>
               </AnimateOnScroll>
@@ -114,41 +133,41 @@ function isValidImageSrc(src) {
   return src.startsWith("/") || src.startsWith("http://") || src.startsWith("https://")
 }
 
-function Initials({ name, className }) {
-  const letters = name.split(" ").map((n) => n[0]).join("").slice(0, 2).toUpperCase()
-  return (
-    <div className={`bg-[#4db6ac] text-white font-bold flex items-center justify-center ${className}`}>
-      {letters}
-    </div>
-  )
-}
-
 function MemberCard({ member }) {
   const hasPhoto = isValidImageSrc(member.image)
+  const initials = member.name.split(" ").map((n) => n[0]).join("").slice(0, 2).toUpperCase()
+
   return (
-    <div className="bg-white rounded-2xl shadow-md hover:shadow-xl hover:-translate-y-1 transition-all duration-300 h-full flex flex-col overflow-hidden">
-      {/* Photo area */}
-      <div className="relative h-52 w-full bg-gray-100">
-        {hasPhoto ? (
-          <Image
-            src={member.image}
-            alt={member.name}
-            fill
-            className="object-cover"
-            sizes="(max-width: 640px) 100vw, (max-width: 1024px) 50vw, 33vw"
-          />
-        ) : (
-          <Initials name={member.name} className="w-full h-full text-4xl" />
-        )}
-        {/* Role badge */}
-        <span className="absolute bottom-3 left-3 bg-[#4db6ac] text-white text-xs font-semibold px-3 py-1 rounded-full uppercase tracking-wide">
+    <div className="bg-white rounded-2xl shadow-md hover:shadow-2xl hover:-translate-y-2 transition-all duration-300 flex flex-col overflow-hidden group">
+      {/* Gradient header */}
+      <div className="relative h-28 bg-gradient-to-br from-[#4ecdc4] via-[#44b8e0] to-[#2196f3] flex-shrink-0" />
+
+      {/* Photo — overlaps header and body */}
+      <div className="relative flex justify-center -mt-14 mb-3 flex-shrink-0">
+        <div className="h-28 w-28 rounded-full border-4 border-white shadow-lg overflow-hidden bg-[#4db6ac] flex items-center justify-center flex-shrink-0">
+          {hasPhoto ? (
+            <Image
+              src={member.image}
+              alt={member.name}
+              width={112}
+              height={112}
+              className="object-cover w-full h-full"
+            />
+          ) : (
+            <span className="text-white text-3xl font-bold">{initials}</span>
+          )}
+        </div>
+      </div>
+
+      {/* Text */}
+      <div className="px-6 pb-7 text-center flex flex-col flex-grow">
+        <span className="inline-block text-[#4db6ac] text-xs font-bold uppercase tracking-widest mb-1">
           {member.role}
         </span>
-      </div>
-      {/* Text */}
-      <div className="p-5 flex flex-col flex-grow">
-        <h3 className="font-bold text-[#3d3d3d] text-lg mb-2">{member.name}</h3>
-        {member.bio && <p className="text-[#5a5a5a] text-sm leading-relaxed">{member.bio}</p>}
+        <h3 className="text-[#3d3d3d] font-bold text-lg mb-2 leading-snug">{member.name}</h3>
+        {member.bio && (
+          <p className="text-[#5a5a5a] text-sm leading-relaxed">{member.bio}</p>
+        )}
       </div>
     </div>
   )

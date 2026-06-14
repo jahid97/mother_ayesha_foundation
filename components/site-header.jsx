@@ -181,9 +181,16 @@ export default function SiteHeader() {
         <div className="flex items-center justify-between">
 
           {/* Logo */}
-          <Link href="/" className="flex items-center space-x-3 overflow-visible">
-            <Image src="/logo.png" alt="Mother Ayesha Foundation Logo" width={56} height={56} className="object-contain scale-[1.7] origin-left" />
-            <h1 className="text-xl font-bold text-white leading-tight hidden sm:block">Mother Ayesha Foundation</h1>
+          <Link href="/" className="flex items-center overflow-visible">
+            <Image src="/logo.png" alt="Mother Ayesha Foundation Logo" width={56} height={56} className="object-contain scale-[1.7] origin-left shrink-0" />
+            <div className="hidden sm:flex flex-col leading-none ml-10">
+              <span className="text-lg font-extrabold tracking-tight bg-gradient-to-r from-[#4ecdc4] via-[#44b8e0] to-[#2196f3] bg-clip-text text-transparent">
+                Mother Ayesha
+              </span>
+              <span className="text-[10px] font-semibold tracking-[0.25em] uppercase text-white/60 mt-0.5">
+                Foundation
+              </span>
+            </div>
           </Link>
 
           {/* Desktop nav */}

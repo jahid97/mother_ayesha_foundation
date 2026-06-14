@@ -43,14 +43,14 @@ export default async function TeamPage() {
         {/* ── Chairman ── */}
         {chairman && (
           <section className="pb-12">
-            <div className="container mx-auto px-4 max-w-3xl">
+            <div className="container mx-auto px-4 max-w-5xl">
               <AnimateOnScroll variant="up">
-                <div className="bg-[#3d3d3d] text-white rounded-2xl p-8 flex flex-col sm:flex-row items-center sm:items-start gap-6 shadow-lg">
+                <div className="bg-[#3d3d3d] text-white rounded-2xl p-10 flex flex-col sm:flex-row items-center sm:items-start gap-8 shadow-lg">
                   <Avatar member={chairman} size="xl" />
                   <div>
                     <p className="text-[#4db6ac] font-semibold text-xs uppercase tracking-widest mb-1">{chairman.role}</p>
-                    <h2 className="text-2xl font-bold mb-3 text-white">{chairman.name}</h2>
-                    <p className="text-gray-300 leading-relaxed text-sm">{chairman.bio}</p>
+                    <h2 className="text-3xl font-bold mb-3 text-white">{chairman.name}</h2>
+                    <p className="text-gray-300 leading-relaxed">{chairman.bio}</p>
                   </div>
                 </div>
               </AnimateOnScroll>
@@ -61,8 +61,8 @@ export default async function TeamPage() {
         {/* ── Secretary & Treasurer ── */}
         {keyRoles.length > 0 && (
           <section className="pb-6">
-            <div className="container mx-auto px-4 max-w-3xl">
-              <div className="grid gap-5 sm:grid-cols-2">
+            <div className="container mx-auto px-4 max-w-5xl">
+              <div className="grid gap-6 sm:grid-cols-2">
                 {keyRoles.map((m, i) => (
                   <AnimateOnScroll key={m.id} variant="up" delay={i * 80}>
                     <MemberCard member={m} />
@@ -76,8 +76,8 @@ export default async function TeamPage() {
         {/* ── Members ── */}
         {generalMembers.length > 0 && (
           <section className="pb-20">
-            <div className="container mx-auto px-4 max-w-3xl">
-              <div className="grid gap-5 sm:grid-cols-2">
+            <div className="container mx-auto px-4 max-w-5xl">
+              <div className="grid gap-6 sm:grid-cols-2 lg:grid-cols-3">
                 {generalMembers.map((m, i) => (
                   <AnimateOnScroll key={m.id} variant="up" delay={i * 60}>
                     <MemberCard member={m} />
@@ -101,13 +101,13 @@ function isValidImageSrc(src) {
 }
 
 function Avatar({ member, size = "md" }) {
-  const sizes = { xl: "h-20 w-20 text-2xl", md: "h-12 w-12 text-sm" }
+  const sizes = { xl: "h-28 w-28 text-3xl", md: "h-16 w-16 text-lg" }
   const initials = member.name.split(" ").map((n) => n[0]).join("").slice(0, 2).toUpperCase()
 
   if (isValidImageSrc(member.image)) {
     return (
       <div className={`${sizes[size]} rounded-full overflow-hidden flex-shrink-0 border-2 border-[#4db6ac]/30`}>
-        <Image src={member.image} alt={member.name} width={80} height={80} className="object-cover w-full h-full" />
+        <Image src={member.image} alt={member.name} width={112} height={112} className="object-cover w-full h-full" />
       </div>
     )
   }
@@ -121,11 +121,11 @@ function Avatar({ member, size = "md" }) {
 
 function MemberCard({ member }) {
   return (
-    <div className="flex items-start gap-4 bg-white rounded-xl p-5 shadow-md hover:shadow-lg hover:-translate-y-0.5 transition-all duration-300 h-full">
+    <div className="flex flex-col items-center text-center bg-white rounded-xl p-7 shadow-md hover:shadow-lg hover:-translate-y-0.5 transition-all duration-300 h-full gap-4">
       <Avatar member={member} size="md" />
       <div className="min-w-0">
-        <p className="text-[#4db6ac] text-xs font-semibold uppercase tracking-widest mb-0.5">{member.role}</p>
-        <h3 className="font-bold text-[#3d3d3d] text-base leading-snug mb-1">{member.name}</h3>
+        <p className="text-[#4db6ac] text-xs font-semibold uppercase tracking-widest mb-1">{member.role}</p>
+        <h3 className="font-bold text-[#3d3d3d] text-lg leading-snug mb-2">{member.name}</h3>
         {member.bio && <p className="text-[#5a5a5a] text-sm leading-relaxed">{member.bio}</p>}
       </div>
     </div>

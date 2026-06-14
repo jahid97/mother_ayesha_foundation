@@ -128,6 +128,20 @@ model PasswordResetToken {
   createdAt DateTime @default(now())
 }
 
+// ─── Hero Slides ─────────────────────────────────────────────────────────────
+model HeroSlide {
+  id        String   @id @default(cuid())
+  type      String   @default("charity_project") // "photo_only" | "charity_project"
+  src       String
+  alt       String   @default("")
+  title     String?
+  subtitle  String?
+  order     Int      @default(0)
+  active    Boolean  @default(true)
+  createdAt DateTime @default(now())
+  updatedAt DateTime @updatedAt
+}
+
 // ─── Board Members ────────────────────────────────────────────────────────────
 model BoardMember {
   id        Int      @id @default(autoincrement())

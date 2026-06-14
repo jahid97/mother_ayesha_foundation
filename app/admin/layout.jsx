@@ -11,11 +11,13 @@ import {
   MessageSquare,
   Users,
   UserCog,
+  Layers,
 } from "lucide-react"
 import SignOutButton from "./sign-out-button"
 
 const navItems = [
   { href: "/admin", label: "Dashboard", icon: LayoutDashboard },
+  { href: "/admin/hero-slides", label: "Hero Slides", icon: Layers },
   { href: "/admin/projects", label: "Projects", icon: FolderKanban },
   { href: "/admin/blog", label: "Blog Posts", icon: BookOpen },
   { href: "/admin/stories", label: "Stories", icon: ScrollText },

@@ -17,6 +17,12 @@ export default function FeaturedStoriesSection({ stories = [] }) {
           </p>
         </AnimateOnScroll>
 
+        {stories.length === 0 ? (
+          <div className="py-12 text-center">
+            <p className="text-lg font-semibold text-[#3d3d3d] mb-1">No stories published yet</p>
+            <p className="text-sm text-[#5a5a5a]">We're gathering inspiring stories from our communities. Check back soon.</p>
+          </div>
+        ) : (
         <div className="grid gap-6 md:grid-cols-2 lg:grid-cols-3">
           {stories.map((story, index) => (
             <AnimateOnScroll key={story.id} variant="up" delay={index * 120}>
@@ -56,6 +62,7 @@ export default function FeaturedStoriesSection({ stories = [] }) {
             </AnimateOnScroll>
           ))}
         </div>
+        )}
 
         <AnimateOnScroll variant="up" delay={200} className="mt-10 text-center">
           <Link

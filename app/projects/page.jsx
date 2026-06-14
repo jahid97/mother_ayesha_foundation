@@ -57,9 +57,14 @@ export default async function ProjectsPage() {
             </AnimateOnScroll>
 
             {/* Projects Grid */}
+            {projects.length === 0 ? (
+              <div className="py-20 text-center">
+                <p className="text-xl font-semibold text-[#3d3d3d] mb-2">No projects listed yet</p>
+                <p className="text-[#5a5a5a]">We're preparing our programs for launch. Check back soon.</p>
+              </div>
+            ) : (
             <div className="grid md:grid-cols-2 lg:grid-cols-3 gap-8">
-              {projects &&
-                projects.map((project, index) => (
+              {projects.map((project, index) => (
                   <AnimateOnScroll key={project.id} variant="up" delay={(index % 3) * 110}>
                     <Card className="overflow-hidden bg-white border-none shadow-lg hover:shadow-xl transition-all duration-300 hover:-translate-y-1 h-full flex flex-col">
                       {/* Project image with category and status badges */}
@@ -139,6 +144,7 @@ export default async function ProjectsPage() {
                   </AnimateOnScroll>
                 ))}
             </div>
+            )}
 
             <AnimateOnScroll variant="up" delay={100} className="mt-12">
               <div className="bg-white border-none shadow-lg hover:shadow-xl transition-all duration-300 rounded-lg overflow-hidden">

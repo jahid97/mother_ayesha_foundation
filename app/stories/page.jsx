@@ -53,6 +53,12 @@ export default async function StoriesPage() {
 
         {/* Stories Grid */}
         <div className="container mx-auto px-4 pb-16">
+          {stories.length === 0 ? (
+            <div className="py-20 text-center">
+              <p className="text-xl font-semibold text-[#3d3d3d] mb-2">No stories published yet</p>
+              <p className="text-[#5a5a5a]">We're gathering inspiring stories from our communities. Check back soon.</p>
+            </div>
+          ) : (
           <div className="grid gap-8 md:grid-cols-2 lg:grid-cols-3">
             {stories.map((story, index) => (
               <AnimateOnScroll key={story.id} variant="up" delay={(index % 3) * 100}>
@@ -109,6 +115,7 @@ export default async function StoriesPage() {
               </AnimateOnScroll>
             ))}
           </div>
+          )}
         </div>
       </div>
       <Footer />

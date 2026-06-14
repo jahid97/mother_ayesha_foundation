@@ -15,6 +15,12 @@ export default function FeaturedProjectsSection({ projects = [] }) {
           <h2 className="text-3xl font-bold text-[#3d3d3d]">Every donation, however small, changes a life in Bangladesh</h2>
         </AnimateOnScroll>
 
+        {projects.length === 0 ? (
+          <div className="py-12 text-center">
+            <p className="text-lg font-semibold text-[#3d3d3d] mb-1">No projects listed yet</p>
+            <p className="text-sm text-[#5a5a5a]">We're preparing our programs for launch. Check back soon.</p>
+          </div>
+        ) : (
         <div className="grid md:grid-cols-3 gap-8">
           {projects.map((project, index) => (
             <AnimateOnScroll key={project.id} variant="up" delay={index * 120}>
@@ -74,6 +80,7 @@ export default function FeaturedProjectsSection({ projects = [] }) {
             </AnimateOnScroll>
           ))}
         </div>
+        )}
 
         <AnimateOnScroll variant="up" delay={100} className="mt-10 text-center">
           <Link href="/projects">

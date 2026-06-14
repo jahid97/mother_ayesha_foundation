@@ -31,6 +31,12 @@ export default function GallerySection({ images = [] }) {
           <p className="text-[#5a5a5a] max-w-2xl mx-auto">A visual record of our programs, communities, and people across Bangladesh.</p>
         </div>
 
+        {images.length === 0 ? (
+          <div className="py-12 text-center">
+            <p className="text-lg font-semibold text-[#3d3d3d] mb-1">No photos added yet</p>
+            <p className="text-sm text-[#5a5a5a]">Our gallery is coming soon. Check back for updates.</p>
+          </div>
+        ) : (
         <div className="grid grid-cols-2 md:grid-cols-3 lg:grid-cols-4 gap-4">
           {images.map((image) => (
             <div
@@ -59,6 +65,7 @@ export default function GallerySection({ images = [] }) {
             </div>
           ))}
         </div>
+        )}
 
         <div className="text-center mt-10">
           <Link href="/gallery">

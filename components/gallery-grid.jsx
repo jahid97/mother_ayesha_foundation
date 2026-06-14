@@ -67,10 +67,19 @@ export default function GalleryGrid({ images }) {
 
           {filteredImages.length === 0 && (
             <div className="mt-10 text-center">
-              <p className="text-[#5a5a5a]">No images found for this category.</p>
-              <Button className="mt-4 bg-[#4db6ac] text-white hover:bg-[#3d9d93]" onClick={() => setSelectedCategory("All")}>
-                View All Images
-              </Button>
+              {images.length === 0 ? (
+                <>
+                  <p className="text-lg font-semibold text-[#3d3d3d] mb-1">No photos added yet</p>
+                  <p className="text-sm text-[#5a5a5a]">Our gallery is coming soon. Check back for updates.</p>
+                </>
+              ) : (
+                <>
+                  <p className="text-[#5a5a5a]">No images found for this category.</p>
+                  <Button className="mt-4 bg-[#4db6ac] text-white hover:bg-[#3d9d93]" onClick={() => setSelectedCategory("All")}>
+                    View All Images
+                  </Button>
+                </>
+              )}
             </div>
           )}
         </div>

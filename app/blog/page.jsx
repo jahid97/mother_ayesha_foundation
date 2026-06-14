@@ -26,12 +26,18 @@ export default async function BlogPage() {
         {/* Blog Posts Grid */}
         <section className="py-16">
           <div className="container mx-auto px-4">
-            <div className="grid md:grid-cols-2 lg:grid-cols-3 gap-8">
-              {/* Map through blog posts and render a BlogCard for each */}
-              {blogPosts.map((post, index) => (
-                <BlogCard key={index} {...post} />
-              ))}
-            </div>
+            {blogPosts.length === 0 ? (
+              <div className="py-20 text-center">
+                <p className="text-xl font-semibold text-[#3d3d3d] mb-2">No posts published yet</p>
+                <p className="text-[#5a5a5a]">We're working on our latest updates. Check back soon.</p>
+              </div>
+            ) : (
+              <div className="grid md:grid-cols-2 lg:grid-cols-3 gap-8">
+                {blogPosts.map((post, index) => (
+                  <BlogCard key={index} {...post} />
+                ))}
+              </div>
+            )}
           </div>
         </section>
 

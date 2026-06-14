@@ -106,6 +106,7 @@ export default function PostForm({ post, type = "blog" }) {
             value={form.image}
             onChange={(url) => setForm((p) => ({ ...p, image: url }))}
             aspectRatio="aspect-video"
+            folder={type === "blog" ? "blog" : "stories"}
           />
         </div>
         <div className="col-span-2">

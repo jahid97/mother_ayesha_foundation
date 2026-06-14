@@ -79,6 +79,7 @@ export default function GalleryForm({ image }) {
           value={form.src}
           onChange={(url) => setForm((p) => ({ ...p, src: url }))}
           aspectRatio="aspect-video"
+          folder="gallery"
         />
         <div>
           <label className="block text-sm font-medium text-gray-700 mb-1">Alt Text *</label>

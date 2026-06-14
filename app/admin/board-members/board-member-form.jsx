@@ -86,6 +86,7 @@ export default function BoardMemberForm({ member }) {
         value={form.image}
         onChange={(url) => setForm((p) => ({ ...p, image: url }))}
         aspectRatio="aspect-square"
+        folder="board-members"
       />
 
       {/* Bio */}

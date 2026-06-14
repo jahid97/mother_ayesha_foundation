@@ -16,7 +16,7 @@ async function deleteFromBlob(url) {
   })
 }
 
-export default function ImageUpload({ value, onChange, label = "Image", aspectRatio = "aspect-video" }) {
+export default function ImageUpload({ value, onChange, label = "Image", aspectRatio = "aspect-video", folder = "uploads" }) {
   const inputRef = useRef(null)
   const [uploading, setUploading] = useState(false)
   const [error, setError] = useState("")
@@ -43,6 +43,7 @@ export default function ImageUpload({ value, onChange, label = "Image", aspectRa
     try {
       const body = new FormData()
       body.append("file", file)
+      body.append("folder", folder)
 
       const res = await fetch("/api/upload", { method: "POST", body })
       if (!res.ok) {

@@ -115,6 +115,7 @@ export default function ProjectForm({ project }) {
             value={form.image}
             onChange={(url) => setForm((p) => ({ ...p, image: url }))}
             aspectRatio="aspect-video"
+            folder="projects"
           />
         </div>
         <div>

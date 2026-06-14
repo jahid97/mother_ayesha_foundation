@@ -23,6 +23,7 @@ export async function POST(req) {
 
   const formData = await req.formData()
   const file = formData.get("file")
+  const folder = (formData.get("folder") || "uploads").replace(/[^a-zA-Z0-9-_]/g, "")
 
   if (!file || typeof file === "string") {
     return NextResponse.json({ error: "No file provided" }, { status: 400 })
@@ -33,7 +34,7 @@ export async function POST(req) {
   const base = path.basename(file.name, ext)
     .replace(/[^a-zA-Z0-9-_]/g, "-")
     .slice(0, 60)
-  const unique = `${base}-${Date.now()}${ext}`
+  const unique = `${folder}/${base}-${Date.now()}${ext}`
 
   const blob = await put(unique, file, {
     access: "public",

@@ -42,48 +42,20 @@ export default async function TeamPage() {
 
         {/* ── Chairman ── */}
         {chairman && (
-          <section className="pb-12">
-            <div className="container mx-auto px-4 max-w-5xl">
+          <section className="pb-20">
+            <div className="container mx-auto px-6 max-w-5xl">
               <AnimateOnScroll variant="up">
-                <div className="relative rounded-2xl overflow-hidden shadow-xl">
-                  {/* Background gradient */}
-                  <div className="absolute inset-0 bg-gradient-to-br from-[#3d3d3d] via-[#2a2a2a] to-[#1a1a1a]" />
-                  {/* Decorative teal glow */}
-                  <div className="absolute -top-16 -right-16 w-64 h-64 bg-[#4db6ac]/20 rounded-full blur-3xl" />
-                  <div className="absolute -bottom-16 -left-16 w-64 h-64 bg-[#2196f3]/10 rounded-full blur-3xl" />
-
-                  <div className="relative flex flex-col sm:flex-row items-center sm:items-stretch gap-0">
-                    {/* Photo panel */}
-                    <div className="relative w-full sm:w-64 h-64 sm:h-auto flex-shrink-0">
-                      {isValidImageSrc(chairman.image) ? (
-                        <Image
-                          src={chairman.image}
-                          alt={chairman.name}
-                          fill
-                          className="object-cover"
-                          sizes="(max-width: 640px) 100vw, 256px"
-                        />
-                      ) : (
-                        <div className="w-full h-full bg-gradient-to-br from-[#4ecdc4] to-[#2196f3] flex items-center justify-center">
-                          <span className="text-white text-6xl font-bold">
-                            {chairman.name.split(" ").map((n) => n[0]).join("").slice(0, 2).toUpperCase()}
-                          </span>
-                        </div>
-                      )}
-                      {/* Gradient fade into text area on desktop */}
-                      <div className="hidden sm:block absolute inset-y-0 right-0 w-16 bg-gradient-to-r from-transparent to-[#2a2a2a]" />
-                    </div>
-
-                    {/* Text */}
-                    <div className="flex flex-col justify-center px-8 py-10 text-white">
-                      <span className="inline-block bg-gradient-to-r from-[#4ecdc4] to-[#2196f3] text-white text-xs font-bold uppercase tracking-widest px-3 py-1 rounded-full mb-4 w-fit">
-                        {chairman.role}
-                      </span>
-                      <h2 className="text-3xl font-bold mb-3">{chairman.name}</h2>
-                      {chairman.bio && (
-                        <p className="text-gray-300 leading-relaxed max-w-xl">{chairman.bio}</p>
-                      )}
-                    </div>
+                <div className="flex flex-col md:flex-row gap-12 items-center">
+                  {/* Photo */}
+                  <div className="flex-shrink-0">
+                    <PhotoFrame member={chairman} size="lg" />
+                  </div>
+                  {/* Text */}
+                  <div>
+                    <span className="text-[#4db6ac] text-xs font-bold uppercase tracking-[0.2em]">{chairman.role}</span>
+                    <h2 className="text-4xl font-bold text-[#3d3d3d] mt-2 mb-4">{chairman.name}</h2>
+                    <div className="w-12 h-1 bg-gradient-to-r from-[#4ecdc4] to-[#2196f3] rounded-full mb-4" />
+                    {chairman.bio && <p className="text-[#5a5a5a] leading-relaxed text-base">{chairman.bio}</p>}
                   </div>
                 </div>
               </AnimateOnScroll>
@@ -91,14 +63,21 @@ export default async function TeamPage() {
           </section>
         )}
 
+        {/* ── Divider ── */}
+        {(chairman && (keyRoles.length > 0 || generalMembers.length > 0)) && (
+          <div className="container mx-auto px-6 max-w-5xl pb-16">
+            <div className="border-t border-[#3d3d3d]/10" />
+          </div>
+        )}
+
         {/* ── Secretary & Treasurer ── */}
         {keyRoles.length > 0 && (
-          <section className="pb-6">
-            <div className="container mx-auto px-4 max-w-5xl">
-              <div className="grid gap-6 sm:grid-cols-2">
+          <section className="pb-16">
+            <div className="container mx-auto px-6 max-w-5xl">
+              <div className="grid gap-12 sm:grid-cols-2">
                 {keyRoles.map((m, i) => (
-                  <AnimateOnScroll key={m.id} variant="up" delay={i * 80}>
-                    <MemberCard member={m} />
+                  <AnimateOnScroll key={m.id} variant="up" delay={i * 100}>
+                    <MemberProfile member={m} />
                   </AnimateOnScroll>
                 ))}
               </div>
@@ -106,14 +85,21 @@ export default async function TeamPage() {
           </section>
         )}
 
-        {/* ── Members ── */}
+        {/* ── Divider ── */}
+        {keyRoles.length > 0 && generalMembers.length > 0 && (
+          <div className="container mx-auto px-6 max-w-5xl pb-16">
+            <div className="border-t border-[#3d3d3d]/10" />
+          </div>
+        )}
+
+        {/* ── General Members ── */}
         {generalMembers.length > 0 && (
-          <section className="pb-20">
-            <div className="container mx-auto px-4 max-w-5xl">
-              <div className="grid gap-6 sm:grid-cols-2 lg:grid-cols-3">
+          <section className="pb-24">
+            <div className="container mx-auto px-6 max-w-5xl">
+              <div className="grid gap-10 grid-cols-2 sm:grid-cols-3 lg:grid-cols-4">
                 {generalMembers.map((m, i) => (
                   <AnimateOnScroll key={m.id} variant="up" delay={i * 60}>
-                    <MemberCard member={m} />
+                    <MemberProfile member={m} compact />
                   </AnimateOnScroll>
                 ))}
               </div>
@@ -133,40 +119,45 @@ function isValidImageSrc(src) {
   return src.startsWith("/") || src.startsWith("http://") || src.startsWith("https://")
 }
 
-function MemberCard({ member }) {
-  const hasPhoto = isValidImageSrc(member.image)
+function PhotoFrame({ member, size = "md" }) {
+  const dims = {
+    lg: { box: "w-56 h-64", img: 224 },
+    md: { box: "w-40 h-48", img: 160 },
+    sm: { box: "w-28 h-32", img: 112 },
+  }
+  const { box, img } = dims[size]
   const initials = member.name.split(" ").map((n) => n[0]).join("").slice(0, 2).toUpperCase()
 
   return (
-    <div className="bg-white rounded-2xl shadow-md hover:shadow-2xl hover:-translate-y-2 transition-all duration-300 flex flex-col overflow-hidden group">
-      {/* Gradient header */}
-      <div className="relative h-28 bg-gradient-to-br from-[#4ecdc4] via-[#44b8e0] to-[#2196f3] flex-shrink-0" />
-
-      {/* Photo — overlaps header and body */}
-      <div className="relative flex justify-center -mt-14 mb-3 flex-shrink-0">
-        <div className="h-28 w-28 rounded-full border-4 border-white shadow-lg overflow-hidden bg-[#4db6ac] flex items-center justify-center flex-shrink-0">
-          {hasPhoto ? (
-            <Image
-              src={member.image}
-              alt={member.name}
-              width={112}
-              height={112}
-              className="object-cover w-full h-full"
-            />
-          ) : (
-            <span className="text-white text-3xl font-bold">{initials}</span>
-          )}
+    <div className={`relative ${box} rounded-2xl overflow-hidden`}>
+      {isValidImageSrc(member.image) ? (
+        <Image
+          src={member.image}
+          alt={member.name}
+          fill
+          className="object-cover"
+          sizes={`${img}px`}
+        />
+      ) : (
+        <div className="w-full h-full bg-gradient-to-br from-[#4ecdc4] to-[#2196f3] flex items-center justify-center">
+          <span className="text-white font-bold text-4xl">{initials}</span>
         </div>
-      </div>
+      )}
+    </div>
+  )
+}
 
-      {/* Text */}
-      <div className="px-6 pb-7 text-center flex flex-col flex-grow">
-        <span className="inline-block text-[#4db6ac] text-xs font-bold uppercase tracking-widest mb-1">
-          {member.role}
-        </span>
-        <h3 className="text-[#3d3d3d] font-bold text-lg mb-2 leading-snug">{member.name}</h3>
-        {member.bio && (
-          <p className="text-[#5a5a5a] text-sm leading-relaxed">{member.bio}</p>
+function MemberProfile({ member, compact = false }) {
+  return (
+    <div className="flex flex-col gap-4">
+      <PhotoFrame member={member} size={compact ? "sm" : "md"} />
+      <div>
+        <span className="text-[#4db6ac] text-xs font-bold uppercase tracking-[0.15em]">{member.role}</span>
+        <h3 className={`font-bold text-[#3d3d3d] mt-0.5 leading-snug ${compact ? "text-base" : "text-xl"}`}>
+          {member.name}
+        </h3>
+        {!compact && member.bio && (
+          <p className="text-[#5a5a5a] text-sm leading-relaxed mt-2">{member.bio}</p>
         )}
       </div>
     </div>

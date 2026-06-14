@@ -1,4 +1,5 @@
 import { NextResponse } from "next/server"
+import { revalidatePath } from "next/cache"
 import { prisma } from "@/lib/db"
 import { requireAdmin } from "@/lib/admin-auth"
 
@@ -17,6 +18,7 @@ export async function POST(request) {
   try {
     const data = await request.json()
     const image = await prisma.galleryImage.create({ data })
+    revalidatePath("/gallery")
     return NextResponse.json(image, { status: 201 })
   } catch (err) {
     console.error(err)

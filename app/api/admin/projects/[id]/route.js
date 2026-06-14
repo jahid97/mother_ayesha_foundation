@@ -1,4 +1,5 @@
 import { NextResponse } from "next/server"
+import { revalidatePath } from "next/cache"
 import { del } from "@vercel/blob"
 import { prisma } from "@/lib/db"
 import { requireAdmin } from "@/lib/admin-auth"
@@ -21,6 +22,8 @@ export async function PUT(request, { params }) {
   try {
     const { id: _id, createdAt, updatedAt, donations, ...data } = await request.json()
     const project = await prisma.project.update({ where: { id }, data })
+    revalidatePath("/projects")
+    revalidatePath(`/projects/${project.id}`)
     return NextResponse.json(project)
   } catch (err) {
     console.error(err)
@@ -39,6 +42,7 @@ export async function DELETE(request, { params }) {
       await del(project.image).catch(() => {})
     }
     await prisma.project.delete({ where: { id } })
+    revalidatePath("/projects")
     return NextResponse.json({ success: true })
   } catch (err) {
     console.error(err)

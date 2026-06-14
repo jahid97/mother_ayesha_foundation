@@ -1,4 +1,5 @@
 import { NextResponse } from "next/server"
+import { revalidatePath } from "next/cache"
 import { del } from "@vercel/blob"
 import { prisma } from "@/lib/db"
 import { requireAdmin } from "@/lib/admin-auth"
@@ -23,6 +24,7 @@ export async function PUT(request, { params }) {
     // strip fields that shouldn't be updated
     const { id: _id, ...updateData } = data
     const image = await prisma.galleryImage.update({ where: { id: parseInt(id) }, data: updateData })
+    revalidatePath("/gallery")
     return NextResponse.json(image)
   } catch (err) {
     console.error(err)
@@ -41,6 +43,7 @@ export async function DELETE(request, { params }) {
       await del(image.src).catch(() => {})
     }
     await prisma.galleryImage.delete({ where: { id: parseInt(id) } })
+    revalidatePath("/gallery")
     return NextResponse.json({ success: true })
   } catch (err) {
     console.error(err)

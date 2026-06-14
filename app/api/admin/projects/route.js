@@ -1,4 +1,5 @@
 import { NextResponse } from "next/server"
+import { revalidatePath } from "next/cache"
 import { prisma } from "@/lib/db"
 import { requireAdmin } from "@/lib/admin-auth"
 
@@ -17,6 +18,7 @@ export async function POST(request) {
   try {
     const data = await request.json()
     const project = await prisma.project.create({ data })
+    revalidatePath("/projects")
     return NextResponse.json(project, { status: 201 })
   } catch (err) {
     console.error(err)

@@ -1,4 +1,5 @@
 import { NextResponse } from "next/server"
+import { revalidatePath } from "next/cache"
 import { del } from "@vercel/blob"
 import { prisma } from "@/lib/db"
 import { requireAdmin } from "@/lib/admin-auth"
@@ -21,6 +22,8 @@ export async function PUT(request, { params }) {
   try {
     const { id: _id, createdAt, updatedAt, ...data } = await request.json()
     const post = await prisma.blogPost.update({ where: { id: parseInt(id) }, data })
+    revalidatePath("/blog")
+    revalidatePath(`/blog/${post.slug}`)
     return NextResponse.json(post)
   } catch (err) {
     console.error(err)
@@ -39,6 +42,7 @@ export async function DELETE(request, { params }) {
       await del(post.image).catch(() => {})
     }
     await prisma.blogPost.delete({ where: { id: parseInt(id) } })
+    revalidatePath("/blog")
     return NextResponse.json({ success: true })
   } catch (err) {
     console.error(err)

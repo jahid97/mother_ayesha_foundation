@@ -45,11 +45,11 @@ export default function ProjectForm({ project }) {
 
     const payload = {
       ...form,
-      targetAmount: form.targetAmount ? parseFloat(form.targetAmount) : null,
-      raisedAmount: form.raisedAmount ? parseFloat(form.raisedAmount) : null,
-      progress: form.progress ? parseInt(form.progress) : null,
-      startDate: form.startDate ? new Date(form.startDate).toISOString() : null,
-      endDate: form.endDate ? new Date(form.endDate).toISOString() : null,
+      targetAmount: form.targetAmount ? String(form.targetAmount) : "",
+      raisedAmount: form.raisedAmount ? String(form.raisedAmount) : "",
+      progress: form.progress ? parseInt(form.progress) : 0,
+      startDate: form.startDate || "",
+      endDate: form.endDate || "",
     }
 
     try {
@@ -74,12 +74,15 @@ export default function ProjectForm({ project }) {
   const handleDelete = async () => {
     if (!confirm("Delete this project? This cannot be undone.")) return
     setLoading(true)
+    setError("")
     try {
-      await fetch(`/api/admin/projects/${project.id}`, { method: "DELETE" })
+      const res = await fetch(`/api/admin/projects/${project.id}`, { method: "DELETE" })
+      if (!res.ok) throw new Error(await res.text())
       router.push("/admin/projects")
       router.refresh()
-    } catch {
-      setError("Failed to delete")
+    } catch (err) {
+      setError(err.message || "Failed to delete")
+    } finally {
       setLoading(false)
     }
   }

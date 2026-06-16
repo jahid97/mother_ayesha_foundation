@@ -25,7 +25,7 @@ import CallToAction from "@/components/call-to-action"
 import AnimateOnScroll from "@/components/animate-on-scroll"
 
 export default async function ProjectsPage() {
-  const projects = await prisma.project.findMany({ orderBy: { createdAt: "desc" } })
+  const projects = await prisma.project.findMany({ where: { active: true }, orderBy: { createdAt: "desc" } })
   const impactStats = [
     { value: "50,000+", label: "People Supported" },
     { value: "6+",      label: "Program Categories" },

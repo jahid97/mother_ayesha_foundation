@@ -27,13 +27,13 @@ export default async function ProjectDetailPage({ params }) {
   const [project, relatedProjects] = await Promise.all([
     prisma.project.findUnique({ where: { id: slug } }),
     prisma.project.findMany({
-      where: { id: { not: slug } },
+      where: { id: { not: slug }, active: true },
       take: 3,
       orderBy: { createdAt: "desc" },
     }),
   ])
 
-  if (!project) notFound()
+  if (!project || project.active === false) notFound()
 
   const timeline = [
     { date: project.startDate, event: "Project launched", done: true },

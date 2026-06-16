@@ -8,7 +8,7 @@ export async function GET(request, { params }) {
       where: { id },
     })
 
-    if (!project) {
+    if (!project || project.active === false) {
       return NextResponse.json({ error: "Project not found." }, { status: 404 })
     }
 

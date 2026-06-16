@@ -21,7 +21,7 @@ import { prisma } from "@/lib/db"
 export default async function DonatePage({ searchParams }) {
   const params = await searchParams
   const projectId = params.project || null
-  const projectDetails = projectId ? await prisma.project.findUnique({ where: { id: projectId } }) : null
+  const projectDetails = projectId ? await prisma.project.findUnique({ where: { id: projectId, active: true } }) : null
 
   return (
     <div className="flex min-h-screen flex-col bg-[#faf6ed]">

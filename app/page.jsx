@@ -14,7 +14,7 @@ export const revalidate = 60 // re-fetch at most once per minute
 
 export default async function Home() {
   const [featuredProjects, stories, blogPosts, galleryImages, heroSlides] = await Promise.all([
-    prisma.project.findMany({ where: { featured: true }, take: 3, orderBy: { createdAt: "desc" } }),
+    prisma.project.findMany({ where: { featured: true, active: true }, take: 3, orderBy: { createdAt: "desc" } }),
     prisma.story.findMany({ where: { featured: true }, take: 3, orderBy: { createdAt: "desc" } }),
     prisma.blogPost.findMany({ take: 3, orderBy: { createdAt: "desc" } }),
     prisma.galleryImage.findMany({ where: { featured: true }, take: 8, orderBy: { id: "asc" } }),

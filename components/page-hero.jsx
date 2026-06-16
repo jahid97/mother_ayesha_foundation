@@ -1,17 +1,31 @@
 import Image from "next/image"
 import AnimateOnScroll from "@/components/animate-on-scroll"
+import { prisma } from "@/lib/db"
 
-export default function PageHero({ title, description, badge }) {
+export default async function PageHero({ title, description, badge }) {
+  const setting = await prisma.siteSetting.findUnique({ where: { key: "heroBackground" } })
+  const bgUrl = setting?.value || null
+
   return (
-    <div className="relative bg-[#3d3d3d] py-16 mb-12">
-      <div className="absolute inset-0 opacity-20">
-        <Image
-          src="/placeholder.svg?height=600&width=1200&text=Pattern"
-          alt="Background pattern"
-          fill
-          className="object-cover"
-        />
-      </div>
+    <div className={`relative py-16 mb-12 overflow-hidden ${!bgUrl ? "bg-[#3d3d3d]" : ""}`}>
+      {bgUrl ? (
+        <>
+          <div className="absolute inset-0">
+            <Image src={bgUrl} alt="" fill className="object-cover" priority />
+          </div>
+          <div className="absolute inset-0 bg-black/40" />
+        </>
+      ) : (
+        <div className="absolute inset-0 opacity-20">
+          <Image
+            src="/placeholder.svg?height=600&width=1200&text=Pattern"
+            alt=""
+            fill
+            className="object-cover"
+          />
+        </div>
+      )}
+
       <div className="container mx-auto px-4 relative">
         <div className="max-w-2xl">
           {badge && (

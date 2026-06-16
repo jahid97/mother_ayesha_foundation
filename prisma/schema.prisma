@@ -144,6 +144,13 @@ model HeroSlide {
   updatedAt DateTime @updatedAt
 }
 
+// ─── Site Settings ───────────────────────────────────────────────────────────
+model SiteSetting {
+  key       String   @id
+  value     String   @db.Text
+  updatedAt DateTime @updatedAt
+}
+
 // ─── Board Members ────────────────────────────────────────────────────────────
 model BoardMember {
   id        Int      @id @default(autoincrement())

@@ -36,6 +36,7 @@ export default async function AdminProjects() {
               <th className="text-left px-5 py-3 text-gray-600 font-medium">Title</th>
               <th className="text-left px-5 py-3 text-gray-600 font-medium">Category</th>
               <th className="text-left px-5 py-3 text-gray-600 font-medium">Status</th>
+              <th className="text-left px-5 py-3 text-gray-600 font-medium">Visible</th>
               <th className="text-left px-5 py-3 text-gray-600 font-medium">Progress</th>
               <th className="text-left px-5 py-3 text-gray-600 font-medium">Raised</th>
               <th className="text-left px-5 py-3 text-gray-600 font-medium">Donations</th>
@@ -56,6 +57,13 @@ export default async function AdminProjects() {
                       "bg-yellow-100 text-yellow-700"
                     }`}>
                       {p.status}
+                    </span>
+                  </td>
+                  <td className="px-5 py-3">
+                    <span className={`px-2 py-0.5 rounded-full text-xs font-medium ${
+                      p.active !== false ? "bg-green-100 text-green-700" : "bg-gray-100 text-gray-500"
+                    }`}>
+                      {p.active !== false ? "Active" : "Hidden"}
                     </span>
                   </td>
                   <td className="px-5 py-3">

@@ -18,6 +18,7 @@ const defaultProject = {
   description: "",
   longDescription: "",
   featured: false,
+  active: true,
 }
 
 export default function ProjectForm({ project }) {
@@ -144,6 +145,10 @@ export default function ProjectForm({ project }) {
         <div className="flex items-center gap-2 pt-5">
           <input type="checkbox" id="featured" checked={form.featured} onChange={set("featured")} className="h-4 w-4 accent-[#4db6ac]" />
           <label htmlFor="featured" className="text-sm font-medium text-gray-700">Featured on homepage</label>
+        </div>
+        <div className="flex items-center gap-2 pt-5">
+          <input type="checkbox" id="active" checked={form.active ?? true} onChange={set("active")} className="h-4 w-4 accent-[#4db6ac]" />
+          <label htmlFor="active" className="text-sm font-medium text-gray-700">Active (visible on site)</label>
         </div>
         <div className="col-span-2">
           <label className="block text-sm font-medium text-gray-700 mb-1">Short Description</label>

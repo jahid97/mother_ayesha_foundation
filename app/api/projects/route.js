@@ -7,7 +7,7 @@ export async function GET(request) {
     const featured = searchParams.get("featured")
 
     const projects = await prisma.project.findMany({
-      where: featured === "true" ? { featured: true } : {},
+      where: featured === "true" ? { featured: true, active: true } : { active: true },
       orderBy: { createdAt: "desc" },
     })
 

@@ -116,13 +116,13 @@ export default function Hero({ slides: dbSlides = [] }) {
             )}
             <div className="flex flex-col sm:flex-row gap-4 justify-center">
               <Link
-                href="/donate"
+                href={current.projectId ? `/donate?project=${current.projectId}` : "/donate"}
                 className="bg-[#4db6ac] hover:bg-[#3d9d93] text-white font-bold py-3 px-8 rounded-full text-lg transition-colors shadow-lg"
               >
                 Donate Now
               </Link>
               <Link
-                href="/about-us"
+                href={current.projectId ? `/projects/${current.projectId}` : "/about-us"}
                 className="bg-white/20 backdrop-blur-sm hover:bg-white/30 text-white font-bold py-3 px-8 rounded-full text-lg transition-colors border border-white/40"
               >
                 Learn More

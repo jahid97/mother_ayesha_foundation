@@ -4,7 +4,7 @@ import { useState } from "react"
 import { useRouter } from "next/navigation"
 import ImageUpload from "@/components/admin/image-upload"
 
-export default function HeroSlideForm({ slide }) {
+export default function HeroSlideForm({ slide, projects = [] }) {
   const router = useRouter()
   const isEdit = !!slide
 
@@ -13,10 +13,24 @@ export default function HeroSlideForm({ slide }) {
   const [alt, setAlt] = useState(slide?.alt ?? "")
   const [title, setTitle] = useState(slide?.title ?? "")
   const [subtitle, setSubtitle] = useState(slide?.subtitle ?? "")
+  const [projectId, setProjectId] = useState(slide?.projectId ?? "")
   const [order, setOrder] = useState(slide?.order ?? 0)
   const [active, setActive] = useState(slide?.active ?? true)
   const [loading, setLoading] = useState(false)
   const [error, setError] = useState("")
+
+  function handleProjectChange(e) {
+    const id = e.target.value
+    setProjectId(id)
+    // Auto-fill title & subtitle from the selected project if fields are empty
+    if (id) {
+      const project = projects.find((p) => p.id === id)
+      if (project) {
+        if (!title) setTitle(project.title)
+        if (!subtitle) setSubtitle(project.description?.slice(0, 160) || "")
+      }
+    }
+  }
 
   async function handleSubmit(e) {
     e.preventDefault()
@@ -32,6 +46,7 @@ export default function HeroSlideForm({ slide }) {
       active,
       title: type === "charity_project" ? title : null,
       subtitle: type === "charity_project" ? subtitle : null,
+      projectId: type === "charity_project" && projectId ? projectId : null,
     }
 
     const url = isEdit ? `/api/admin/hero-slides/${slide.id}` : "/api/admin/hero-slides"
@@ -65,6 +80,8 @@ export default function HeroSlideForm({ slide }) {
       setError("Failed to delete slide.")
     }
   }
+
+  const linkedProject = projects.find((p) => p.id === projectId)
 
   return (
     <form onSubmit={handleSubmit} className="space-y-6 max-w-2xl">
@@ -124,6 +141,33 @@ export default function HeroSlideForm({ slide }) {
       {/* Charity project fields */}
       {type === "charity_project" && (
         <>
+          {/* Project link */}
+          <div>
+            <label className="block text-sm font-medium text-gray-700 mb-1">
+              Link to Project <span className="text-gray-400 font-normal">(optional)</span>
+            </label>
+            <select
+              value={projectId}
+              onChange={handleProjectChange}
+              className="w-full border border-gray-300 rounded-lg px-3 py-2 text-sm focus:outline-none focus:ring-2 focus:ring-[#4db6ac] bg-white"
+            >
+              <option value="">— General donation (no specific project) —</option>
+              {projects.map((p) => (
+                <option key={p.id} value={p.id}>{p.title}</option>
+              ))}
+            </select>
+            {linkedProject && (
+              <p className="text-xs text-[#4db6ac] mt-1">
+                ✓ "Donate Now" button will link to <strong>{linkedProject.title}</strong>
+              </p>
+            )}
+            {!linkedProject && (
+              <p className="text-xs text-gray-400 mt-1">
+                "Donate Now" button will link to the general donation page.
+              </p>
+            )}
+          </div>
+
           <div>
             <label className="block text-sm font-medium text-gray-700 mb-1">
               Title <span className="text-red-500">*</span>

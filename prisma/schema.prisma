@@ -136,6 +136,7 @@ model HeroSlide {
   alt       String   @default("")
   title     String?
   subtitle  String?
+  projectId String?
   order     Int      @default(0)
   active    Boolean  @default(true)
   createdAt DateTime @default(now())

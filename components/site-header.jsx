@@ -32,13 +32,29 @@ function getActiveLang() {
 function applyGoogleTranslate(langCode) {
   const host = window.location.hostname
   if (langCode === "en") {
+    // Clear cookie in all domain variants
     document.cookie = "googtrans=; expires=Thu, 01 Jan 1970 00:00:00 UTC; path=/"
+    document.cookie = `googtrans=; expires=Thu, 01 Jan 1970 00:00:00 UTC; path=/; domain=${host}`
     document.cookie = `googtrans=; expires=Thu, 01 Jan 1970 00:00:00 UTC; path=/; domain=.${host}`
+    // Try using the GT widget directly — most reliable way to restore English
+    const combo = document.querySelector(".goog-te-combo")
+    if (combo) {
+      combo.value = "en"
+      combo.dispatchEvent(new Event("change"))
+      return
+    }
   } else {
     document.cookie = `googtrans=/en/${langCode}; path=/`
     document.cookie = `googtrans=/en/${langCode}; path=/; domain=.${host}`
   }
   window.location.reload()
+}
+
+const BRAND_NAMES = {
+  en: { name: "Mother Ayesha", sub: "Foundation" },
+  bn: { name: "মাদার আয়েশা", sub: "ফাউন্ডেশন" },
+  ar: { name: "ماذر عائشة",   sub: "فاونديشن" },
+  es: { name: "Mother Ayesha", sub: "Foundation" },
 }
 
 const navLinks = [
@@ -183,12 +199,12 @@ export default function SiteHeader() {
           {/* Logo */}
           <Link href="/" className="flex items-center overflow-visible">
             <Image src="/logo.png" alt="Mother Ayesha Foundation Logo" width={56} height={56} className="object-contain scale-[1.7] origin-left shrink-0" />
-            <div className="hidden sm:flex flex-col leading-none ml-10">
+            <div className="hidden sm:flex flex-col leading-none ml-10" translate="no">
               <span className="text-lg font-extrabold tracking-tight bg-gradient-to-r from-[#4ecdc4] via-[#44b8e0] to-[#2196f3] bg-clip-text text-transparent">
-                Mother Ayesha
+                {(BRAND_NAMES[activeLang] || BRAND_NAMES.en).name}
               </span>
               <span className="text-[10px] font-semibold tracking-[0.25em] uppercase text-white/60 mt-0.5">
-                Foundation
+                {(BRAND_NAMES[activeLang] || BRAND_NAMES.en).sub}
               </span>
             </div>
           </Link>

@@ -1,6 +1,6 @@
 "use client"
 
-import { useState } from "react"
+import { useState, useEffect } from "react"
 import Link from "next/link"
 import Image from "next/image"
 import { Button } from "@/components/ui/button"
@@ -53,10 +53,29 @@ const quickLinks = [
   { label: "Contact Us",      href: "/contact-us" },
 ]
 
+const BRAND_NAMES = {
+  en: "Mother Ayesha Foundation",
+  bn: "মাদার আয়েশা ফাউন্ডেশন",
+  ar: "ماذر عائشة فاونديشن",
+  es: "Mother Ayesha Foundation",
+}
+
+function getActiveLang() {
+  if (typeof document === "undefined") return "en"
+  const match = document.cookie.match(/googtrans=\/en\/([a-z]+)/)
+  return match ? match[1] : "en"
+}
+
 export function Footer() {
   const currentYear = new Date().getFullYear()
   const [email, setEmail] = useState("")
   const [subscribing, setSubscribing] = useState(false)
+  const [brandName, setBrandName] = useState("Mother Ayesha Foundation")
+
+  useEffect(() => {
+    const lang = getActiveLang()
+    setBrandName(BRAND_NAMES[lang] || BRAND_NAMES.en)
+  }, [])
 
   const handleNewsletter = async (e) => {
     e.preventDefault()
@@ -93,7 +112,7 @@ export function Footer() {
                 height={56}
                 className="object-contain"
               />
-              <h2 className="text-xl font-bold leading-tight">Mother Ayesha Foundation</h2>
+              <h2 className="text-xl font-bold leading-tight" translate="no">{brandName}</h2>
             </div>
             <p className="text-gray-300 mb-6">An independent, non-profit, non-political, non-governmental and charitable organization registered under the Societies Registration Act 1860 — dedicated to healthcare, education, research, and social welfare in Bangladesh.</p>
             <div className="flex space-x-3">
@@ -193,7 +212,7 @@ export function Footer() {
         {/* Bottom Bar */}
         <div className="pt-8 border-t border-white/10 flex flex-col md:flex-row justify-between items-center">
           <p className="text-gray-400 text-sm mb-4 md:mb-0">
-            © {currentYear} Mother Ayesha Foundation. All rights reserved.
+            © {currentYear} <span translate="no">{brandName}</span>. All rights reserved.
           </p>
           <div className="flex flex-wrap justify-center gap-4 text-sm text-gray-400">
             <Link href="/privacy-policy" className="hover:text-[#4db6ac] transition-colors">

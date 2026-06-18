@@ -3,6 +3,7 @@ import Link from "next/link"
 import { Button } from "@/components/ui/button"
 import SiteHeader from "@/components/site-header"
 import Footer from "@/components/footer"
+import { prisma } from "@/lib/db"
 import { Check, Users, Heart, Award, Lightbulb, Globe, ArrowRight, Wrench, Landmark, HandHeart, LifeBuoy, TrendingUp, ShieldCheck } from "lucide-react"
 import ImpactStats from "@/components/impact-stats"
 import ScrollToSection from "./scroll-to-section"
@@ -115,7 +116,10 @@ const programs = [
   },
 ]
 
-export default function AboutUsPage() {
+export default async function AboutUsPage() {
+  const bgSetting = await prisma.siteSetting.findUnique({ where: { key: "heroBackground_about" } })
+  const heroBg = bgSetting?.value || null
+
   const impactStats = [
     { value: "25+", label: "Years of Service", color: "text-[#ff4d4d]" },
     { value: "50,000+", label: "People Served", color: "text-[#4db6ac]" },
@@ -130,15 +134,24 @@ export default function AboutUsPage() {
       <main className="flex-grow">
 
         {/* ─── Hero ─── */}
-        <section className="relative py-20 overflow-hidden bg-[#3d3d3d]">
-          <div className="absolute inset-0 opacity-10">
-            <Image
-              src="/placeholder.svg?height=1000&width=2000&text=Pattern"
-              alt="Background pattern"
-              fill
-              className="object-cover"
-            />
-          </div>
+        <section className={`relative py-20 overflow-hidden ${!heroBg ? "bg-[#3d3d3d]" : ""}`}>
+          {heroBg ? (
+            <>
+              <div className="absolute inset-0">
+                <Image src={heroBg} alt="" fill className="object-cover" priority />
+              </div>
+              <div className="absolute inset-0 bg-black/50" />
+            </>
+          ) : (
+            <div className="absolute inset-0 opacity-10">
+              <Image
+                src="/placeholder.svg?height=1000&width=2000&text=Pattern"
+                alt="Background pattern"
+                fill
+                className="object-cover"
+              />
+            </div>
+          )}
           <div className="container mx-auto px-4 relative">
             <div className="max-w-3xl">
               <AnimateOnScroll variant="up" delay={0}>

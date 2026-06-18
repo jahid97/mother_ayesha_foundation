@@ -1,9 +1,14 @@
 import Link from "next/link"
 import { prisma } from "@/lib/db"
 import { Plus, Pencil } from "lucide-react"
+import PageHeroBackgroundsForm from "@/components/admin/page-hero-backgrounds-form"
 
 export default async function AdminHeroSlides() {
-  const slides = await prisma.heroSlide.findMany({ orderBy: { order: "asc" } })
+  const [slides, settingRows] = await Promise.all([
+    prisma.heroSlide.findMany({ orderBy: { order: "asc" } }),
+    prisma.siteSetting.findMany(),
+  ])
+  const settings = Object.fromEntries(settingRows.map((r) => [r.key, r.value]))
 
   return (
     <div>
@@ -75,6 +80,10 @@ export default async function AdminHeroSlides() {
         Slides are shown in order (lowest number first). Only active slides appear on the site.
         If no slides are added, the site shows default placeholder images.
       </p>
+
+      <div className="mt-10">
+        <PageHeroBackgroundsForm settings={settings} />
+      </div>
     </div>
   )
 }

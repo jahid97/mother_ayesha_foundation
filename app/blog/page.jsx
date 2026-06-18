@@ -18,6 +18,7 @@ export default async function BlogPage() {
       <main className="flex-grow">
         {/* Hero Section */}
         <PageHero
+          page="blog"
           badge="BLOG & UPDATES"
           title="News, Insights & Updates"
           description="The latest from Mother Ayesha Foundation — program updates, research insights, community stories, and announcements from our work across Bangladesh."

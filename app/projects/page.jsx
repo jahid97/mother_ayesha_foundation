@@ -40,6 +40,7 @@ export default async function ProjectsPage() {
       <main className="flex-grow">
         {/* Hero Section */}
         <PageHero
+          page="projects"
           badge="OUR WORK"
           title="Our Projects"
           description="Explore our ongoing initiatives dedicated to healthcare, education, skills development, research, and social welfare across Bangladesh. Each project addresses a critical need in our communities."

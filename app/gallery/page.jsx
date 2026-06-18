@@ -16,6 +16,7 @@ export default async function GalleryPage() {
 
       <main className="flex-grow">
         <PageHero
+          page="gallery"
           badge="GALLERY"
           title="Our Gallery"
           description="A visual record of our programs, communities, and people — from healthcare camps and TVET institutes to humanitarian relief efforts across Bangladesh."

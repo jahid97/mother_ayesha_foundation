@@ -12,14 +12,12 @@ import {
   Users,
   UserCog,
   Layers,
-  Settings,
 } from "lucide-react"
 import SignOutButton from "./sign-out-button"
 
 const navItems = [
   { href: "/admin", label: "Dashboard", icon: LayoutDashboard },
   { href: "/admin/hero-slides", label: "Hero Slides", icon: Layers },
-  { href: "/admin/site-settings", label: "Site Settings", icon: Settings },
   { href: "/admin/projects", label: "Projects", icon: FolderKanban },
   { href: "/admin/blog", label: "Blog Posts", icon: BookOpen },
   { href: "/admin/stories", label: "Stories", icon: ScrollText },

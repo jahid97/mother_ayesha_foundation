@@ -2,9 +2,21 @@ import Image from "next/image"
 import AnimateOnScroll from "@/components/animate-on-scroll"
 import { prisma } from "@/lib/db"
 
-export default async function PageHero({ title, description, badge }) {
-  const setting = await prisma.siteSetting.findUnique({ where: { key: "heroBackground" } })
-  const bgUrl = setting?.value || null
+const PAGE_KEYS = {
+  projects: "heroBackground_projects",
+  blog:     "heroBackground_blog",
+  gallery:  "heroBackground_gallery",
+  contact:  "heroBackground_contact",
+  stories:  "heroBackground_stories",
+  about:    "heroBackground_about",
+}
+
+export default async function PageHero({ title, description, badge, page }) {
+  let bgUrl = null
+  if (page && PAGE_KEYS[page]) {
+    const setting = await prisma.siteSetting.findUnique({ where: { key: PAGE_KEYS[page] } })
+    bgUrl = setting?.value || null
+  }
 
   return (
     <div className={`relative py-16 mb-12 overflow-hidden ${!bgUrl ? "bg-[#3d3d3d]" : ""}`}>

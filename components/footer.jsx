@@ -71,10 +71,20 @@ export function Footer() {
   const [email, setEmail] = useState("")
   const [subscribing, setSubscribing] = useState(false)
   const [brandName, setBrandName] = useState("Mother Ayesha Foundation")
+  const [contact, setContact] = useState({
+    email:    siteConfig.contact.email,
+    phone:    siteConfig.contact.phone,
+    address:  siteConfig.contact.address,
+    social:   siteConfig.social,
+  })
 
   useEffect(() => {
     const lang = getActiveLang()
     setBrandName(BRAND_NAMES[lang] || BRAND_NAMES.en)
+    fetch("/api/contact-info")
+      .then((r) => r.json())
+      .then((data) => setContact(data))
+      .catch(() => {})
   }, [])
 
   const handleNewsletter = async (e) => {
@@ -116,16 +126,20 @@ export function Footer() {
             </div>
             <p className="text-gray-300 mb-6">An independent, non-profit, non-political, non-governmental and charitable organization registered under the Societies Registration Act 1860 — dedicated to healthcare, education, research, and social welfare in Bangladesh.</p>
             <div className="flex space-x-3">
-              {Object.entries(socialIcons).map(([name, icon]) => (
+              {Object.entries(socialIcons).map(([name, icon]) => {
+                const url = contact.social?.[name.toLowerCase()] || "#"
+                return (
                 <Link
                   key={name}
-                  href="#"
+                  href={url}
+                  target={url !== "#" ? "_blank" : undefined}
+                  rel="noopener noreferrer"
                   aria-label={name}
                   className="w-9 h-9 flex items-center justify-center rounded-full bg-white/10 hover:bg-[#4db6ac] transition-colors duration-300"
                 >
                   {icon}
                 </Link>
-              ))}
+              )})}
             </div>
           </div>
 
@@ -160,20 +174,20 @@ export function Footer() {
               <li className="flex items-start">
                 <MapPin className="mr-3 h-5 w-5 text-[#4db6ac] mt-0.5 flex-shrink-0" />
                 <span className="text-gray-300">
-                  {siteConfig.contact.address.line1}
+                  {contact.address?.line1}
                   <br />
-                  {siteConfig.contact.address.line2}
+                  {contact.address?.line2}
                   <br />
-                  {siteConfig.contact.address.line3}
+                  {contact.address?.line3}
                 </span>
               </li>
               <li className="flex items-center">
                 <Phone className="mr-3 h-5 w-5 text-[#4db6ac] flex-shrink-0" />
-                <span className="text-gray-300">{siteConfig.contact.phone}</span>
+                <span className="text-gray-300">{contact.phone}</span>
               </li>
               <li className="flex items-center">
                 <Mail className="mr-3 h-5 w-5 text-[#4db6ac] flex-shrink-0" />
-                <span className="text-gray-300">{siteConfig.contact.email}</span>
+                <span className="text-gray-300">{contact.email}</span>
               </li>
             </ul>
             <div className="mt-6">

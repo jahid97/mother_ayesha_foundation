@@ -12,6 +12,7 @@ import {
   Users,
   UserCog,
   Layers,
+  Phone,
 } from "lucide-react"
 import SignOutButton from "./sign-out-button"
 
@@ -26,6 +27,7 @@ const navItems = [
   { href: "/admin/donations", label: "Donations", icon: Heart },
   { href: "/admin/contacts", label: "Messages", icon: MessageSquare },
   { href: "/admin/subscribers", label: "Subscribers", icon: Users },
+  { href: "/admin/contact-info", label: "Contact Info", icon: Phone },
 ]
 
 export default async function AdminLayout({ children }) {

@@ -1,11 +1,6 @@
 import { NextResponse } from "next/server"
 import { prisma } from "@/lib/db"
 
-// AamarPay credentials — set these in Vercel environment variables once registered
-// AAMARPAY_STORE_ID=your_store_id
-// AAMARPAY_SIGNATURE_KEY=your_signature_key
-// AAMARPAY_BASE_URL=https://secure.aamarpay.com  (use https://sandbox.aamarpay.com for testing)
-
 export async function POST(request) {
   try {
     const body = await request.json()
@@ -20,7 +15,7 @@ export async function POST(request) {
       return NextResponse.json({ error: "Invalid donation amount." }, { status: 400 })
     }
 
-    // Save donation record with pending status
+    // Save donation record
     const donation = await prisma.donation.create({
       data: {
         firstName: firstName.trim(),
@@ -36,51 +31,74 @@ export async function POST(request) {
       },
     })
 
-    // ── AamarPay Payment Initiation ──────────────────────────────────────────
-    // Fill in AAMARPAY_STORE_ID and AAMARPAY_SIGNATURE_KEY in your environment
-    // variables once you register with AamarPay (aamarpay.com).
-    const storeId = process.env.AAMARPAY_STORE_ID
+    const storeId      = process.env.AAMARPAY_STORE_ID
     const signatureKey = process.env.AAMARPAY_SIGNATURE_KEY
-    const baseUrl = process.env.AAMARPAY_BASE_URL || "https://sandbox.aamarpay.com"
-    const siteUrl = process.env.NEXT_PUBLIC_SITE_URL || "https://motheraishafoundation.vercel.app"
+    const baseUrl      = process.env.AAMARPAY_BASE_URL || "https://sandbox.aamarpay.com"
+    const siteUrl      = process.env.NEXT_PUBLIC_SITE_URL || "http://localhost:3000"
 
     if (storeId && signatureKey) {
-      const transactionId = `DON-${donation.id}-${Date.now()}`
+      // AamarPay requires alphanumeric tran_id only — no hyphens or special chars
+      const transactionId = `DON${donation.id}X${Date.now()}`
 
       const params = new URLSearchParams({
-        store_id: storeId,
-        tran_id: transactionId,
-        success_url: `${siteUrl}/donate/success?tran_id=${transactionId}&donation_id=${donation.id}`,
-        fail_url: `${siteUrl}/donate/failed?donation_id=${donation.id}`,
-        cancel_url: `${siteUrl}/donate?cancelled=1`,
-        amount: parsedAmount.toFixed(2),
-        currency,
+        store_id:      storeId,
         signature_key: signatureKey,
-        desc: projectId ? `Donation to project ${projectId}` : "General Donation",
-        cus_name: `${firstName} ${lastName}`,
-        cus_email: email,
-        cus_phone: phone,
-        cus_add1: "Bangladesh",
-        cus_city: "Dhaka",
-        cus_country: "BD",
-        opt_a: String(donation.id),
-        opt_b: paymentMethod,
+        tran_id:       transactionId,
+        success_url:   `${siteUrl}/donate/success?tran_id=${transactionId}&donation_id=${donation.id}`,
+        fail_url:      `${siteUrl}/donate/failed?donation_id=${donation.id}`,
+        cancel_url:    `${siteUrl}/donate?cancelled=1`,
+        ipn_url:       `${siteUrl}/api/aamarpay/ipn`,
+        amount:        parsedAmount.toFixed(2),
+        currency,
+        desc:          projectId ? `Donation for ${projectId}` : "General Donation to Mother Ayesha Foundation",
+        cus_name:      `${firstName.trim()} ${lastName.trim()}`,
+        cus_email:     email.trim(),
+        cus_phone:     phone.trim(),
+        cus_add1:      "Dhaka, Bangladesh",
+        cus_city:      "Dhaka",
+        cus_state:     "Dhaka",
+        cus_country:   "Bangladesh",
+        opt_a:         String(donation.id),
+        opt_b:         paymentMethod || "aamarpay",
+        type:          "json",
       })
 
-      const aamarRes = await fetch(`${baseUrl}/request.php`, {
-        method: "POST",
-        headers: { "Content-Type": "application/x-www-form-urlencoded" },
-        body: params.toString(),
-      })
+      let aamarData
+      try {
+        const aamarRes = await fetch(`${baseUrl}/index.php`, {
+          method: "POST",
+          headers: { "Content-Type": "application/x-www-form-urlencoded" },
+          body: params.toString(),
+        })
+        aamarData = await aamarRes.json()
+      } catch (fetchErr) {
+        console.error("AamarPay fetch error:", fetchErr)
+        return NextResponse.json({ error: "Could not connect to payment gateway. Please try again." }, { status: 502 })
+      }
 
-      const aamarData = await aamarRes.json()
+      console.log("AamarPay response:", JSON.stringify(aamarData))
 
       if (aamarData?.payment_url) {
+        await prisma.donation.update({
+          where: { id: donation.id },
+          data:  { transactionId },
+        })
         return NextResponse.json({ success: true, paymentUrl: aamarData.payment_url, donationId: donation.id })
       }
+
+      // Surface the exact AamarPay error to the client
+      const reason =
+        aamarData?.failreason ||
+        aamarData?.reason ||
+        aamarData?.error ||
+        aamarData?.message ||
+        (Array.isArray(aamarData) ? JSON.stringify(aamarData[0]) : JSON.stringify(aamarData))
+
+      console.error("AamarPay error reason:", reason)
+      return NextResponse.json({ error: `AamarPay: ${reason}` }, { status: 502 })
     }
 
-    // AamarPay not configured yet — return success so UI can redirect to a holding page
+    // Credentials not set — record donation and go to success
     return NextResponse.json({ success: true, donationId: donation.id })
   } catch (error) {
     console.error("Donate API error:", error)

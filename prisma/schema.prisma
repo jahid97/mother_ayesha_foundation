@@ -47,6 +47,8 @@ model Donation {
   paymentMethod String
   message       String?  @db.Text
   status        String   @default("pending") // pending | completed | failed
+  transactionId String?  // AamarPay transaction ID
+  paidAmount    Float?   // actual amount confirmed by AamarPay
   projectId     String?
   project       Project? @relation(fields: [projectId], references: [id])
   createdAt     DateTime @default(now())

@@ -3,23 +3,37 @@
 import { useState } from "react"
 import Image from "next/image"
 import { Button } from "@/components/ui/button"
-import { X } from "lucide-react"
+import { X, Calendar } from "lucide-react"
 import AnimateOnScroll from "@/components/animate-on-scroll"
 
+function getYear(dateStr) {
+  if (!dateStr) return null
+  const y = new Date(dateStr).getFullYear()
+  return isNaN(y) ? null : y
+}
+
 export default function GalleryGrid({ images }) {
-  const categories = ["All", ...Array.from(new Set(images.map((img) => img.category)))]
+  const categories = ["All", ...Array.from(new Set(images.map((img) => img.category).filter(Boolean)))]
+  const years = ["All", ...Array.from(new Set(images.map((img) => getYear(img.date)).filter(Boolean))).sort((a, b) => b - a)]
+
   const [selectedCategory, setSelectedCategory] = useState("All")
+  const [selectedYear, setSelectedYear] = useState("All")
   const [selectedImage, setSelectedImage] = useState(null)
   const [selectedImageAlt, setSelectedImageAlt] = useState("")
 
-  const filteredImages =
-    selectedCategory === "All" ? images : images.filter((img) => img.category === selectedCategory)
+  const filteredImages = images.filter((img) => {
+    const categoryMatch = selectedCategory === "All" || img.category === selectedCategory
+    const yearMatch = selectedYear === "All" || getYear(img.date) === selectedYear
+    return categoryMatch && yearMatch
+  })
 
   return (
     <>
       <section className="py-16">
         <div className="container mx-auto px-4">
-          <AnimateOnScroll variant="up" className="mb-10 flex flex-wrap justify-center gap-2">
+
+          {/* Category filter */}
+          <AnimateOnScroll variant="up" className="mb-4 flex flex-wrap justify-center gap-2">
             {categories.map((category) => (
               <Button
                 key={category}
@@ -35,6 +49,28 @@ export default function GalleryGrid({ images }) {
               </Button>
             ))}
           </AnimateOnScroll>
+
+          {/* Year filter — only show if at least one image has a date */}
+          {years.length > 1 && (
+            <AnimateOnScroll variant="up" className="mb-10 flex flex-wrap justify-center gap-2 items-center">
+              <span className="text-xs text-[#5a5a5a] font-medium flex items-center gap-1 mr-1">
+                <Calendar className="w-3.5 h-3.5 text-[#4db6ac]" /> Year:
+              </span>
+              {years.map((year) => (
+                <button
+                  key={year}
+                  onClick={() => setSelectedYear(year)}
+                  className={`px-3 py-1 rounded-full text-sm font-medium border transition-all ${
+                    selectedYear === year
+                      ? "bg-[#3d3d3d] text-white border-[#3d3d3d]"
+                      : "border-gray-300 text-[#5a5a5a] hover:border-[#3d3d3d] hover:text-[#3d3d3d]"
+                  }`}
+                >
+                  {year === "All" ? "All Years" : year}
+                </button>
+              ))}
+            </AnimateOnScroll>
+          )}
 
           <div className="grid grid-cols-1 gap-6 sm:grid-cols-2 md:grid-cols-3 lg:grid-cols-4">
             {filteredImages.map((image, i) => (
@@ -53,10 +89,20 @@ export default function GalleryGrid({ images }) {
                     />
                     <div className="absolute inset-0 bg-gradient-to-t from-black/70 to-transparent opacity-0 transition-opacity duration-300 group-hover:opacity-100">
                       <div className="absolute bottom-0 w-full p-4 text-white">
-                        <span className="mb-1 inline-block rounded-full bg-[#4db6ac]/80 px-2 py-0.5 text-xs font-medium">
-                          {image.category}
-                        </span>
+                        <div className="flex items-center gap-2 mb-1">
+                          <span className="inline-block rounded-full bg-[#4db6ac]/80 px-2 py-0.5 text-xs font-medium">
+                            {image.category}
+                          </span>
+                          {image.date && (
+                            <span className="inline-block rounded-full bg-black/40 px-2 py-0.5 text-xs font-medium">
+                              {getYear(image.date)}
+                            </span>
+                          )}
+                        </div>
                         <h3 className="text-lg font-medium">{image.alt}</h3>
+                        {image.location && (
+                          <p className="text-xs text-white/70 mt-0.5">{image.location}</p>
+                        )}
                       </div>
                     </div>
                   </div>
@@ -74,9 +120,12 @@ export default function GalleryGrid({ images }) {
                 </>
               ) : (
                 <>
-                  <p className="text-[#5a5a5a]">No images found for this category.</p>
-                  <Button className="mt-4 bg-[#4db6ac] text-white hover:bg-[#3d9d93]" onClick={() => setSelectedCategory("All")}>
-                    View All Images
+                  <p className="text-[#5a5a5a]">No images found for this filter.</p>
+                  <Button
+                    className="mt-4 bg-[#4db6ac] text-white hover:bg-[#3d9d93]"
+                    onClick={() => { setSelectedCategory("All"); setSelectedYear("All") }}
+                  >
+                    Clear Filters
                   </Button>
                 </>
               )}
@@ -85,6 +134,7 @@ export default function GalleryGrid({ images }) {
         </div>
       </section>
 
+      {/* Lightbox */}
       {selectedImage && (
         <div className="fixed inset-0 z-50 flex items-center justify-center bg-black/90 p-4">
           <div className="relative max-w-4xl w-full">

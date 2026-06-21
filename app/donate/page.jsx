@@ -21,7 +21,10 @@ import { prisma } from "@/lib/db"
 export default async function DonatePage({ searchParams }) {
   const params = await searchParams
   const projectId = params.project || null
-  const projectDetails = projectId ? await prisma.project.findUnique({ where: { id: projectId, active: true } }) : null
+  const [projects, projectDetails] = await Promise.all([
+    prisma.project.findMany({ where: { active: true }, orderBy: { createdAt: "desc" }, select: { id: true, title: true } }),
+    projectId ? prisma.project.findUnique({ where: { id: projectId, active: true } }) : Promise.resolve(null),
+  ])
 
   return (
     <div className="flex min-h-screen flex-col bg-[#faf6ed]">
@@ -52,7 +55,7 @@ export default async function DonatePage({ searchParams }) {
         </section>
 
         {/* Donation Form Section */}
-        <DonateForm initialProjectId={projectId} projectDetails={projectDetails} />
+        <DonateForm initialProjectId={projectId} projectDetails={projectDetails} projects={projects} />
 
         {/* Other Ways to Help */}
         <section className="py-16 bg-white">

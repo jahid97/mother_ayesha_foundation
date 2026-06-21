@@ -2,13 +2,13 @@
 
 import { useState } from "react"
 import { useRouter } from "next/navigation"
-import Image from "next/image"
-import { Heart, ChevronRight, Lock, User, Mail, Phone, MessageSquare } from "lucide-react"
+import { Heart, ChevronRight, Lock, User, Mail, Phone, MessageSquare, FolderKanban } from "lucide-react"
 
 const PRESET_AMOUNTS = [500, 1000, 2000, 5000, 10000]
 
-export default function DonateForm({ initialProjectId, projectDetails = null }) {
+export default function DonateForm({ initialProjectId, projectDetails = null, projects = [] }) {
   const router = useRouter()
+  const [selectedProjectId, setSelectedProjectId] = useState(initialProjectId || "")
   const [amount, setAmount] = useState("")
   const [customAmount, setCustomAmount] = useState("")
   const [info, setInfo] = useState({ firstName: "", lastName: "", email: "", phone: "", message: "" })
@@ -16,6 +16,7 @@ export default function DonateForm({ initialProjectId, projectDetails = null }) 
   const [error, setError] = useState("")
 
   const finalAmount = amount === "custom" ? customAmount : amount
+  const selectedProject = projects.find((p) => p.id === selectedProjectId) || projectDetails
 
   const handleInfoChange = (e) =>
     setInfo((prev) => ({ ...prev, [e.target.name]: e.target.value }))
@@ -41,7 +42,7 @@ export default function DonateForm({ initialProjectId, projectDetails = null }) 
           ...info,
           amount: parseFloat(finalAmount),
           paymentMethod: "aamarpay",
-          projectId: initialProjectId || null,
+          projectId: selectedProjectId || null,
           currency: "BDT",
         }),
       })
@@ -82,18 +83,31 @@ export default function DonateForm({ initialProjectId, projectDetails = null }) 
 
             <div className="p-8 space-y-7">
 
-              {/* Project badge */}
-              {projectDetails && (
-                <div className="flex items-center gap-3 p-3 rounded-xl bg-[#4db6ac]/10 border border-[#4db6ac]/20">
-                  {projectDetails.image && (
-                    <div className="relative w-12 h-12 rounded-lg overflow-hidden flex-shrink-0">
-                      <Image src={projectDetails.image} alt={projectDetails.title} fill className="object-cover" />
-                    </div>
-                  )}
-                  <div>
-                    <p className="text-[10px] text-[#4db6ac] font-bold uppercase tracking-widest">Donating to</p>
-                    <p className="font-semibold text-[#3d3d3d] text-sm">{projectDetails.title}</p>
+              {/* Project selector */}
+              {projects.length > 0 && (
+                <div>
+                  <p className="text-xs font-bold text-[#3d3d3d] uppercase tracking-widest mb-3 flex items-center gap-2">
+                    <FolderKanban className="w-3.5 h-3.5 text-[#4db6ac]" />
+                    Select Project
+                  </p>
+                  <div className="relative">
+                    <select
+                      value={selectedProjectId}
+                      onChange={(e) => setSelectedProjectId(e.target.value)}
+                      className="w-full border-2 border-gray-200 rounded-xl px-4 py-3 text-sm text-[#3d3d3d] bg-white focus:outline-none focus:border-[#4db6ac] appearance-none cursor-pointer"
+                    >
+                      <option value="">General Fund (no specific project)</option>
+                      {projects.map((p) => (
+                        <option key={p.id} value={p.id}>{p.title}</option>
+                      ))}
+                    </select>
+                    <ChevronRight className="absolute right-3 top-1/2 -translate-y-1/2 w-4 h-4 text-gray-400 rotate-90 pointer-events-none" />
                   </div>
+                  {selectedProjectId && (
+                    <p className="text-xs text-[#4db6ac] mt-1.5 font-medium">
+                      ✓ Donating to: {selectedProject?.title}
+                    </p>
+                  )}
                 </div>
               )}
 
@@ -202,7 +216,7 @@ export default function DonateForm({ initialProjectId, projectDetails = null }) 
                   <div className="bg-[#faf6ed] border border-[#4db6ac]/20 rounded-xl p-4 flex justify-between items-center">
                     <div>
                       <p className="text-xs text-[#5a5a5a]">Donating to</p>
-                      <p className="font-semibold text-[#3d3d3d] text-sm">{projectDetails?.title || "General Fund"}</p>
+                      <p className="font-semibold text-[#3d3d3d] text-sm">{selectedProject?.title || "General Fund"}</p>
                     </div>
                     <div className="text-right">
                       <p className="text-xs text-[#5a5a5a]">Total</p>

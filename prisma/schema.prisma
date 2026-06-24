@@ -119,6 +119,7 @@ model GalleryImage {
   category String
   location String
   date     String
+  label    String? @default("")
   featured Boolean @default(false)
 }
 

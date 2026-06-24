@@ -3,7 +3,7 @@
 import { useState } from "react"
 import Image from "next/image"
 import { Button } from "@/components/ui/button"
-import { X, Calendar } from "lucide-react"
+import { X, Calendar, Tag } from "lucide-react"
 import AnimateOnScroll from "@/components/animate-on-scroll"
 
 function getYear(dateStr) {
@@ -14,17 +14,20 @@ function getYear(dateStr) {
 
 export default function GalleryGrid({ images }) {
   const categories = ["All", ...Array.from(new Set(images.map((img) => img.category).filter(Boolean)))]
-  const years = ["All", ...Array.from(new Set(images.map((img) => getYear(img.date)).filter(Boolean))).sort((a, b) => b - a)]
+  const years      = ["All", ...Array.from(new Set(images.map((img) => getYear(img.date)).filter(Boolean))).sort((a, b) => b - a)]
+  const labels     = ["All", ...Array.from(new Set(images.map((img) => img.label).filter(Boolean)))]
 
   const [selectedCategory, setSelectedCategory] = useState("All")
-  const [selectedYear, setSelectedYear] = useState("All")
-  const [selectedImage, setSelectedImage] = useState(null)
+  const [selectedYear,     setSelectedYear]     = useState("All")
+  const [selectedLabel,    setSelectedLabel]    = useState("All")
+  const [selectedImage,    setSelectedImage]    = useState(null)
   const [selectedImageAlt, setSelectedImageAlt] = useState("")
 
   const filteredImages = images.filter((img) => {
     const categoryMatch = selectedCategory === "All" || img.category === selectedCategory
-    const yearMatch = selectedYear === "All" || getYear(img.date) === selectedYear
-    return categoryMatch && yearMatch
+    const yearMatch     = selectedYear     === "All" || getYear(img.date) === selectedYear
+    const labelMatch    = selectedLabel    === "All" || img.label === selectedLabel
+    return categoryMatch && yearMatch && labelMatch
   })
 
   return (
@@ -49,6 +52,28 @@ export default function GalleryGrid({ images }) {
               </Button>
             ))}
           </AnimateOnScroll>
+
+          {/* Label filter — only show if at least one image has a label */}
+          {labels.length > 1 && (
+            <AnimateOnScroll variant="up" className="mb-4 flex flex-wrap justify-center gap-2 items-center">
+              <span className="text-xs text-[#5a5a5a] font-medium flex items-center gap-1 mr-1">
+                <Tag className="w-3.5 h-3.5 text-[#4db6ac]" /> Label:
+              </span>
+              {labels.map((label) => (
+                <button
+                  key={label}
+                  onClick={() => setSelectedLabel(label)}
+                  className={`px-3 py-1 rounded-full text-sm font-medium border transition-all ${
+                    selectedLabel === label
+                      ? "bg-[#4db6ac] text-white border-[#4db6ac]"
+                      : "border-gray-300 text-[#5a5a5a] hover:border-[#4db6ac] hover:text-[#4db6ac]"
+                  }`}
+                >
+                  {label === "All" ? "All Labels" : label}
+                </button>
+              ))}
+            </AnimateOnScroll>
+          )}
 
           {/* Year filter — only show if at least one image has a date */}
           {years.length > 1 && (
@@ -89,10 +114,15 @@ export default function GalleryGrid({ images }) {
                     />
                     <div className="absolute inset-0 bg-gradient-to-t from-black/70 to-transparent opacity-0 transition-opacity duration-300 group-hover:opacity-100">
                       <div className="absolute bottom-0 w-full p-4 text-white">
-                        <div className="flex items-center gap-2 mb-1">
+                        <div className="flex items-center gap-1.5 mb-1 flex-wrap">
                           <span className="inline-block rounded-full bg-[#4db6ac]/80 px-2 py-0.5 text-xs font-medium">
                             {image.category}
                           </span>
+                          {image.label && (
+                            <span className="inline-block rounded-full bg-purple-500/80 px-2 py-0.5 text-xs font-medium flex items-center gap-1">
+                              <Tag className="w-2.5 h-2.5" />{image.label}
+                            </span>
+                          )}
                           {image.date && (
                             <span className="inline-block rounded-full bg-black/40 px-2 py-0.5 text-xs font-medium">
                               {getYear(image.date)}
@@ -123,7 +153,7 @@ export default function GalleryGrid({ images }) {
                   <p className="text-[#5a5a5a]">No images found for this filter.</p>
                   <Button
                     className="mt-4 bg-[#4db6ac] text-white hover:bg-[#3d9d93]"
-                    onClick={() => { setSelectedCategory("All"); setSelectedYear("All") }}
+                    onClick={() => { setSelectedCategory("All"); setSelectedYear("All"); setSelectedLabel("All") }}
                   >
                     Clear Filters
                   </Button>

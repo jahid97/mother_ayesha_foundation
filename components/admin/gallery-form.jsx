@@ -10,6 +10,7 @@ const defaultImage = {
   category: "",
   location: "",
   date: "",
+  label: "",
   featured: false,
 }
 
@@ -17,7 +18,8 @@ export default function GalleryForm({ image }) {
   const router = useRouter()
   const [form, setForm] = useState(image ? {
     ...image,
-    date: image.date ? image.date.split("T")[0] : "",
+    date:  image.date  ? image.date.split("T")[0] : "",
+    label: image.label || "",
   } : defaultImage)
   const [loading, setLoading] = useState(false)
   const [error, setError] = useState("")
@@ -94,6 +96,10 @@ export default function GalleryForm({ image }) {
             <label className="block text-sm font-medium text-gray-700 mb-1">Location</label>
             <input value={form.location} onChange={set("location")} className="w-full border border-gray-300 rounded-lg px-3 py-2 text-sm focus:outline-none focus:ring-2 focus:ring-[#4db6ac]" />
           </div>
+        </div>
+        <div>
+          <label className="block text-sm font-medium text-gray-700 mb-1">Label <span className="text-gray-400 font-normal">(optional — groups photos together)</span></label>
+          <input value={form.label} onChange={set("label")} placeholder="e.g. Healthcare Camp 2024, Eid Celebration" className="w-full border border-gray-300 rounded-lg px-3 py-2 text-sm focus:outline-none focus:ring-2 focus:ring-[#4db6ac]" />
         </div>
         <div>
           <label className="block text-sm font-medium text-gray-700 mb-1">Date</label>

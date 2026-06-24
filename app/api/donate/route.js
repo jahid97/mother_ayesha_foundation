@@ -40,7 +40,7 @@ export async function POST(request) {
       // AamarPay requires alphanumeric tran_id only — no hyphens or special chars
       const transactionId = `DON${donation.id}X${Date.now()}`
 
-      const params = new URLSearchParams({
+      const payload = {
         store_id:      storeId,
         signature_key: signatureKey,
         tran_id:       transactionId,
@@ -61,14 +61,14 @@ export async function POST(request) {
         opt_a:         String(donation.id),
         opt_b:         paymentMethod || "aamarpay",
         type:          "json",
-      })
+      }
 
       let aamarData
       try {
-        const aamarRes = await fetch(`${baseUrl}/index.php`, {
+        const aamarRes = await fetch(`${baseUrl}/jsonpost.php`, {
           method: "POST",
-          headers: { "Content-Type": "application/x-www-form-urlencoded" },
-          body: params.toString(),
+          headers: { "Content-Type": "application/json" },
+          body: JSON.stringify(payload),
         })
         aamarData = await aamarRes.json()
       } catch (fetchErr) {

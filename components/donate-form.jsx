@@ -4,7 +4,7 @@ import { useState } from "react"
 import { useRouter } from "next/navigation"
 import { Heart, ChevronRight, Lock, User, Mail, Phone, MessageSquare, FolderKanban } from "lucide-react"
 
-const PRESET_AMOUNTS = [500, 1000, 2000, 5000, 10000]
+const PRESETS = [500, 1000, 2000, 5000, 10000]
 
 export default function DonateForm({ initialProjectId, projectDetails = null, projects = [] }) {
   const router = useRouter()
@@ -64,8 +64,6 @@ export default function DonateForm({ initialProjectId, projectDetails = null, pr
     <section className="py-16">
       <div className="container mx-auto px-4">
         <div className="max-w-xl mx-auto">
-
-          {/* Card */}
           <div className="bg-white rounded-2xl shadow-xl overflow-hidden">
 
             {/* Header */}
@@ -117,7 +115,7 @@ export default function DonateForm({ initialProjectId, projectDetails = null, pr
                 <div>
                   <p className="text-xs font-bold text-[#3d3d3d] uppercase tracking-widest mb-3">Select Amount (BDT)</p>
                   <div className="grid grid-cols-3 sm:grid-cols-5 gap-2 mb-3">
-                    {PRESET_AMOUNTS.map((a) => (
+                    {PRESETS.map((a) => (
                       <button
                         key={a}
                         type="button"
@@ -133,7 +131,7 @@ export default function DonateForm({ initialProjectId, projectDetails = null, pr
                     ))}
                   </div>
                   <div className={`flex items-center border-2 rounded-xl px-4 py-3 transition-all ${amount === "custom" ? "border-[#4db6ac] bg-[#4db6ac]/5" : "border-gray-200"}`}>
-                    <span className="text-[#4db6ac] font-bold mr-2">৳</span>
+                    <span className="text-[#4db6ac] font-bold mr-2 text-sm">৳</span>
                     <input
                       type="number"
                       min="1"
@@ -192,7 +190,7 @@ export default function DonateForm({ initialProjectId, projectDetails = null, pr
                         type="tel"
                         value={info.phone}
                         onChange={handleInfoChange}
-                        placeholder="Phone number (01XXXXXXXXX)"
+                        placeholder="Phone number"
                         required
                         className="w-full border border-gray-200 rounded-xl pl-9 pr-3 py-3 text-sm focus:outline-none focus:ring-2 focus:ring-[#4db6ac] focus:border-transparent"
                       />
@@ -220,7 +218,9 @@ export default function DonateForm({ initialProjectId, projectDetails = null, pr
                     </div>
                     <div className="text-right">
                       <p className="text-xs text-[#5a5a5a]">Total</p>
-                      <p className="text-2xl font-bold text-[#4db6ac]">৳{parseFloat(finalAmount).toLocaleString()}</p>
+                      <p className="text-2xl font-bold text-[#4db6ac]">
+                        ৳{parseFloat(finalAmount).toLocaleString()}
+                      </p>
                     </div>
                   </div>
                 )}

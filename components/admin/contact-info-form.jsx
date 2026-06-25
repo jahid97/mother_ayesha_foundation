@@ -19,7 +19,6 @@ export default function ContactInfoForm({ initial }) {
     social_facebook:      initial.social?.facebook  || "",
     social_twitter:       initial.social?.twitter   || "",
     social_instagram:     initial.social?.instagram || "",
-    social_linkedin:      initial.social?.linkedin  || "",
     social_youtube:       initial.social?.youtube   || "",
   })
   const [saving, setSaving] = useState(false)
@@ -108,7 +107,6 @@ export default function ContactInfoForm({ initial }) {
             { key: "social_facebook",  label: "Facebook" },
             { key: "social_twitter",   label: "Twitter / X" },
             { key: "social_instagram", label: "Instagram" },
-            { key: "social_linkedin",  label: "LinkedIn" },
             { key: "social_youtube",   label: "YouTube" },
           ].map(({ key, label }) => (
             <div key={key} className="space-y-1.5">

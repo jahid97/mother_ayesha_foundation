@@ -11,9 +11,6 @@ const defaultProject = {
   location: "",
   startDate: "",
   endDate: "",
-  targetAmount: "",
-  raisedAmount: "",
-  progress: "",
   image: "",
   description: "",
   longDescription: "",
@@ -27,9 +24,6 @@ export default function ProjectForm({ project }) {
     ...project,
     startDate: project.startDate ? project.startDate.split("T")[0] : "",
     endDate: project.endDate ? project.endDate.split("T")[0] : "",
-    targetAmount: project.targetAmount ?? "",
-    raisedAmount: project.raisedAmount ?? "",
-    progress: project.progress ?? "",
   } : defaultProject)
   const [loading, setLoading] = useState(false)
   const [error, setError] = useState("")
@@ -46,9 +40,6 @@ export default function ProjectForm({ project }) {
 
     const payload = {
       ...form,
-      targetAmount: form.targetAmount ? String(form.targetAmount) : "",
-      raisedAmount: form.raisedAmount ? String(form.raisedAmount) : "",
-      progress: form.progress ? parseInt(form.progress) : 0,
       startDate: form.startDate || "",
       endDate: form.endDate || "",
     }
@@ -129,18 +120,6 @@ export default function ProjectForm({ project }) {
         <div>
           <label className="block text-sm font-medium text-gray-700 mb-1">End Date</label>
           <input type="date" value={form.endDate} onChange={set("endDate")} className="w-full border border-gray-300 rounded-lg px-3 py-2 text-sm focus:outline-none focus:ring-2 focus:ring-[#4db6ac]" />
-        </div>
-        <div>
-          <label className="block text-sm font-medium text-gray-700 mb-1">Target Amount (£)</label>
-          <input type="number" value={form.targetAmount} onChange={set("targetAmount")} className="w-full border border-gray-300 rounded-lg px-3 py-2 text-sm focus:outline-none focus:ring-2 focus:ring-[#4db6ac]" />
-        </div>
-        <div>
-          <label className="block text-sm font-medium text-gray-700 mb-1">Raised Amount (£)</label>
-          <input type="number" value={form.raisedAmount} onChange={set("raisedAmount")} className="w-full border border-gray-300 rounded-lg px-3 py-2 text-sm focus:outline-none focus:ring-2 focus:ring-[#4db6ac]" />
-        </div>
-        <div>
-          <label className="block text-sm font-medium text-gray-700 mb-1">Progress (%)</label>
-          <input type="number" min="0" max="100" value={form.progress} onChange={set("progress")} className="w-full border border-gray-300 rounded-lg px-3 py-2 text-sm focus:outline-none focus:ring-2 focus:ring-[#4db6ac]" />
         </div>
         <div className="flex items-center gap-2 pt-5">
           <input type="checkbox" id="featured" checked={form.featured} onChange={set("featured")} className="h-4 w-4 accent-[#4db6ac]" />

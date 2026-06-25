@@ -5,7 +5,7 @@ import { Badge } from "@/components/ui/badge"
 import { Tabs, TabsContent, TabsList, TabsTrigger } from "@/components/ui/tabs"
 import SiteHeader from "@/components/site-header"
 import Footer from "@/components/footer"
-import { Calendar, MapPin, Target, ArrowLeft, CheckCircle2, AlertCircle, Trophy } from "lucide-react"
+import { Calendar, MapPin, ArrowLeft, CheckCircle2, AlertCircle, Trophy } from "lucide-react"
 import { prisma } from "@/lib/db"
 import { notFound } from "next/navigation"
 
@@ -77,12 +77,6 @@ export default async function ProjectDetailPage({ params }) {
                     <Calendar className="h-5 w-5 mr-3 text-[#4db6ac]" />
                     <span>{project.startDate} — {project.endDate}</span>
                   </div>
-                  {project.targetAmount && (
-                    <div className="flex items-center">
-                      <Target className="h-5 w-5 mr-3 text-[#4db6ac]" />
-                      <span>Target: {project.targetAmount}</span>
-                    </div>
-                  )}
                 </div>
 
                 <div className="flex flex-col sm:flex-row gap-4">
@@ -98,29 +92,6 @@ export default async function ProjectDetailPage({ params }) {
             </div>
           </div>
         </section>
-
-        {/* Progress bar */}
-        {project.progress != null && (
-          <section className="py-8 bg-white border-b border-gray-100">
-            <div className="container mx-auto px-4">
-              <div className="flex flex-col md:flex-row justify-between items-center gap-4">
-                <div>
-                  <span className="text-[#5a5a5a]">Raised so far: </span>
-                  <span className="text-2xl font-bold text-[#3d3d3d]">{project.raisedAmount}</span>
-                  {project.targetAmount && <span className="text-[#5a5a5a] ml-2">of {project.targetAmount} goal</span>}
-                </div>
-                <div className="w-full md:w-1/2">
-                  <div className="w-full bg-gray-200 rounded-full h-4">
-                    <div className="bg-[#4db6ac] h-4 rounded-full transition-all" style={{ width: `${Math.min(project.progress, 100)}%` }} />
-                  </div>
-                  <div className="flex justify-end text-sm mt-1">
-                    <span className="text-[#4db6ac] font-medium">{project.progress}% Complete</span>
-                  </div>
-                </div>
-              </div>
-            </div>
-          </section>
-        )}
 
         {/* Tabs */}
         <section className="py-16">

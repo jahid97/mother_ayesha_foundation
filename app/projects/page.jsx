@@ -15,7 +15,7 @@ import { Card, CardContent, CardFooter } from "@/components/ui/card"
 import { Badge } from "@/components/ui/badge"
 import SiteHeader from "@/components/site-header"
 import Footer from "@/components/footer"
-import { Calendar, MapPin, Target } from "lucide-react"
+import { Calendar, MapPin } from "lucide-react"
 import { prisma } from "@/lib/db"
 import PageHero from "@/components/page-hero"
 
@@ -104,27 +104,9 @@ export default async function ProjectsPage() {
                               {project.startDate} - {project.endDate}
                             </span>
                           </div>
-                          <div className="flex items-center">
-                            <Target className="h-4 w-4 mr-2 text-[#4db6ac]" />
-                            <span>Target: {project.targetAmount}</span>
-                          </div>
                         </div>
 
                         <p className="text-[#5a5a5a] mb-4">{project.description}</p>
-
-                        {/* Progress Bar */}
-                        <div className="mb-2">
-                          <div className="w-full bg-gray-200 rounded-full h-2.5">
-                            <div
-                              className="bg-[#4db6ac] h-2.5 rounded-full"
-                              style={{ width: `${project.progress}%` }}
-                            ></div>
-                          </div>
-                        </div>
-                        <div className="flex justify-between text-sm mb-4">
-                          <span className="text-[#4db6ac] font-medium">{project.raisedAmount} raised</span>
-                          <span className="text-[#5a5a5a]">{project.progress}%</span>
-                        </div>
                       </CardContent>
 
                       {/* Action buttons */}

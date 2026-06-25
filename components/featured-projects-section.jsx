@@ -3,7 +3,7 @@ import Link from "next/link"
 import { Button } from "@/components/ui/button"
 import { Card, CardContent, CardFooter } from "@/components/ui/card"
 import { Badge } from "@/components/ui/badge"
-import { Calendar, MapPin, Target } from "lucide-react"
+import { Calendar, MapPin } from "lucide-react"
 import AnimateOnScroll from "@/components/animate-on-scroll"
 
 export default function FeaturedProjectsSection({ projects = [] }) {
@@ -51,19 +51,6 @@ export default function FeaturedProjectsSection({ projects = [] }) {
                       <Calendar className="h-4 w-4 mr-2 text-[#4db6ac]" />
                       <span>{project.startDate} - {project.endDate}</span>
                     </div>
-                    <div className="flex items-center">
-                      <Target className="h-4 w-4 mr-2 text-[#4db6ac]" />
-                      <span>Target: {project.targetAmount}</span>
-                    </div>
-                  </div>
-                  <div className="mb-2">
-                    <div className="w-full bg-gray-200 rounded-full h-2.5">
-                      <div className="bg-[#4db6ac] h-2.5 rounded-full" style={{ width: `${project.progress}%` }}></div>
-                    </div>
-                  </div>
-                  <div className="flex justify-between text-sm mb-4">
-                    <span className="text-[#4db6ac] font-medium">{project.raisedAmount} raised</span>
-                    <span className="text-[#5a5a5a]">{project.progress}%</span>
                   </div>
                 </CardContent>
                 <CardFooter className="px-6 pb-6 pt-0 flex justify-between">

@@ -34,7 +34,9 @@ export async function POST(request) {
     const storeId      = process.env.AAMARPAY_STORE_ID
     const signatureKey = process.env.AAMARPAY_SIGNATURE_KEY
     const baseUrl      = process.env.AAMARPAY_BASE_URL || "https://sandbox.aamarpay.com"
-    const siteUrl      = process.env.NEXT_PUBLIC_SITE_URL || "http://localhost:3000"
+    const rawSiteUrl   = process.env.NEXT_PUBLIC_SITE_URL || "http://localhost:3000"
+    // Ensure the URL always has a protocol so AamarPay doesn't treat it as a relative path
+    const siteUrl      = rawSiteUrl.startsWith("http") ? rawSiteUrl : `https://${rawSiteUrl}`
 
     if (storeId && signatureKey) {
       // AamarPay requires alphanumeric tran_id only — no hyphens or special chars

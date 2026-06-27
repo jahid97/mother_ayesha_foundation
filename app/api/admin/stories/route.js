@@ -17,6 +17,8 @@ export async function POST(request) {
 
   try {
     const data = await request.json()
+    // excerpt is required — fall back to description if the form omitted it
+    if (!data.excerpt) data.excerpt = data.description || ""
     const story = await prisma.story.create({ data })
     revalidatePath("/stories")
     return NextResponse.json(story, { status: 201 })

@@ -8,6 +8,7 @@ const defaultPost = {
   slug: "",
   title: "",
   description: "",
+  excerpt: "",
   content: "",
   author: "",
   date: "",

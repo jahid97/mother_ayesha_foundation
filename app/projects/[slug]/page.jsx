@@ -137,7 +137,7 @@ export default async function ProjectDetailPage({ params }) {
                   {project.goals?.length > 0 && (
                     <div>
                       <h3 className="text-lg font-bold text-[#3d3d3d] mb-4 flex items-center gap-2">
-                        <Target className="h-5 w-5 text-[#4db6ac]" /> Goals
+                        <CheckCircle2 className="h-5 w-5 text-[#4db6ac]" /> Goals
                       </h3>
                       <ul className="space-y-3">
                         {project.goals.map((g, i) => (

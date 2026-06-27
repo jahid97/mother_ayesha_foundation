@@ -7,14 +7,8 @@ export default async function AdminProjects() {
     orderBy: { createdAt: "desc" },
     include: {
       _count: { select: { donations: true } },
-      donations: {
-        where: { status: "completed" },
-        select: { amount: true },
-      },
     },
   })
-
-  const fmt = (n) => (n ?? 0).toLocaleString("en-GB", { minimumFractionDigits: 2 })
 
   return (
     <div>
@@ -37,16 +31,12 @@ export default async function AdminProjects() {
               <th className="text-left px-5 py-3 text-gray-600 font-medium">Category</th>
               <th className="text-left px-5 py-3 text-gray-600 font-medium">Status</th>
               <th className="text-left px-5 py-3 text-gray-600 font-medium">Visible</th>
-              <th className="text-left px-5 py-3 text-gray-600 font-medium">Progress</th>
-              <th className="text-left px-5 py-3 text-gray-600 font-medium">Raised</th>
               <th className="text-left px-5 py-3 text-gray-600 font-medium">Donations</th>
               <th className="px-5 py-3"></th>
             </tr>
           </thead>
           <tbody className="divide-y divide-gray-100">
-            {projects.map((p) => {
-              const raised = p.donations.reduce((s, d) => s + (d.amount ?? 0), 0)
-              return (
+            {projects.map((p) => (
                 <tr key={p.id} className="hover:bg-gray-50">
                   <td className="px-5 py-3 font-medium text-gray-800">{p.title}</td>
                   <td className="px-5 py-3 text-gray-500">{p.category}</td>
@@ -67,15 +57,6 @@ export default async function AdminProjects() {
                     </span>
                   </td>
                   <td className="px-5 py-3">
-                    <div className="flex items-center gap-2">
-                      <div className="w-16 bg-gray-100 rounded-full h-1.5">
-                        <div className="bg-[#4db6ac] h-1.5 rounded-full" style={{ width: `${Math.min(p.progress ?? 0, 100)}%` }} />
-                      </div>
-                      <span className="text-gray-500 text-xs">{p.progress ?? 0}%</span>
-                    </div>
-                  </td>
-                  <td className="px-5 py-3 font-medium text-[#4db6ac]">£{fmt(raised)}</td>
-                  <td className="px-5 py-3">
                     <Link
                       href={`/admin/projects/${p.id}/donations`}
                       className="inline-flex items-center gap-1.5 text-xs text-gray-500 hover:text-[#4db6ac] transition-colors"
@@ -90,8 +71,7 @@ export default async function AdminProjects() {
                     </Link>
                   </td>
                 </tr>
-              )
-            })}
+            ))}
             {projects.length === 0 && (
               <tr>
                 <td colSpan={7} className="px-5 py-8 text-center text-gray-400">No projects yet</td>

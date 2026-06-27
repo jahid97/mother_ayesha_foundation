@@ -63,9 +63,9 @@ model Project {
   location        String
   startDate       String
   endDate         String
-  targetAmount    String
-  raisedAmount    String
-  progress        Int
+  targetAmount    String   @default("")
+  raisedAmount    String   @default("")
+  progress        Int      @default(0)
   image           String?
   description     String   @db.Text
   longDescription String?  @db.Text

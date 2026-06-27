@@ -20,7 +20,8 @@ export async function PUT(request, { params }) {
 
   const { id } = await params
   try {
-    const { id: _id, createdAt, updatedAt, ...data } = await request.json()
+    const { id: _id, createdAt, updatedAt, description, ...data } = await request.json()
+    if (!data.excerpt) data.excerpt = description || ""
     const story = await prisma.story.update({ where: { id: parseInt(id) }, data })
     revalidatePath("/stories")
     revalidatePath(`/stories/${story.slug}`)

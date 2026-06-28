@@ -30,24 +30,6 @@ export default async function StoryPage({ params }) {
     notFound()
   }
 
-  // Sample content for the story if not provided
-  const storyContent =
-    story.content ||
-    `
-    <p>
-      ${story.excerpt}
-    </p>
-    <p>
-      At Mother Ayesha Foundation, we believe in the power of stories to inspire change and build connections. This story exemplifies our mission to provide care, education, and hope to orphaned children around the world.
-    </p>
-    <p>
-      Through our programs and your generous support, we continue to make a difference in the lives of children who need it most. Every child deserves the opportunity to thrive, and together, we can create lasting change.
-    </p>
-    <p>
-      Thank you for being part of our journey and for taking the time to learn about the impact of our work. Your support makes stories like this possible.
-    </p>
-  `
-
   return (
     <>
       <SiteHeader />
@@ -103,6 +85,26 @@ export default async function StoryPage({ params }) {
                   <p className="text-xl text-[#5a5a5a] font-medium mb-6 leading-relaxed">{story.excerpt}</p>
                   <BlockContent content={story.content} />
                 </div>
+
+                {/* Photo gallery */}
+                {story.images?.length > 0 && (
+                  <div className="mt-10">
+                    <h3 className="text-lg font-bold text-gray-800 mb-4">Photos</h3>
+                    <div className="grid grid-cols-2 md:grid-cols-3 gap-3">
+                      {story.images.map((src, i) => (
+                        <div key={i} className="relative aspect-square rounded-lg overflow-hidden shadow-sm hover:shadow-md transition-shadow">
+                          <Image
+                            src={src}
+                            alt={`${story.title} photo ${i + 1}`}
+                            fill
+                            sizes="(max-width: 768px) 50vw, 33vw"
+                            className="object-cover hover:scale-105 transition-transform duration-300"
+                          />
+                        </div>
+                      ))}
+                    </div>
+                  </div>
+                )}
 
                 {/* Author information and back link */}
                 <div className="mt-12 pt-6 border-t border-gray-100">

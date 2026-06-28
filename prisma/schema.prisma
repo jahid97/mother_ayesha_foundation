@@ -107,6 +107,7 @@ model Story {
   date      String
   category  String
   image     String?
+  images    String[]
   featured  Boolean  @default(true)
   createdAt DateTime @default(now())
   updatedAt DateTime @updatedAt

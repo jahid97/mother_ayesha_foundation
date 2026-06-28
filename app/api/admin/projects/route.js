@@ -2,6 +2,7 @@ import { NextResponse } from "next/server"
 import { revalidatePath } from "next/cache"
 import { prisma } from "@/lib/db"
 import { requireAdmin } from "@/lib/admin-auth"
+import { randomBytes } from "crypto"
 
 export async function GET() {
   const { error } = await requireAdmin()
@@ -17,6 +18,7 @@ export async function POST(request) {
 
   try {
     const data = await request.json()
+    if (!data.id) data.id = randomBytes(8).toString("hex")
     const project = await prisma.project.create({ data })
     revalidatePath("/projects")
     return NextResponse.json(project, { status: 201 })

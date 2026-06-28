@@ -4,6 +4,7 @@ import { useState } from "react"
 import { useRouter } from "next/navigation"
 import ImageUpload from "@/components/admin/image-upload"
 import { Plus, X, Loader2, Upload } from "lucide-react"
+import BlockEditor from "@/components/admin/block-editor"
 
 function slugify(str) {
   return str.toLowerCase().trim().replace(/[^a-z0-9]+/g, "-").replace(/^-|-$/g, "")
@@ -166,8 +167,11 @@ export default function ActivityForm({ activity, projects = [] }) {
 
       {/* Content */}
       <div>
-        <label className="block text-sm font-medium text-gray-700 mb-1">Content *</label>
-        <textarea required value={form.content} onChange={set("content")} rows={10} placeholder="Full activity description / update…" className="w-full border border-gray-300 rounded-lg px-3 py-2 text-sm focus:outline-none focus:ring-2 focus:ring-[#4db6ac]" />
+        <label className="block text-sm font-medium text-gray-700 mb-2">Content *</label>
+        <BlockEditor
+          value={form.content}
+          onChange={(val) => setForm((p) => ({ ...p, content: val }))}
+        />
       </div>
 
       {/* Extra photos */}

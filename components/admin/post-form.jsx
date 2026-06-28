@@ -3,6 +3,7 @@
 import { useState } from "react"
 import { useRouter } from "next/navigation"
 import ImageUpload from "@/components/admin/image-upload"
+import BlockEditor from "@/components/admin/block-editor"
 
 const defaultPost = {
   slug: "",
@@ -117,8 +118,11 @@ export default function PostForm({ post, type = "blog" }) {
           <textarea value={form.description ?? form.excerpt ?? ""} onChange={set(type === "blog" ? "description" : "excerpt")} rows={2} className="w-full border border-gray-300 rounded-lg px-3 py-2 text-sm focus:outline-none focus:ring-2 focus:ring-[#4db6ac]" />
         </div>
         <div className="col-span-2">
-          <label className="block text-sm font-medium text-gray-700 mb-1">Content</label>
-          <textarea value={form.content} onChange={set("content")} rows={12} className="w-full border border-gray-300 rounded-lg px-3 py-2 text-sm font-mono focus:outline-none focus:ring-2 focus:ring-[#4db6ac]" placeholder="Write your content here..." />
+          <label className="block text-sm font-medium text-gray-700 mb-2">Content</label>
+          <BlockEditor
+            value={form.content}
+            onChange={(val) => setForm((p) => ({ ...p, content: val }))}
+          />
         </div>
         <div className="flex items-center gap-2">
           <input type="checkbox" id="featured" checked={form.featured} onChange={set("featured")} className="h-4 w-4 accent-[#4db6ac]" />

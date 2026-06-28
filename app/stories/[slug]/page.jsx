@@ -6,6 +6,7 @@ import SiteHeader from "@/components/site-header"
 import Footer from "@/components/footer"
 import { Badge } from "@/components/ui/badge"
 import { ChevronLeft, Calendar, User, Tag } from "lucide-react"
+import BlockContent from "@/components/block-content"
 
 export async function generateMetadata({ params }) {
   const { slug } = await params
@@ -98,9 +99,9 @@ export default async function StoryPage({ params }) {
                 </div>
 
                 {/* Story body content */}
-                <div className="prose prose-lg max-w-none prose-headings:text-gray-800 prose-p:text-gray-600 prose-a:text-primary">
-                  <p className="text-xl text-gray-700 font-medium mb-6 leading-relaxed">{story.excerpt}</p>
-                  <div dangerouslySetInnerHTML={{ __html: storyContent }} />
+                <div>
+                  <p className="text-xl text-[#5a5a5a] font-medium mb-6 leading-relaxed">{story.excerpt}</p>
+                  <BlockContent content={story.content} />
                 </div>
 
                 {/* Author information and back link */}

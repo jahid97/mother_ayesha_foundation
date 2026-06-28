@@ -6,6 +6,7 @@ import Footer from "@/components/footer"
 import { Badge } from "@/components/ui/badge"
 import { prisma } from "@/lib/db"
 import { notFound } from "next/navigation"
+import BlockContent from "@/components/block-content"
 
 export const revalidate = 3600
 
@@ -77,10 +78,7 @@ export default async function BlogPostPage({ params }) {
             <p className="text-xl text-[#5a5a5a] font-medium mb-8 leading-relaxed">{post.description}</p>
 
             {/* Content */}
-            <div
-              className="prose prose-lg max-w-none prose-headings:text-[#3d3d3d] prose-p:text-[#5a5a5a] prose-a:text-[#4db6ac] prose-strong:text-[#3d3d3d]"
-              dangerouslySetInnerHTML={{ __html: post.content }}
-            />
+            <BlockContent content={post.content} />
 
             {/* Author card */}
             <div className="mt-12 pt-8 border-t border-gray-200 flex items-center gap-4">

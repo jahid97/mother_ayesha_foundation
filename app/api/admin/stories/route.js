@@ -18,6 +18,7 @@ export async function POST(request) {
   try {
     const { description, ...data } = await request.json()
     if (!data.excerpt) data.excerpt = description || ""
+    if (data.date === null) data.date = ""
     const story = await prisma.story.create({ data })
     revalidatePath("/stories")
     return NextResponse.json(story, { status: 201 })

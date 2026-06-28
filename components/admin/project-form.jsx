@@ -3,11 +3,12 @@
 import { useState } from "react"
 import { useRouter } from "next/navigation"
 import ImageUpload from "@/components/admin/image-upload"
+import BlockEditor from "@/components/admin/block-editor"
 
 const defaultProject = {
   title: "",
   category: "",
-  status: "active",
+  status: "Ongoing",
   location: "",
   startDate: "",
   endDate: "",
@@ -95,9 +96,9 @@ export default function ProjectForm({ project }) {
         <div>
           <label className="block text-sm font-medium text-gray-700 mb-1">Status</label>
           <select value={form.status} onChange={set("status")} className="w-full border border-gray-300 rounded-lg px-3 py-2 text-sm focus:outline-none focus:ring-2 focus:ring-[#4db6ac]">
-            <option value="active">Active</option>
-            <option value="completed">Completed</option>
-            <option value="upcoming">Upcoming</option>
+            <option value="Ongoing">Ongoing</option>
+            <option value="Completed">Completed</option>
+            <option value="Upcoming">Upcoming</option>
           </select>
         </div>
         <div>
@@ -134,8 +135,11 @@ export default function ProjectForm({ project }) {
           <textarea value={form.description} onChange={set("description")} rows={3} className="w-full border border-gray-300 rounded-lg px-3 py-2 text-sm focus:outline-none focus:ring-2 focus:ring-[#4db6ac]" />
         </div>
         <div className="col-span-2">
-          <label className="block text-sm font-medium text-gray-700 mb-1">Long Description</label>
-          <textarea value={form.longDescription} onChange={set("longDescription")} rows={6} className="w-full border border-gray-300 rounded-lg px-3 py-2 text-sm focus:outline-none focus:ring-2 focus:ring-[#4db6ac]" />
+          <label className="block text-sm font-medium text-gray-700 mb-2">Long Description</label>
+          <BlockEditor
+            value={form.longDescription}
+            onChange={(val) => setForm((p) => ({ ...p, longDescription: val }))}
+          />
         </div>
       </div>
 

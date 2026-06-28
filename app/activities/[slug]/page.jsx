@@ -5,6 +5,7 @@ import { Button } from "@/components/ui/button"
 import SiteHeader from "@/components/site-header"
 import Footer from "@/components/footer"
 import { Calendar, Tag, ArrowLeft, FolderKanban } from "lucide-react"
+import BlockContent from "@/components/block-content"
 import { prisma } from "@/lib/db"
 import { notFound } from "next/navigation"
 
@@ -87,10 +88,8 @@ export default async function ActivityDetailPage({ params }) {
           <div className="container mx-auto px-4">
             <div className="max-w-3xl mx-auto">
               {/* Main content */}
-              <div className="bg-white rounded-xl shadow-sm p-8 mb-10 prose prose-lg max-w-none">
-                {activity.content.split("\n").map((para, i) =>
-                  para.trim() ? <p key={i} className="text-[#5a5a5a] leading-relaxed mb-4">{para}</p> : null
-                )}
+              <div className="bg-white rounded-xl shadow-sm p-8 mb-10">
+                <BlockContent content={activity.content} />
               </div>
 
               {/* Photo gallery */}

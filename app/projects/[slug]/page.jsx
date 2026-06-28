@@ -6,6 +6,7 @@ import { Tabs, TabsContent, TabsList, TabsTrigger } from "@/components/ui/tabs"
 import SiteHeader from "@/components/site-header"
 import Footer from "@/components/footer"
 import { Calendar, MapPin, ArrowLeft, CheckCircle2, AlertCircle, Trophy } from "lucide-react"
+import BlockContent from "@/components/block-content"
 import { prisma } from "@/lib/db"
 import { notFound } from "next/navigation"
 
@@ -106,9 +107,7 @@ export default async function ProjectDetailPage({ params }) {
               {/* About */}
               <TabsContent value="about" className="bg-white p-6 rounded-lg shadow-sm">
                 <h2 className="text-2xl font-bold text-[#3d3d3d] mb-4">About This Project</h2>
-                <p className="text-[#5a5a5a] leading-relaxed mb-8">
-                  {project.longDescription || project.description}
-                </p>
+                <BlockContent content={project.longDescription || project.description} />
 
                 {project.challenges?.length > 0 && (
                   <>

@@ -3,12 +3,13 @@ import AnimateOnScroll from "@/components/animate-on-scroll"
 import { prisma } from "@/lib/db"
 
 const PAGE_KEYS = {
-  projects: "heroBackground_projects",
-  blog:     "heroBackground_blog",
-  gallery:  "heroBackground_gallery",
-  contact:  "heroBackground_contact",
-  stories:  "heroBackground_stories",
-  about:    "heroBackground_about",
+  projects:   "heroBackground_projects",
+  activities: "heroBackground_activities",
+  blog:       "heroBackground_blog",
+  gallery:    "heroBackground_gallery",
+  contact:    "heroBackground_contact",
+  stories:    "heroBackground_stories",
+  about:      "heroBackground_about",
 }
 
 export default async function PageHero({ title, description, badge, page }) {

@@ -4,12 +4,13 @@ import { useState } from "react"
 import ImageUpload from "@/components/admin/image-upload"
 
 const PAGES = [
-  { key: "heroBackground_projects", label: "Projects Page" },
-  { key: "heroBackground_blog",     label: "Blog Page" },
-  { key: "heroBackground_gallery",  label: "Gallery Page" },
-  { key: "heroBackground_contact",  label: "Contact Page" },
-  { key: "heroBackground_stories",  label: "Stories Page" },
-  { key: "heroBackground_about",    label: "About Us Page" },
+  { key: "heroBackground_projects",   label: "Projects Page" },
+  { key: "heroBackground_activities", label: "Activities Page" },
+  { key: "heroBackground_blog",       label: "Blog Page" },
+  { key: "heroBackground_gallery",    label: "Gallery Page" },
+  { key: "heroBackground_contact",    label: "Contact Page" },
+  { key: "heroBackground_stories",    label: "Stories Page" },
+  { key: "heroBackground_about",      label: "About Us Page" },
 ]
 
 export default function PageHeroBackgroundsForm({ settings }) {

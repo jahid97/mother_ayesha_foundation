@@ -35,7 +35,7 @@ const VENTURES = [
   { name: "FiberLoop",        dir: "fiberloop",   icon: Shirt,           cluster: "agri",   tag: "Natural-fibre care",   blurb: "Banana and water-hyacinth fibre become affordable, biodegradable sanitary pads and textiles." },
   { name: "LeadSafe",         dir: "leadsafe",    icon: ShieldCheck,     cluster: "lead",   tag: "Lead detection",       blurb: "Low-cost screening and trusted testing to find and remove lead from turmeric, cookware and toys." },
   { name: "ShaktiLoop",       dir: "shaktiloop",  icon: BatteryCharging, cluster: "lead",   tag: "Battery recycling",    blurb: "Safe, formal recycling of e-rickshaw lead-acid batteries — closing a major source of lead poisoning." },
-  { name: "FarmHalal",        dir: "farmhalal",   icon: Landmark,        cluster: "agri",   tag: "Interest-free finance", blurb: "Riba-free farm finance and inputs for landless and smallholder households.", external: "https://farmhalal.vercel.app" },
+  { name: "FarmHalal",        dir: "farmhalal",   icon: Landmark,        cluster: "agri",   tag: "Interest-free finance", blurb: "Riba-free farm finance and inputs for landless and smallholder households." },
   { name: "FosholHub",        dir: "fosholhub",   icon: ShoppingBasket,  cluster: "agri",   tag: "Farmer marketplace",   blurb: "Aggregation and direct-to-buyer marketplace so farmers keep more of the price and lose less to spoilage." },
   { name: "MycoGrow",         dir: "mycogrow",    icon: Sprout,          cluster: "agri",   tag: "Mushroom livelihoods", blurb: "Spawn, training and finance for mushroom growers — a fast, high-protein income for women and youth." },
   { name: "Hyacraft",         dir: "hyacraft",    icon: Palette,         cluster: "agri",   tag: "Hyacinth handicraft",  blurb: "An invasive weed becomes an export handicraft sector employing rural women." },
@@ -51,7 +51,7 @@ const PILLARS = [
 ]
 
 function ventureHref(v) {
-  return v.external || `/social-business/${v.dir}/index.html`
+  return v.external || `/social-business/${v.dir}`
 }
 
 export default function SocialBusinessPage() {

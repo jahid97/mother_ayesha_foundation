@@ -74,6 +74,7 @@ export default async function VenturePage({ params }) {
           badge={c.label.toUpperCase()}
           title={`${v.emoji}  ${v.name}`}
           description={v.headline}
+          bg="https://rl3kyn14rkmjz9kb.public.blob.vercel-storage.com/site/ayesha-hero-calm-1782741721653.png"
         />
 
         {/* Back link */}

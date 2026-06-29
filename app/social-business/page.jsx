@@ -65,6 +65,7 @@ export default function SocialBusinessPage() {
           badge="OUR INITIATIVES"
           title="Entrepreneurship & Social Business"
           description="Through HelperChain — the Foundation's social-business studio — we turn waste, weeds and untapped talent into self-sustaining livelihoods across Bangladesh."
+          bg="https://rl3kyn14rkmjz9kb.public.blob.vercel-storage.com/site/ayesha-hero-calm-1782741721653.png"
         />
 
         {/* ─── What is HelperChain ─── */}

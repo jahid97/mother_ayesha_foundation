@@ -39,7 +39,7 @@ const VENTURES = [
   { name: "FosholHub",        dir: "fosholhub",   icon: ShoppingBasket,  cluster: "agri",   tag: "Farmer marketplace",   blurb: "Aggregation and direct-to-buyer marketplace so farmers keep more of the price and lose less to spoilage." },
   { name: "MycoGrow",         dir: "mycogrow",    icon: Sprout,          cluster: "agri",   tag: "Mushroom livelihoods", blurb: "Spawn, training and finance for mushroom growers — a fast, high-protein income for women and youth." },
   { name: "Hyacraft",         dir: "hyacraft",    icon: Palette,         cluster: "agri",   tag: "Hyacinth handicraft",  blurb: "An invasive weed becomes an export handicraft sector employing rural women." },
-  { name: "Shetu",            dir: "shetu",       icon: HeartHandshake,  cluster: "health", tag: "Mental-health companion", blurb: "A warm, private AI companion plus trained listeners — bridging a vast untreated mental-health gap." },
+  { name: "AI Psychologist",  dir: "shetu",       icon: HeartHandshake,  cluster: "health", tag: "Mental-health companion", blurb: "A warm, private AI companion plus trained listeners — bridging a vast untreated mental-health gap." },
   { name: "Nirog",            dir: "nirog",       icon: Stethoscope,     cluster: "health", tag: "Community health",     blurb: "Community health workers managing non-communicable diseases at the doorstep, at a few dollars a year." },
   { name: "Kinara",           dir: "kinara",      icon: LifeBuoy,        cluster: "good",   tag: "Drowning prevention",  blurb: "Community crèches that keep toddlers safe — drowning is the number-one killer of 1–4-year-olds." },
 ]

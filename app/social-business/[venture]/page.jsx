@@ -102,6 +102,55 @@ export default async function VenturePage({ params }) {
           </div>
         </section>
 
+        {/* KPI stats bar */}
+        {v.stats && v.stats.length > 0 && (
+          <section className="pb-6">
+            <div className="container mx-auto px-4 max-w-4xl">
+              <div className="grid grid-cols-2 md:grid-cols-3 gap-4">
+                {v.stats.map((s, i) => (
+                  <AnimateOnScroll key={i} variant="up" delay={i * 60}>
+                    <div className="bg-white rounded-lg border border-[#e3ddcd] p-5 text-center shadow-sm h-full">
+                      <div className="text-2xl font-bold text-[#4db6ac]" dangerouslySetInnerHTML={{ __html: s.num }} />
+                      <div className="text-xs text-[#5a5a5a] mt-1 leading-snug" dangerouslySetInnerHTML={{ __html: s.label }} />
+                    </div>
+                  </AnimateOnScroll>
+                ))}
+              </div>
+            </div>
+          </section>
+        )}
+
+        {/* Problem · Solution · Model */}
+        {(v.problem || v.solution || v.model) && (
+          <section className="py-14 bg-white">
+            <div className="container mx-auto px-4 max-w-3xl space-y-9">
+              {v.problem && (
+                <AnimateOnScroll variant="up">
+                  <div className="text-[11px] font-bold uppercase tracking-wide text-[#c0392b] mb-1.5">The problem</div>
+                  <h3 className="text-xl font-bold text-[#3d3d3d] mb-2.5">{v.problem.head}</h3>
+                  <p className="text-[#444] leading-[1.75]" dangerouslySetInnerHTML={{ __html: v.problem.body }} />
+                </AnimateOnScroll>
+              )}
+              {v.solution && (
+                <AnimateOnScroll variant="up">
+                  <div className="text-[11px] font-bold uppercase tracking-wide text-[#4db6ac] mb-1.5">Our solution</div>
+                  <h3 className="text-xl font-bold text-[#3d3d3d] mb-2.5">{v.solution.head}</h3>
+                  <p className="text-[#444] leading-[1.75]" dangerouslySetInnerHTML={{ __html: v.solution.body }} />
+                </AnimateOnScroll>
+              )}
+              {v.model && (
+                <AnimateOnScroll variant="up">
+                  <div className="border-l-4 border-[#4db6ac] pl-5 bg-[#fcfbf7] py-4 rounded-r-lg">
+                    <div className="text-[11px] font-bold uppercase tracking-wide text-[#b9770e] mb-1.5">The model</div>
+                    <h3 className="text-xl font-bold text-[#3d3d3d] mb-2.5">{v.model.head}</h3>
+                    <p className="text-[#444] leading-[1.75]" dangerouslySetInnerHTML={{ __html: v.model.body }} />
+                  </div>
+                </AnimateOnScroll>
+              )}
+            </div>
+          </section>
+        )}
+
         {/* Research & evidence */}
         <section className="py-16 bg-white">
           <div className="container mx-auto px-4 max-w-3xl">

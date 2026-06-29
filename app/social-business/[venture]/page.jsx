@@ -64,6 +64,12 @@ export default async function VenturePage({ params }) {
     { e: "📦", t: "Guaranteed buy-back", d: "We commit to purchase the output at a fair, pre-agreed price — so there is always a market. The operator just produces; we guarantee the offtake. This is what removes the fear of failure." },
     { e: "♻️", t: "Surplus recycles", d: "A thin margin funds the next operator — so help compounds and the network grows stronger with every person it lifts." },
   ]
+  const g = v.biz?.gate || ""
+  const gate = /Ready/.test(g) ? { text: "text-[#0e7a45]", bg: "bg-[#e8f5e9]", border: "border-[#0e7a45]" }
+    : /payer/.test(g) ? { text: "text-[#b9770e]", bg: "bg-[#f8e8c6]", border: "border-[#e6a23c]" }
+    : /partner/.test(g) ? { text: "text-[#c0612b]", bg: "bg-[#fce8d8]", border: "border-[#c0612b]" }
+    : /funder/.test(g) ? { text: "text-[#2471a3]", bg: "bg-[#d1f0f6]", border: "border-[#3498db]" }
+    : { text: "text-[#3d3d3d]", bg: "bg-[#fcfbf7]", border: "border-[#4db6ac]" }
 
   return (
     <div className="flex flex-col min-h-screen bg-[#faf6ed]">
@@ -146,6 +152,57 @@ export default async function VenturePage({ params }) {
                     <div className="text-[11px] font-bold uppercase tracking-wide text-[#b9770e] mb-1.5">The model</div>
                     <h3 className="text-xl font-bold text-[#3d3d3d] mb-2.5">{v.model.head}</h3>
                     <p className="text-[#444] leading-[1.75]" dangerouslySetInnerHTML={{ __html: v.model.body }} />
+                  </div>
+                </AnimateOnScroll>
+              )}
+            </div>
+          </section>
+        )}
+
+        {/* Business model & economics — the investor layer */}
+        {v.biz && (
+          <section className="py-16 bg-[#faf6ed]">
+            <div className="container mx-auto px-4 max-w-3xl">
+              <AnimateOnScroll variant="up" className="text-center mb-8">
+                <span className="inline-block bg-[#4db6ac]/10 px-4 py-1 rounded-full text-[#4db6ac] font-medium text-sm mb-4">BUSINESS MODEL &amp; ECONOMICS</span>
+                <h2 className="text-3xl font-bold text-[#3d3d3d]">How it makes money — and what it needs to close</h2>
+              </AnimateOnScroll>
+
+              {v.biz.gate && (
+                <AnimateOnScroll variant="up">
+                  <div className={`rounded-xl p-5 mb-6 border-l-4 ${gate.bg} ${gate.border}`}>
+                    <div className={`font-bold text-lg mb-1 ${gate.text}`}>{v.biz.gate}</div>
+                    {v.biz.gateNote && <p className="text-sm text-[#444] leading-relaxed" dangerouslySetInnerHTML={{ __html: v.biz.gateNote.body }} />}
+                  </div>
+                </AnimateOnScroll>
+              )}
+
+              <div className="grid sm:grid-cols-2 gap-4 mb-6">
+                {[["Who pays", v.biz.whoPays], ["Revenue streams", v.biz.revenueStreams], ["The margin engine", v.biz.marginEngine], ["Why the payer pays", v.biz.whyPays]].map(([l, val]) => val && (
+                  <AnimateOnScroll key={l} variant="up">
+                    <div className="bg-white border border-[#e3ddcd] rounded-lg p-4 h-full">
+                      <div className="text-[11px] font-bold uppercase tracking-wide text-[#4db6ac] mb-1.5">{l}</div>
+                      <p className="text-sm text-[#3d3d3d] leading-snug" dangerouslySetInnerHTML={{ __html: val }} />
+                    </div>
+                  </AnimateOnScroll>
+                ))}
+              </div>
+
+              {v.biz.economics && (
+                <AnimateOnScroll variant="up">
+                  <div className="bg-white border border-[#e3ddcd] rounded-lg p-5 mb-5">
+                    <div className="text-[11px] font-bold uppercase tracking-wide text-[#b9770e] mb-1.5">The economics — illustrative, validate in pilots</div>
+                    <p className="text-[15px] font-semibold text-[#3d3d3d] mb-1.5" dangerouslySetInnerHTML={{ __html: v.biz.economics }} />
+                    {v.biz.economicsNote && <p className="text-sm text-[#5a5a5a] leading-relaxed" dangerouslySetInnerHTML={{ __html: v.biz.economicsNote.body }} />}
+                  </div>
+                </AnimateOnScroll>
+              )}
+
+              {v.biz.cheapestTest && (
+                <AnimateOnScroll variant="up">
+                  <div className="border-l-4 border-[#4db6ac] pl-5 py-1">
+                    <div className="text-[11px] font-bold uppercase tracking-wide text-[#4db6ac] mb-1">The cheapest decisive test</div>
+                    <p className="text-[#3d3d3d]">{v.biz.cheapestTest}</p>
                   </div>
                 </AnimateOnScroll>
               )}

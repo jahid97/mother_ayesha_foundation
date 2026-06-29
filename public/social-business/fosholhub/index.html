@@ -1,0 +1,209 @@
+<!doctype html>
+<html lang="en"><head>
+<meta charset="utf-8"><meta name="viewport" content="width=device-width, initial-scale=1">
+<title>FosholHub — a social business</title>
+<link rel="preconnect" href="https://fonts.googleapis.com"><link rel="preconnect" href="https://fonts.gstatic.com" crossorigin>
+<link href="https://fonts.googleapis.com/css2?family=Fraunces:opsz,wght@9..144,500;9..144,600;9..144,700&family=Inter:wght@400;500;600;700;800&display=swap" rel="stylesheet">
+<style>
+:root{--green:#0e4d2f;--green2:#15693f;--gold:#c8a13a;--ink:#12241b;--paper:#f8f6ef;--card:#fff;--muted:#5d6c61;--line:#e3ddcd;}
+*{box-sizing:border-box;margin:0;padding:0;}
+body{font-family:-apple-system,"Segoe UI",Helvetica,Arial,sans-serif;color:var(--ink);background:var(--paper);padding:0 16px 50px;}
+.wrap{max-width:760px;margin:0 auto;}
+.back{display:inline-block;margin-top:20px;color:var(--green2);font-size:13px;font-weight:700;text-decoration:none;}
+.back:hover{text-decoration:underline;}
+.hero{background:linear-gradient(140deg,#0c3f27,#0e4d2f 60%,#15693f);color:#fff;border-radius:18px;padding:32px 30px;margin-top:12px;position:relative;}
+.hero .seal{position:absolute;top:20px;right:22px;border:1.5px solid var(--gold);color:var(--gold);border-radius:999px;padding:4px 11px;font-size:10px;font-weight:800;letter-spacing:.08em;text-transform:uppercase;}
+.hero .ic{font-size:34px;}
+.hero h1{font-size:34px;font-weight:850;margin:4px 0 6px;}
+.hero h1 span{color:var(--gold);}
+.hero .tag{font-size:17px;color:#dfeee4;line-height:1.45;max-width:560px;}
+.hero .quote{font-size:13.5px;color:#cfe0d4;font-style:italic;margin-top:14px;border-left:3px solid var(--gold);padding-left:12px;line-height:1.5;}
+.sec{background:var(--card);border:1px solid var(--line);border-radius:14px;padding:22px 24px;margin-top:14px;}
+.k{color:var(--gold);font-weight:800;letter-spacing:.12em;text-transform:uppercase;font-size:11px;}
+.sec h2{color:var(--green);font-size:19px;margin:6px 0 10px;}
+.sec p{color:var(--ink);font-size:14px;line-height:1.6;margin:8px 0;}
+.sec p.m{color:var(--muted);}
+.sec b{color:var(--green2);}
+.stats{display:flex;gap:12px;flex-wrap:wrap;margin:12px 0 4px;}
+.stat{flex:1;min-width:150px;background:#fcfbf7;border:1px solid var(--line);border-radius:10px;padding:12px;}
+.stat b{display:block;font-size:23px;color:var(--green2);}
+.stat span{font-size:12px;color:var(--muted);line-height:1.35;display:block;margin-top:3px;}
+table{border-collapse:collapse;width:100%;font-size:13.5px;margin-top:10px;}
+td,th{border-bottom:1px solid var(--line);padding:8px 6px;text-align:left;}
+td:last-child,th:last-child{text-align:right;font-variant-numeric:tabular-nums;}
+th{color:var(--green);font-size:11px;text-transform:uppercase;letter-spacing:.05em;}
+.tot td{font-weight:800;color:var(--green2);border-top:2px solid var(--line);}
+.btn{display:inline-block;background:var(--green);color:#fff;font-weight:800;font-size:14px;padding:11px 18px;border-radius:10px;text-decoration:none;margin-top:8px;}
+.btn:hover{background:var(--green2);}
+.pledge{background:#faf7ee;border:1px solid var(--line);border-left:4px solid var(--gold);border-radius:8px;padding:11px 14px;color:#3c4a40;font-size:13px;line-height:1.55;margin-top:12px;}
+.foot{text-align:center;color:var(--muted);font-size:12px;margin-top:22px;line-height:1.6;}
+/* ===== elevated design layer ===== */
+:root{--display:'Fraunces',Georgia,'Times New Roman',serif;--sans:'Inter',-apple-system,"Segoe UI",Helvetica,Arial,sans-serif;--sh1:0 1px 2px rgba(18,36,27,.05);}
+html{scroll-behavior:smooth;}
+body{font-family:var(--sans);background:radial-gradient(1000px 520px at 50% -220px,#fffdf6 0%,var(--paper) 58%);-webkit-font-smoothing:antialiased;text-rendering:optimizeLegibility;}
+.hero h1,.sec h2{font-family:var(--display);letter-spacing:-.015em;}
+.hero{overflow:hidden;border:1px solid rgba(200,161,58,.22);box-shadow:0 22px 46px -22px rgba(10,58,35,.62);}
+.hero::before{content:"";position:absolute;inset:0;background:radial-gradient(430px 220px at 86% -14%,rgba(200,161,58,.22),transparent 70%);pointer-events:none;z-index:0;}
+.hero::after{content:"";position:absolute;left:26px;right:26px;top:0;height:3px;background:linear-gradient(90deg,transparent,var(--gold),transparent);opacity:.75;z-index:0;}
+.hero .ic,.hero h1,.hero .tag,.hero .quote{position:relative;z-index:1;}
+.hero .seal{z-index:2;}
+.hero h1{font-size:38px;}
+.sec{box-shadow:var(--sh1);transition:box-shadow .2s;}
+.sec:hover{box-shadow:0 12px 28px -18px rgba(14,77,47,.22);}
+.btn{box-shadow:0 8px 18px -9px rgba(14,77,47,.5);transition:transform .15s,box-shadow .15s,background .15s;}
+.btn:hover{transform:translateY(-2px);box-shadow:0 12px 24px -9px rgba(14,77,47,.55);}
+.seal{box-shadow:0 2px 12px -5px rgba(200,161,58,.5);}
+@media(max-width:560px){.hero h1{font-size:31px;}}
+</style></head><body><div class="wrap">
+<a class="back" href="/social-business/hub/index.html">← HelperChain · a family of social businesses</a>
+
+<div class="hero">
+  <div class="seal">Concept + model · the aggregation layer</div>
+  <div class="ic">📦</div>
+  <h1>Foshol<span>Hub</span></h1>
+  <div class="tag">A <b style="color:#fff;">farmer-aggregator + market-linkage hub</b>: aggregate
+    smallholder produce, supply inputs + advisory + embedded finance, and connect farmers <b style="color:#fff;">direct
+    to buyers</b> — so they keep more of the retail price and lose less to spoilage.</div>
+  <div class="quote">"The most competitive space in the portfolio — and the most useful: it's the
+    aggregation layer our own ventures (FeedLoop, MycoGrow, FarmHalal) can ride on."</div>
+</div>
+
+<div class="sec">
+  <div class="k">The problem</div>
+  <h2>The "missing middle" eats the farmer's margin</h2>
+  <p>Smallholders can produce but fail at aggregation, quality, finance and — fatally — a buyer. Middlemen
+    capture the spread and post-harvest losses pile up.</p>
+  <div class="stats">
+    <div class="stat"><b>27–45%</b><span>of the retail price the farmer keeps today</span></div>
+    <div class="stat"><b>~BDT 2M</b><span>produce (GMV) one hub moves per month</span></div>
+    <div class="stat"><b>~+38%</b><span>income uplift from aggregation (contract-farming evidence)</span></div>
+  </div>
+</div>
+
+<div class="sec">
+  <div class="k">The solution</div>
+  <h2>Collection hubs that link farm to buyer</h2>
+  <p>Local <b>lead-farmers / collection agents</b> run hubs that aggregate produce, sell <b>quality
+    inputs + advisory + embedded finance</b>, and connect farmers <b>direct to retailers, processors and
+    institutional kitchens</b>. The farmer produces; the hub solves grading, logistics, and demand.</p>
+</div>
+
+<style>
+.ce-flow2{display:block;width:min(700px,94vw);height:auto;margin:12px auto 16px;overflow:visible;}
+.fl-line{stroke-dasharray:24 18;animation:flline 1.05s linear infinite;}
+@keyframes flline{to{stroke-dashoffset:-42;}}
+.fl-node{transform-box:fill-box;transform-origin:center;animation:cepulse 2.8s ease-in-out infinite;}
+.fl-node circle{fill:#fff;stroke:url(#ceg);stroke-width:2.5;filter:drop-shadow(0 8px 16px rgba(10,58,35,.2));animation:celight 4.5s linear infinite;}
+.fl-back{stroke:#c8a13a;stroke-width:2;stroke-dasharray:5 6;opacity:.6;animation:flback 1.7s linear infinite;}
+@keyframes flback{to{stroke-dashoffset:42;}}
+.ce-emoji{font-size:27px;text-anchor:middle;dominant-baseline:central;}
+.ce-label{font-size:12.5px;font-weight:700;fill:#15402c;dominant-baseline:central;}
+.ce-c1{font-family:var(--display,'Fraunces',Georgia,serif);font-size:19px;fill:#15402c;text-anchor:middle;}
+.ce-c2{font-size:11.5px;fill:#8a7d63;font-weight:600;text-anchor:middle;}
+.ce-arrow{fill:#c8a13a;animation:cearrow 4.5s ease-in-out infinite;}
+@keyframes cearrow{0%,100%{opacity:.4;}50%{opacity:1;}}
+.ce-orb{filter:drop-shadow(0 0 5px rgba(200,161,58,.9));}
+@keyframes cepulse{0%,100%{transform:scale(1);}50%{transform:scale(1.08);}}
+@keyframes celight{0%,11%,100%{filter:drop-shadow(0 6px 14px rgba(10,58,35,.2));stroke-width:2.5;}5%{filter:drop-shadow(0 0 15px rgba(200,161,58,.95)) drop-shadow(0 6px 14px rgba(10,58,35,.2));stroke-width:4;}}
+</style>
+<div class="sec">
+  <div class="k">The value chain</div>
+  <h2>A chain — farm to market, fairly</h2>
+  <svg class="ce-flow2" viewBox="0 0 760 272" role="img" aria-label="Aggregation value chain, left to right, with a return.">
+    <defs><linearGradient id="ceg" x1="0" y1="0" x2="1" y2="1"><stop offset="0" stop-color="#15693f"/><stop offset=".5" stop-color="#c8a13a"/><stop offset="1" stop-color="#15693f"/></linearGradient>
+      <radialGradient id="cedot"><stop offset="0" stop-color="#fff7df"/><stop offset=".5" stop-color="#e8b85a"/><stop offset="1" stop-color="#c8a13a"/></radialGradient>
+      <radialGradient id="halo"><stop offset="0" stop-color="#ffe6a0" stop-opacity=".9"/><stop offset=".6" stop-color="#ffd97a" stop-opacity=".4"/><stop offset="1" stop-color="#ffd97a" stop-opacity="0"/></radialGradient>
+      <path id="flpath" d="M 92.0 160 L 668.0 160" fill="none"/></defs>
+    <line x1="92.0" y1="160" x2="668.0" y2="160" stroke="url(#ceg)" stroke-width="5" opacity=".22"/>
+    <line class="fl-line" x1="92.0" y1="160" x2="668.0" y2="160" stroke="url(#ceg)" stroke-width="5" stroke-linecap="round"/>
+    <path id="flb" class="fl-back" d="M 92.0 118.0 C 92.0 2.0 668.0 2.0 668.0 118.0" fill="none"/>
+    <text class="fl-backlabel" style="font-size:12px;font-weight:700;fill:#a9803e;"><textPath href="#flb" startOffset="50%" text-anchor="middle">↺ fair price brings more farmers</textPath></text>
+    <path class="ce-arrow" style="animation-delay:0.00s" d="M 182.0 154 L 195.0 160 L 182.0 166 Z"/>
+    <path class="ce-arrow" style="animation-delay:1.50s" d="M 374.0 154 L 387.0 160 L 374.0 166 Z"/>
+    <path class="ce-arrow" style="animation-delay:3.00s" d="M 566.0 154 L 579.0 160 L 566.0 166 Z"/>
+    <g class="fl-node" style="animation-delay:0.00s"><circle cx="92.0" cy="160" r="36" style="animation-delay:0.00s"/><text x="92.0" y="160" class="ce-emoji">👩‍🌾</text></g>
+    <text x="92.0" y="220" text-anchor="middle" class="ce-label">Farmers</text>
+    <g class="fl-node" style="animation-delay:0.28s"><circle cx="284.0" cy="160" r="36" style="animation-delay:1.50s"/><text x="284.0" y="160" class="ce-emoji">📦</text></g>
+    <text x="284.0" y="220" text-anchor="middle" class="ce-label">Aggregate</text>
+    <g class="fl-node" style="animation-delay:0.56s"><circle cx="476.0" cy="160" r="36" style="animation-delay:3.00s"/><text x="476.0" y="160" class="ce-emoji">🚚</text></g>
+    <text x="476.0" y="220" text-anchor="middle" class="ce-label">To market</text>
+    <g class="fl-node" style="animation-delay:0.84s"><circle cx="668.0" cy="160" r="36" style="animation-delay:4.50s"/><text x="668.0" y="160" class="ce-emoji">💵</text></g>
+    <text x="668.0" y="220" text-anchor="middle" class="ce-label">Fair price</text>
+    <circle r="2.20" fill="url(#cedot)" opacity="0.22" class="ce-orb"><animateMotion dur="4.5s" begin="-0.24s" repeatCount="indefinite"><mpath href="#flpath"/></animateMotion></circle>
+    <circle r="2.90" fill="url(#cedot)" opacity="0.29" class="ce-orb"><animateMotion dur="4.5s" begin="-0.18s" repeatCount="indefinite"><mpath href="#flpath"/></animateMotion></circle>
+    <circle r="3.60" fill="url(#cedot)" opacity="0.36" class="ce-orb"><animateMotion dur="4.5s" begin="-0.12s" repeatCount="indefinite"><mpath href="#flpath"/></animateMotion></circle>
+    <circle r="4.30" fill="url(#cedot)" opacity="0.43" class="ce-orb"><animateMotion dur="4.5s" begin="-0.06s" repeatCount="indefinite"><mpath href="#flpath"/></animateMotion></circle>
+    <circle r="23" fill="url(#halo)"><animateMotion dur="4.5s" repeatCount="indefinite"><mpath href="#flpath"/></animateMotion></circle>
+    <text font-size="30" text-anchor="middle" dominant-baseline="central" opacity="0">👩‍🌾<animateMotion dur="4.5s" repeatCount="indefinite"><mpath href="#flpath"/></animateMotion><animate attributeName="opacity" dur="4.5s" repeatCount="indefinite" calcMode="discrete" values="1;0;0" keyTimes="0;0.3333;1"/></text>
+    <text font-size="30" text-anchor="middle" dominant-baseline="central" opacity="0">📦<animateMotion dur="4.5s" repeatCount="indefinite"><mpath href="#flpath"/></animateMotion><animate attributeName="opacity" dur="4.5s" repeatCount="indefinite" calcMode="discrete" values="0;1;0;0" keyTimes="0;0.3333;0.6667;1"/></text>
+    <text font-size="30" text-anchor="middle" dominant-baseline="central" opacity="0">🚚<animateMotion dur="4.5s" repeatCount="indefinite"><mpath href="#flpath"/></animateMotion><animate attributeName="opacity" dur="4.5s" repeatCount="indefinite" calcMode="discrete" values="0;1;1" keyTimes="0;0.6667;1"/></text>
+  </svg>
+  <p class="m" style="text-align:center;max-width:580px;margin:0 auto;">Smallholders’ produce is aggregated, moved to market, and sold straight to buyers; the <b>fair price flows back to farmers</b>, cutting the middlemen — and brings more farmers in.</p>
+</div>
+
+<div class="sec">
+  <div class="k">The model</div>
+  <h2>A thin-margin volume business</h2>
+  <p>One hub aggregates from ~200 smallholders moving ~BDT 2,000,000 GMV/month:</p>
+  <table>
+    <tr><th>One hub / month</th><th>BDT</th></tr>
+    <tr><td>Commission / spread on GMV (~11%)</td><td>220,000</td></tr>
+    <tr><td>Input-sales margin (seed, fertiliser, crates)</td><td>40,000</td></tr>
+    <tr class="tot"><td>Gross before fixed cost</td><td>260,000</td></tr>
+  </table>
+  <div class="pledge"><b>Honest framing:</b> proven (iFarmer/WeGro) but <b>crowded</b> — a hub earns only
+    a few % of GMV and is <b>net-positive only above a throughput threshold</b>; below it, logistics +
+    cold-storage swamp the spread. Risk is <b>differentiation + thin margins</b>, not feasibility. Best as
+    the <b>aggregation layer for our own ventures.</b> <b>Upgrade:</b> a women-run <b>solar-drying
+    service</b> (S4S-style) recovers spoiling surplus as dried product and cuts the working-capital/spoilage
+    risk → net base +25k rises to ≈ <b>+57k/mo</b>. Closes on: both-sided commitment on one crop/corridor.</div>
+</div>
+
+<div class="sec">
+  <div class="k">Status</div>
+  <h2>Concept + research + model + deck</h2>
+  <p class="m">Shortlist #4 (the missing middle). Concept, research validation, a hub-level
+    unit-economics model, and a pitch deck — with the sober, crowded-market framing intact.</p>
+  <a class="btn" href="deck.pdf" target="_blank">Download the pitch deck (PDF) →</a>
+</div>
+
+<!--RESEARCH-START-->
+<style>
+.rk{font-size:11px;font-weight:800;color:var(--gold);text-transform:uppercase;letter-spacing:.08em;margin:16px 0 4px;}
+.rprose{font-size:14px;line-height:1.66;color:var(--ink);margin:0;}
+.rcw a{color:var(--gold);text-decoration:none;font-weight:800;font-size:9.5px;padding:0 1px;}
+.rcw a:hover{text-decoration:underline;}
+.cites{margin-top:16px;background:#fcfbf7;border:1px solid var(--line);border-radius:10px;padding:13px 15px;}
+.cites .ck{font-size:11px;font-weight:800;color:var(--gold);text-transform:uppercase;letter-spacing:.08em;margin-bottom:7px;}
+.cites ul{list-style:none;margin:0;padding:0;}
+.cites li{font-size:11.5px;color:var(--muted);line-height:1.5;margin-bottom:6px;}
+.cites li b{color:var(--green2);}
+.cites li a{color:var(--green2);font-weight:700;text-decoration:none;white-space:nowrap;}
+</style>
+<div class="sec">
+  <div class="k">Research &amp; evidence</div>
+  <h2>Bangladesh smallholders lose to middlemen and post-harvest waste; aggregation lifts income</h2>
+  <div class="rk">The situation in Bangladesh</div>
+  <p class="rprose">In Bangladesh, marginal and smallholder farmers make up roughly 83% of the farming community and work about half the cultivable land, yet most hold under 1.5 acres, leaving the sector deeply fragmented <sup class="rcw"><a href="https://thefinancialexpress.com.bd/views/analysis/fields-of-struggle-navigating-the-challenges-in-agriculture-sector" target="_blank" rel="noopener">6</a></sup>. Agriculture employs about 35–37% of the labor force but contributes only 11–12% of GDP, a gap that reflects how little value reaches the farm gate <sup class="rcw"><a href="https://www.trade.gov/country-commercial-guides/bangladesh-agriculture-sectors" target="_blank" rel="noopener">7</a></sup>. Layers of middlemen capture most of that value: in Dhaka District farmers receive under 50% of the consumer price for key vegetables (around 33% for tomato, 39% for cauliflower), while consumers pay two to three times the farm-gate price <sup class="rcw"><a href="https://www.researchgate.net/publication/329681916" target="_blank" rel="noopener">1</a></sup><sup class="rcw"><a href="https://thefinancialexpress.com.bd/trade/why-bangladeshs-farmers-lose-while-city-consumers-pay-more" target="_blank" rel="noopener">3</a></sup>. On top of this, post-harvest losses are severe, with vegetables losing about 25% and roughly one-third of all horticultural produce wasted for lack of storage, cold chain and transport <sup class="rcw"><a href="https://www.bssnews.net/news/216350" target="_blank" rel="noopener">2</a></sup>.</p>
+  <div class="rk">Our pitch</div>
+  <p class="rprose">FosholHub buys produce directly from smallholders, aggregates it, and sells to buyers, collapsing the intermediary chain that today drains farmer margins and inflates consumer prices <sup class="rcw"><a href="https://www.researchgate.net/publication/329681916" target="_blank" rel="noopener">1</a></sup><sup class="rcw"><a href="https://thefinancialexpress.com.bd/trade/why-bangladeshs-farmers-lose-while-city-consumers-pay-more" target="_blank" rel="noopener">3</a></sup>. Aggregation through producer-organization models has measurable income effects: survey evidence shows membership raising marketed surplus 25%, production value 18%, and total income 15% <sup class="rcw"><a href="https://www.sciencedirect.com/science/article/abs/pii/S0306919219306141" target="_blank" rel="noopener">4</a></sup>. Better market linkage also lifts farm-gate prices directly, with internet and price-information access shown to win farmers up to 5% higher prices <sup class="rcw"><a href="https://documents1.worldbank.org/curated/en/099053025063021993/pdf/P508004-f943a09b-c45f-4c93-b554-9dd1decd1e7c.pdf" target="_blank" rel="noopener">8</a></sup>, while shorter chains and faster offtake cut the post-harvest spoilage that erases a quarter of vegetable value <sup class="rcw"><a href="https://www.bssnews.net/news/216350" target="_blank" rel="noopener">2</a></sup>. Digital agri precedents in the region prove the model scales cheaply, with platforms reaching millions of farmers at well under a dollar each and benefit-cost ratios of 9–15 <sup class="rcw"><a href="https://documents1.worldbank.org/curated/en/099053025063021993/pdf/P508004-f943a09b-c45f-4c93-b554-9dd1decd1e7c.pdf" target="_blank" rel="noopener">9</a></sup>, and Bangladeshi players like iFarmer and AgroMukam already validate demand for input-and-buyer connectivity <sup class="rcw"><a href="https://bangladesh.un.org/en/223522-impact-digital-agriculture-smallholder-farmers-bangladesh" target="_blank" rel="noopener">5</a></sup>. FosholHub's wedge is owning the aggregation and offtake layer rather than only publishing prices, turning information advantage into guaranteed purchase and a fairer split for the farmer.</p>
+  <div class="cites">
+    <div class="ck">Sources (9)</div>
+    <ul>
+      <li><b>1.</b> Hossain, M. A. et al. (2018). Analysis of Farmer's Share in Consumer's Price for Selected Vegetables in Dhaka District. ResearchGate. <a href="https://www.researchgate.net/publication/329681916" target="_blank" rel="noopener">↗ link</a></li>
+      <li><b>2.</b> BSS (2024). Post-harvest losses major threat to food security. Bangladesh Sangbad Sangstha. <a href="https://www.bssnews.net/news/216350" target="_blank" rel="noopener">↗ link</a></li>
+      <li><b>3.</b> The Financial Express (2024). Why Bangladesh's farmers lose while city consumers pay more. <a href="https://thefinancialexpress.com.bd/trade/why-bangladeshs-farmers-lose-while-city-consumers-pay-more" target="_blank" rel="noopener">↗ link</a></li>
+      <li><b>4.</b> Bachke, M. E. (2019). Do farmers' organizations enhance the welfare of smallholders? Food Policy (Elsevier). <a href="https://www.sciencedirect.com/science/article/abs/pii/S0306919219306141" target="_blank" rel="noopener">↗ link</a></li>
+      <li><b>5.</b> UN in Bangladesh / UNCDF (2023). Impact of digital agriculture on smallholder farmers in Bangladesh. <a href="https://bangladesh.un.org/en/223522-impact-digital-agriculture-smallholder-farmers-bangladesh" target="_blank" rel="noopener">↗ link</a></li>
+      <li><b>6.</b> IFPRI / The Financial Express (2024). Fields of struggle: challenges in the agriculture sector. <a href="https://thefinancialexpress.com.bd/views/analysis/fields-of-struggle-navigating-the-challenges-in-agriculture-sector" target="_blank" rel="noopener">↗ link</a></li>
+      <li><b>7.</b> International Trade Administration (2024). Bangladesh — Agriculture Sectors. trade.gov. <a href="https://www.trade.gov/country-commercial-guides/bangladesh-agriculture-sectors" target="_blank" rel="noopener">↗ link</a></li>
+      <li><b>8.</b> Goyal, A. (2010). Information, Direct Access to Farmers, and Rural Market Performance in Central India. AEJ: Applied Economics. <a href="https://documents1.worldbank.org/curated/en/099053025063021993/pdf/P508004-f943a09b-c45f-4c93-b554-9dd1decd1e7c.pdf" target="_blank" rel="noopener">↗ link</a></li>
+      <li><b>9.</b> World Bank (2025). Digital Agriculture Roadmap Playbook 2025 (Ama Krushi, Odisha). <a href="https://documents1.worldbank.org/curated/en/099053025063021993/pdf/P508004-f943a09b-c45f-4c93-b554-9dd1decd1e7c.pdf" target="_blank" rel="noopener">↗ link</a></li>
+    </ul>
+  </div>
+</div>
+<!--RESEARCH-END-->
+
+<div class="foot">Part of the HelperChain family of social businesses — turn a national problem into a
+  local livelihood. · <a class="back" style="margin:0;" href="/social-business/hub/index.html">helperchain.vercel.app</a></div>
+</div></body></html>

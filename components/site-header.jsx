@@ -69,6 +69,7 @@ const navLinks = [
 const mobileLinks = [
   { href: "/",                   label: "Home" },
   { href: "/about-us",          label: "About" },
+  { href: "/social-business",   label: "Social Business" },
   { href: "/projects",          label: "Projects" },
   { href: "/activities",        label: "Activities" },
   { href: "/stories",           label: "Stories" },
@@ -251,6 +252,7 @@ export default function SiteHeader() {
                   <div className={cn("px-4 py-2.5 text-xs font-semibold uppercase tracking-wider", darkLabel)}>More</div>
                   <div className={cn("h-px", darkSep)} />
                   {[
+                    { href: "/social-business",   label: "Social Business" },
                     { href: "/stories",           label: "Stories" },
                     { href: "/blog",              label: "Blog" },
                     { href: "/board-of-members",  label: "Board of Members" },

@@ -108,10 +108,10 @@ const programs = [
     icon: Globe,
   },
   {
-    title: "Entrepreneurship Support",
-    sdg: "SDG 8",
+    title: "Entrepreneurship & Social Business Development",
+    sdg: "SDG 8 & 9",
     description:
-      "Micro-financing, mentorship, and network access for individuals with entrepreneurial ideas — particularly women and youth in rural areas. We believe that supporting one entrepreneur creates employment for many.",
+      "We incubate and grow social businesses — self-sustaining enterprises that reinvest their profits into their mission rather than distributing dividends. Alongside micro-financing, mentorship, and network access for women and youth entrepreneurs in rural areas, we build shared operator-networks and patient-capital models so that one venture creates employment and impact for many, and surpluses recycle into the next.",
     icon: TrendingUp,
   },
 ]

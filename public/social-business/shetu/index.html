@@ -1,0 +1,221 @@
+<!doctype html>
+<html lang="en"><head>
+<meta charset="utf-8"><meta name="viewport" content="width=device-width, initial-scale=1">
+<title>Shetu — a social business</title>
+<link rel="preconnect" href="https://fonts.googleapis.com"><link rel="preconnect" href="https://fonts.gstatic.com" crossorigin>
+<link href="https://fonts.googleapis.com/css2?family=Fraunces:opsz,wght@9..144,500;9..144,600;9..144,700&family=Inter:wght@400;500;600;700;800&display=swap" rel="stylesheet">
+<style>
+:root{--green:#0e4d2f;--green2:#15693f;--gold:#c8a13a;--ink:#12241b;--paper:#f8f6ef;--card:#fff;--muted:#5d6c61;--line:#e3ddcd;}
+*{box-sizing:border-box;margin:0;padding:0;}
+body{font-family:-apple-system,"Segoe UI",Helvetica,Arial,sans-serif;color:var(--ink);background:var(--paper);padding:0 16px 50px;}
+.wrap{max-width:760px;margin:0 auto;}
+.back{display:inline-block;margin-top:20px;color:var(--green2);font-size:13px;font-weight:700;text-decoration:none;}
+.back:hover{text-decoration:underline;}
+.hero{background:linear-gradient(140deg,#0c3f27,#0e4d2f 60%,#15693f);color:#fff;border-radius:18px;padding:32px 30px;margin-top:12px;position:relative;}
+.hero .seal{position:absolute;top:20px;right:22px;border:1.5px solid var(--gold);color:var(--gold);border-radius:999px;padding:4px 11px;font-size:10px;font-weight:800;letter-spacing:.08em;text-transform:uppercase;}
+.hero .ic{font-size:34px;}
+.hero h1{font-size:34px;font-weight:850;margin:4px 0 6px;}
+.hero h1 span{color:var(--gold);}
+.hero .tag{font-size:17px;color:#dfeee4;line-height:1.45;max-width:560px;}
+.hero .quote{font-size:13.5px;color:#cfe0d4;font-style:italic;margin-top:14px;border-left:3px solid var(--gold);padding-left:12px;line-height:1.5;}
+.sec{background:var(--card);border:1px solid var(--line);border-radius:14px;padding:22px 24px;margin-top:14px;}
+.k{color:var(--gold);font-weight:800;letter-spacing:.12em;text-transform:uppercase;font-size:11px;}
+.sec h2{color:var(--green);font-size:19px;margin:6px 0 10px;}
+.sec p{color:var(--ink);font-size:14px;line-height:1.6;margin:8px 0;}
+.sec p.m{color:var(--muted);}
+.sec b{color:var(--green2);}
+.stats{display:flex;gap:12px;flex-wrap:wrap;margin:12px 0 4px;}
+.stat{flex:1;min-width:150px;background:#fcfbf7;border:1px solid var(--line);border-radius:10px;padding:12px;}
+.stat b{display:block;font-size:23px;color:var(--green2);}
+.stat span{font-size:12px;color:var(--muted);line-height:1.35;display:block;margin-top:3px;}
+table{border-collapse:collapse;width:100%;font-size:13.5px;margin-top:10px;}
+td,th{border-bottom:1px solid var(--line);padding:8px 6px;text-align:left;}
+td:last-child,th:last-child{text-align:right;font-variant-numeric:tabular-nums;}
+th{color:var(--green);font-size:11px;text-transform:uppercase;letter-spacing:.05em;}
+.tot td{font-weight:800;color:var(--green2);border-top:2px solid var(--line);}
+.btn{display:inline-block;background:var(--green);color:#fff;font-weight:800;font-size:14px;padding:11px 18px;border-radius:10px;text-decoration:none;margin-top:8px;}
+.btn:hover{background:var(--green2);}
+.pledge{background:#faf7ee;border:1px solid var(--line);border-left:4px solid var(--gold);border-radius:8px;padding:11px 14px;color:#3c4a40;font-size:13px;line-height:1.55;margin-top:12px;}
+.foot{text-align:center;color:var(--muted);font-size:12px;margin-top:22px;line-height:1.6;}
+/* ===== elevated design layer ===== */
+:root{--display:'Fraunces',Georgia,'Times New Roman',serif;--sans:'Inter',-apple-system,"Segoe UI",Helvetica,Arial,sans-serif;--sh1:0 1px 2px rgba(18,36,27,.05);}
+html{scroll-behavior:smooth;}
+body{font-family:var(--sans);background:radial-gradient(1000px 520px at 50% -220px,#fffdf6 0%,var(--paper) 58%);-webkit-font-smoothing:antialiased;text-rendering:optimizeLegibility;}
+.hero h1,.sec h2{font-family:var(--display);letter-spacing:-.015em;}
+.hero{overflow:hidden;border:1px solid rgba(200,161,58,.22);box-shadow:0 22px 46px -22px rgba(10,58,35,.62);}
+.hero::before{content:"";position:absolute;inset:0;background:radial-gradient(430px 220px at 86% -14%,rgba(200,161,58,.22),transparent 70%);pointer-events:none;z-index:0;}
+.hero::after{content:"";position:absolute;left:26px;right:26px;top:0;height:3px;background:linear-gradient(90deg,transparent,var(--gold),transparent);opacity:.75;z-index:0;}
+.hero .ic,.hero h1,.hero .tag,.hero .quote{position:relative;z-index:1;}
+.hero .seal{z-index:2;}
+.hero h1{font-size:38px;}
+.sec{box-shadow:var(--sh1);transition:box-shadow .2s;}
+.sec:hover{box-shadow:0 12px 28px -18px rgba(14,77,47,.22);}
+.btn{box-shadow:0 8px 18px -9px rgba(14,77,47,.5);transition:transform .15s,box-shadow .15s,background .15s;}
+.btn:hover{transform:translateY(-2px);box-shadow:0 12px 24px -9px rgba(14,77,47,.55);}
+.seal{box-shadow:0 2px 12px -5px rgba(200,161,58,.5);}
+@media(max-width:560px){.hero h1{font-size:31px;}}
+</style></head><body><div class="wrap">
+<a class="back" href="/social-business/hub/index.html">← HelperChain · a family of social businesses</a>
+
+<div class="hero">
+  <div class="seal">✅ Live app · AI Psychologist</div>
+  <div class="ic">🌉</div>
+  <h1>Shetu</h1>
+  <div class="tag"><b style="color:#fff;">AI-triaged, lay-counsellor</b> mental-health support, supervised
+    by clinical psychologists — employers and institutions pay, and that funds a free tier for the poor.</div>
+  <div class="quote">"92% of Bangladeshis with a mental-health condition get no care. Shetu bridges the gap
+    with AI triage + trained lay counsellors — paid for by employers and NGOs, free for those who can't."</div>
+  <a href="https://philosopher-henna.vercel.app" target="_blank" rel="noopener" style="display:inline-flex;align-items:center;gap:9px;margin-top:24px;background:#c8a13a;color:#16130a;font-family:'Inter',sans-serif;font-weight:800;font-size:15px;text-decoration:none;padding:15px 30px;border-radius:999px;box-shadow:0 16px 34px -12px rgba(200,161,58,.65);">🪷 Try the live app — AI Psychologist →</a>
+  <div style="margin-top:12px;font-size:13px;color:rgba(255,255,255,.75);">The first product is shipped: a warm Adlerian therapy companion that remembers you · <b style="color:#fff;">philosopher-henna.vercel.app</b></div>
+</div>
+
+<div class="sec">
+  <div class="k">The problem</div>
+  <h2>A 92% treatment gap</h2>
+  <p>Mental-health need is enormous and almost entirely unmet — too few psychiatrists, too much stigma,
+    too little money. The care that works (brief talking therapy) doesn't need a psychiatrist for every
+    patient; it needs <b>task-shifting</b> done safely.</p>
+  <div class="stats">
+    <div class="stat"><b>92%</b><span>of people with a condition get no care</span></div>
+    <div class="stat"><b>24/7</b><span>AI first-contact — stigma-free, any hour</span></div>
+    <div class="stat"><b>Free tier</b><span>cross-subsidised by employers who pay</span></div>
+  </div>
+</div>
+
+<div class="sec">
+  <div class="k">The solution</div>
+  <h2>AI triage + trained lay counsellors</h2>
+  <p>AI handles 24/7 first contact, screening and <b>risk-flagging</b>; trained <b>lay counsellors</b>
+    deliver the brief talking therapy; a few clinical psychologists supervise many counsellors. Employers
+    and institutions buy it as an <b>EAP</b> (employee assistance) — and that revenue funds a
+    free/sliding-scale tier for the poor and rural.</p>
+  <p class="m">Most AI-transformed venture in the portfolio: the AI is what makes one supervisor + a lay
+    counsellor safely serve a whole workforce.</p>
+</div>
+
+<style>
+.ce-flow2{display:block;width:min(700px,94vw);height:auto;margin:12px auto 16px;overflow:visible;}
+.fl-line{stroke-dasharray:24 18;animation:flline 1.05s linear infinite;}
+@keyframes flline{to{stroke-dashoffset:-42;}}
+.fl-node{transform-box:fill-box;transform-origin:center;animation:cepulse 2.8s ease-in-out infinite;}
+.fl-node circle{fill:#fff;stroke:url(#ceg);stroke-width:2.5;filter:drop-shadow(0 8px 16px rgba(10,58,35,.2));animation:celight 4.5s linear infinite;}
+.fl-back{stroke:#c8a13a;stroke-width:2;stroke-dasharray:5 6;opacity:.6;animation:flback 1.7s linear infinite;}
+@keyframes flback{to{stroke-dashoffset:42;}}
+.ce-emoji{font-size:27px;text-anchor:middle;dominant-baseline:central;}
+.ce-label{font-size:12.5px;font-weight:700;fill:#15402c;dominant-baseline:central;}
+.ce-c1{font-family:var(--display,'Fraunces',Georgia,serif);font-size:19px;fill:#15402c;text-anchor:middle;}
+.ce-c2{font-size:11.5px;fill:#8a7d63;font-weight:600;text-anchor:middle;}
+.ce-arrow{fill:#c8a13a;animation:cearrow 4.5s ease-in-out infinite;}
+@keyframes cearrow{0%,100%{opacity:.4;}50%{opacity:1;}}
+.ce-orb{filter:drop-shadow(0 0 5px rgba(200,161,58,.9));}
+@keyframes cepulse{0%,100%{transform:scale(1);}50%{transform:scale(1.08);}}
+@keyframes celight{0%,11%,100%{filter:drop-shadow(0 6px 14px rgba(10,58,35,.2));stroke-width:2.5;}5%{filter:drop-shadow(0 0 15px rgba(200,161,58,.95)) drop-shadow(0 6px 14px rgba(10,58,35,.2));stroke-width:4;}}
+</style>
+<div class="sec">
+  <div class="k">The care pathway</div>
+  <h2>A pathway — from reaching out to growing</h2>
+  <svg class="ce-flow2" viewBox="0 0 760 272" role="img" aria-label="Mental-health care pathway, left to right, with a virtuous return.">
+    <defs><linearGradient id="ceg" x1="0" y1="0" x2="1" y2="1"><stop offset="0" stop-color="#15693f"/><stop offset=".5" stop-color="#c8a13a"/><stop offset="1" stop-color="#15693f"/></linearGradient>
+      <radialGradient id="cedot"><stop offset="0" stop-color="#fff7df"/><stop offset=".5" stop-color="#e8b85a"/><stop offset="1" stop-color="#c8a13a"/></radialGradient>
+      <radialGradient id="halo"><stop offset="0" stop-color="#ffe6a0" stop-opacity=".9"/><stop offset=".6" stop-color="#ffd97a" stop-opacity=".4"/><stop offset="1" stop-color="#ffd97a" stop-opacity="0"/></radialGradient>
+      <path id="flpath" d="M 92.0 160 L 668.0 160" fill="none"/></defs>
+    <line x1="92.0" y1="160" x2="668.0" y2="160" stroke="url(#ceg)" stroke-width="5" opacity=".22"/>
+    <line class="fl-line" x1="92.0" y1="160" x2="668.0" y2="160" stroke="url(#ceg)" stroke-width="5" stroke-linecap="round"/>
+    <path id="flb" class="fl-back" d="M 92.0 118.0 C 92.0 2.0 668.0 2.0 668.0 118.0" fill="none"/>
+    <text class="fl-backlabel" style="font-size:12px;font-weight:700;fill:#a9803e;"><textPath href="#flb" startOffset="50%" text-anchor="middle">↺ growth funds free care</textPath></text>
+    <path class="ce-arrow" style="animation-delay:0.00s" d="M 158.0 154 L 171.0 160 L 158.0 166 Z"/>
+    <path class="ce-arrow" style="animation-delay:1.13s" d="M 302.0 154 L 315.0 160 L 302.0 166 Z"/>
+    <path class="ce-arrow" style="animation-delay:2.25s" d="M 446.0 154 L 459.0 160 L 446.0 166 Z"/>
+    <path class="ce-arrow" style="animation-delay:3.38s" d="M 590.0 154 L 603.0 160 L 590.0 166 Z"/>
+    <g class="fl-node" style="animation-delay:0.00s"><circle cx="92.0" cy="160" r="36" style="animation-delay:0.00s"/><text x="92.0" y="160" class="ce-emoji">💬</text></g>
+    <text x="92.0" y="220" text-anchor="middle" class="ce-label">Reach out</text>
+    <g class="fl-node" style="animation-delay:0.28s"><circle cx="236.0" cy="160" r="36" style="animation-delay:1.13s"/><text x="236.0" y="160" class="ce-emoji">🤖</text></g>
+    <text x="236.0" y="220" text-anchor="middle" class="ce-label">AI triage</text>
+    <g class="fl-node" style="animation-delay:0.56s"><circle cx="380.0" cy="160" r="36" style="animation-delay:2.25s"/><text x="380.0" y="160" class="ce-emoji">🪷</text></g>
+    <text x="380.0" y="220" text-anchor="middle" class="ce-label">Companion</text>
+    <g class="fl-node" style="animation-delay:0.84s"><circle cx="524.0" cy="160" r="36" style="animation-delay:3.38s"/><text x="524.0" y="160" class="ce-emoji">🧑‍⚕️</text></g>
+    <text x="524.0" y="220" text-anchor="middle" class="ce-label">Counsellor</text>
+    <g class="fl-node" style="animation-delay:1.12s"><circle cx="668.0" cy="160" r="36" style="animation-delay:4.50s"/><text x="668.0" y="160" class="ce-emoji">🌱</text></g>
+    <text x="668.0" y="220" text-anchor="middle" class="ce-label">You grow</text>
+    <circle r="2.20" fill="url(#cedot)" opacity="0.22" class="ce-orb"><animateMotion dur="4.5s" begin="-0.24s" repeatCount="indefinite"><mpath href="#flpath"/></animateMotion></circle>
+    <circle r="2.90" fill="url(#cedot)" opacity="0.29" class="ce-orb"><animateMotion dur="4.5s" begin="-0.18s" repeatCount="indefinite"><mpath href="#flpath"/></animateMotion></circle>
+    <circle r="3.60" fill="url(#cedot)" opacity="0.36" class="ce-orb"><animateMotion dur="4.5s" begin="-0.12s" repeatCount="indefinite"><mpath href="#flpath"/></animateMotion></circle>
+    <circle r="4.30" fill="url(#cedot)" opacity="0.43" class="ce-orb"><animateMotion dur="4.5s" begin="-0.06s" repeatCount="indefinite"><mpath href="#flpath"/></animateMotion></circle>
+    <circle r="23" fill="url(#halo)"><animateMotion dur="4.5s" repeatCount="indefinite"><mpath href="#flpath"/></animateMotion></circle>
+    <text font-size="30" text-anchor="middle" dominant-baseline="central" opacity="0">💬<animateMotion dur="4.5s" repeatCount="indefinite"><mpath href="#flpath"/></animateMotion><animate attributeName="opacity" dur="4.5s" repeatCount="indefinite" calcMode="discrete" values="1;0;0" keyTimes="0;0.25;1"/></text>
+    <text font-size="30" text-anchor="middle" dominant-baseline="central" opacity="0">🤖<animateMotion dur="4.5s" repeatCount="indefinite"><mpath href="#flpath"/></animateMotion><animate attributeName="opacity" dur="4.5s" repeatCount="indefinite" calcMode="discrete" values="0;1;0;0" keyTimes="0;0.25;0.5;1"/></text>
+    <text font-size="30" text-anchor="middle" dominant-baseline="central" opacity="0">🪷<animateMotion dur="4.5s" repeatCount="indefinite"><mpath href="#flpath"/></animateMotion><animate attributeName="opacity" dur="4.5s" repeatCount="indefinite" calcMode="discrete" values="0;1;0;0" keyTimes="0;0.5;0.75;1"/></text>
+    <text font-size="30" text-anchor="middle" dominant-baseline="central" opacity="0">🧑‍⚕️<animateMotion dur="4.5s" repeatCount="indefinite"><mpath href="#flpath"/></animateMotion><animate attributeName="opacity" dur="4.5s" repeatCount="indefinite" calcMode="discrete" values="0;1;1" keyTimes="0;0.75;1"/></text>
+  </svg>
+  <p class="m" style="text-align:center;max-width:580px;margin:0 auto;">You reach out; AI triages 24/7; the Adlerian companion guides; harder cases reach a human counsellor; you grow — and that growth (where employers pay) <b>funds free care for those who can’t.</b></p>
+</div>
+
+<div class="sec">
+  <div class="k">The model</div>
+  <h2>AI-gated pod, sized honestly — free tier a funded line</h2>
+  <p>One "pod" = <b>1 AI-supported lay counsellor + shared clinical supervision.</b></p>
+  <table>
+    <tr><th>One pod / month</th><th>BDT</th></tr>
+    <tr><td>Lay-counsellor wage</td><td>25,000</td></tr>
+    <tr><td>Clinical supervisor (shared ~8:1)</td><td>~10,000</td></tr>
+    <tr><td>AI / platform</td><td>8,000</td></tr>
+    <tr><td>Overhead (ops, devices, admin)</td><td>15,000</td></tr>
+    <tr class="tot"><td>Total cost</td><td>~58,000</td></tr>
+  </table>
+  <div class="pledge"><b>Red-team correction:</b> a "free tier from spare capacity" is capacity-impossible
+    — the pod is already full at base case. <b>Redesign:</b> AI absorbs surges and resolves ~70% of
+    contacts, so the human counsellors are a <b>sized, bounded</b> resource and the free tier is a
+    <b>costed, funded line</b> (net ≈ <b>+30k/pod</b>, or ≈ <b>+42k</b> with a Living-Goods-style
+    <b>commission-CHW</b> channel that also diversifies off the single employer payer) — it no longer
+    breaks when utilisation rises.
+    Closes on: a deep employer book + a clinical <b>safety protocol</b>.</div>
+</div>
+
+<div class="sec">
+  <div class="k">Status</div>
+  <h2>✅ Live product — AI Psychologist shipped</h2>
+  <p class="m">No longer just a concept: the consumer product is <b>built and live</b> — <b>AI Psychologist</b>, a warm Adlerian (<i>Courage-to-be-Disliked</i>) therapy companion with voice, accounts, cross-session memory and crisis-safety. Backed by research validation (task-shifting efficacy + safety guardrails), a pod-level unit-economics model and a pitch deck. Next: paid conversion on the live app, a pilot employer EAP, and a vetted clinical safety/escalation protocol.</p>
+  <a class="btn" href="https://philosopher-henna.vercel.app" target="_blank" rel="noopener" style="background:var(--gold);color:#16130a;margin-right:8px;">🪷 Try the live app →</a>
+  <a class="btn" href="deck.pdf" target="_blank">Pitch deck (PDF) →</a>
+</div>
+
+<!--RESEARCH-START-->
+<style>
+.rk{font-size:11px;font-weight:800;color:var(--gold);text-transform:uppercase;letter-spacing:.08em;margin:16px 0 4px;}
+.rprose{font-size:14px;line-height:1.66;color:var(--ink);margin:0;}
+.rcw a{color:var(--gold);text-decoration:none;font-weight:800;font-size:9.5px;padding:0 1px;}
+.rcw a:hover{text-decoration:underline;}
+.cites{margin-top:16px;background:#fcfbf7;border:1px solid var(--line);border-radius:10px;padding:13px 15px;}
+.cites .ck{font-size:11px;font-weight:800;color:var(--gold);text-transform:uppercase;letter-spacing:.08em;margin-bottom:7px;}
+.cites ul{list-style:none;margin:0;padding:0;}
+.cites li{font-size:11.5px;color:var(--muted);line-height:1.5;margin-bottom:6px;}
+.cites li b{color:var(--green2);}
+.cites li a{color:var(--green2);font-weight:700;text-decoration:none;white-space:nowrap;}
+</style>
+<div class="sec">
+  <div class="k">Research &amp; evidence</div>
+  <h2>Bangladesh's vast mental-health treatment gap is addressable via supervised lay counsellors and digital triage</h2>
+  <div class="rk">The situation in Bangladesh</div>
+  <p class="rprose">Bangladesh faces a profound mental-health crisis hidden in plain sight: the National Mental Health Survey 2018-2019 found 18.7% of adults live with a mental disorder, yet 92.3% of them receive no treatment at all <sup class="rcw"><a href="https://www.who.int/bangladesh/news/detail/27-11-2019-minister-of-health-releases-first-findings-of-national-mental-health-survey" target="_blank" rel="noopener">1</a></sup>. The system simply cannot reach them, with roughly 0.1–0.2 psychiatrists per 100,000 people against the WHO benchmark of one per 100,000 <sup class="rcw"><a href="https://www.cambridge.org/core/journals/bjpsych-international/article/current-state-of-mental-healthcare-in-bangladesh-part-1-an-updated-country-profile/19B7DE453E1ED7B460CC25F29A4897A7" target="_blank" rel="noopener">2</a></sup>, leaving an impossibly thin specialist workforce for a population of 170 million. Stigma compounds the scarcity, remaining a dominant barrier that keeps people from ever seeking help <sup class="rcw"><a href="https://www.cambridge.org/core/journals/global-mental-health/article/mental-illness-stigma-in-bangladesh-findings-from-a-crosssectional-survey/03290B03AC48848918673DA1CB636FB9" target="_blank" rel="noopener">5</a></sup>. The cost of this neglect is not only human but economic, as depression and anxiety drain an estimated US$1 trillion from the global economy each year through lost productivity <sup class="rcw"><a href="https://www.who.int/news/item/02-09-2025-over-a-billion-people-living-with-mental-health-conditions-services-require-urgent-scale-up" target="_blank" rel="noopener">6</a></sup> — while every US$1 invested in scaled-up treatment returns US$4 in better health and output <sup class="rcw"><a href="https://www.thelancet.com/journals/lanpsy/article/PIIS2215-0366(16)30024-4/fulltext" target="_blank" rel="noopener">7</a></sup>.</p>
+  <div class="rk">Our pitch</div>
+  <p class="rprose">Shetu attacks the gap with task-shifting, an approach with strong trial evidence: Vikram Patel's MANAS trial in India <sup class="rcw"><a href="https://pmc.ncbi.nlm.nih.gov/articles/PMC4964905/" target="_blank" rel="noopener">3</a></sup> and Zimbabwe's Friendship Bench RCT <sup class="rcw"><a href="https://www.ncbi.nlm.nih.gov/pmc/articles/PMC4940904/" target="_blank" rel="noopener">8</a></sup> both showed that trained, supervised lay counsellors can effectively treat common mental disorders where specialists are scarce. Shetu's wedge is a live consumer app whose AI triages users and routes them to these lay counsellors, all overseen by clinical psychologists — pairing a digital front door, shown across 80 RCTs to reduce depression and anxiety symptoms in low- and middle-income countries <sup class="rcw"><a href="https://mental.jmir.org/2023/1/e43066" target="_blank" rel="noopener">4</a></sup>, with the human care that evidence says works. The private, app-based entry point is deliberately designed to bypass the stigma that stops face-to-face help-seeking <sup class="rcw"><a href="https://www.cambridge.org/core/journals/global-mental-health/article/mental-illness-stigma-in-bangladesh-findings-from-a-crosssectional-survey/03290B03AC48848918673DA1CB636FB9" target="_blank" rel="noopener">5</a></sup>, and an employer-funded tier underwrites access at scale. We are honest about the boundary: supervised lay-counselling and digital triage are well-evidenced, whereas fully autonomous AI therapy remains promising but unproven — early RCTs like Woebot show only short-term symptom reduction <sup class="rcw"><a href="https://mental.jmir.org/2017/2/e19" target="_blank" rel="noopener">9</a></sup> — so Shetu keeps AI as triage and support, not as a replacement for the human, supervised clinical core.</p>
+  <div class="cites">
+    <div class="ck">Sources (9)</div>
+    <ul>
+      <li><b>1.</b> WHO Bangladesh / NIMH (2019). First findings of the National Mental Health Survey. <a href="https://www.who.int/bangladesh/news/detail/27-11-2019-minister-of-health-releases-first-findings-of-national-mental-health-survey" target="_blank" rel="noopener">↗ link</a></li>
+      <li><b>2.</b> Hasan, M.T. et al. (2021). The current state of mental healthcare in Bangladesh: part 1. BJPsych International (Cambridge UP). <a href="https://www.cambridge.org/core/journals/bjpsych-international/article/current-state-of-mental-healthcare-in-bangladesh-part-1-an-updated-country-profile/19B7DE453E1ED7B460CC25F29A4897A7" target="_blank" rel="noopener">↗ link</a></li>
+      <li><b>3.</b> Patel, V. et al. (2010). Lay health counsellor intervention for depression and anxiety (MANAS): a cluster RCT. The Lancet 376:2086-2095. <a href="https://pmc.ncbi.nlm.nih.gov/articles/PMC4964905/" target="_blank" rel="noopener">↗ link</a></li>
+      <li><b>4.</b> Wu, Y. et al. (2023). Digital Mental Health Tools in LMICs: Systematic Review and Meta-analysis. JMIR Mental Health 10:e43066. <a href="https://mental.jmir.org/2023/1/e43066" target="_blank" rel="noopener">↗ link</a></li>
+      <li><b>5.</b> Faruk, M.O. et al. (2023). Mental illness stigma in Bangladesh: a cross-sectional survey. Cambridge Prisms: Global Mental Health. <a href="https://www.cambridge.org/core/journals/global-mental-health/article/mental-illness-stigma-in-bangladesh-findings-from-a-crosssectional-survey/03290B03AC48848918673DA1CB636FB9" target="_blank" rel="noopener">↗ link</a></li>
+      <li><b>6.</b> World Health Organization (2025). Over a billion people living with mental health conditions — services require urgent scale-up. <a href="https://www.who.int/news/item/02-09-2025-over-a-billion-people-living-with-mental-health-conditions-services-require-urgent-scale-up" target="_blank" rel="noopener">↗ link</a></li>
+      <li><b>7.</b> Chisholm, D. et al. (2016). Scaling-up treatment of depression and anxiety: a global return on investment analysis. Lancet Psychiatry 3(5):415-424. <a href="https://www.thelancet.com/journals/lanpsy/article/PIIS2215-0366(16)30024-4/fulltext" target="_blank" rel="noopener">↗ link</a></li>
+      <li><b>8.</b> Chibanda, D. et al. (2016). Friendship Bench: a psychological intervention for common mental disorders in Zimbabwe — RCT. JAMA 316(24):2618-2626. <a href="https://www.ncbi.nlm.nih.gov/pmc/articles/PMC4940904/" target="_blank" rel="noopener">↗ link</a></li>
+      <li><b>9.</b> Fitzpatrick, K.K., Darcy, A. &amp; Vierhile, M. (2017). CBT via a conversational agent (Woebot): an RCT. JMIR Mental Health 4(2):e19. <a href="https://mental.jmir.org/2017/2/e19" target="_blank" rel="noopener">↗ link</a></li>
+    </ul>
+  </div>
+</div>
+<!--RESEARCH-END-->
+
+<div class="foot">Part of the HelperChain family of social businesses — turn a national problem into a
+  local livelihood. · <a class="back" style="margin:0;" href="/social-business/hub/index.html">helperchain.vercel.app</a></div>
+</div></body></html>

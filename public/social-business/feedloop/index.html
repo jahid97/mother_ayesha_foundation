@@ -1,0 +1,225 @@
+<!doctype html>
+<html lang="en"><head>
+<meta charset="utf-8"><meta name="viewport" content="width=device-width, initial-scale=1">
+<title>FeedLoop — a social business</title>
+<link rel="preconnect" href="https://fonts.googleapis.com"><link rel="preconnect" href="https://fonts.gstatic.com" crossorigin>
+<link href="https://fonts.googleapis.com/css2?family=Fraunces:opsz,wght@9..144,500;9..144,600;9..144,700&family=Inter:wght@400;500;600;700;800&display=swap" rel="stylesheet">
+<style>
+:root{--green:#0e4d2f;--green2:#15693f;--gold:#c8a13a;--ink:#12241b;--paper:#f8f6ef;--card:#fff;--muted:#5d6c61;--line:#e3ddcd;--bad:#a23b2d;}
+*{box-sizing:border-box;margin:0;padding:0;}
+body{font-family:-apple-system,"Segoe UI",Helvetica,Arial,sans-serif;color:var(--ink);background:var(--paper);padding:0 16px 50px;}
+.wrap{max-width:760px;margin:0 auto;}
+.back{display:inline-block;margin-top:20px;color:var(--green2);font-size:13px;font-weight:700;text-decoration:none;}
+.back:hover{text-decoration:underline;}
+.hero{background:linear-gradient(140deg,#0c3f27,#0e4d2f 60%,#15693f);color:#fff;border-radius:18px;padding:32px 30px;margin-top:12px;position:relative;}
+.hero .seal{position:absolute;top:20px;right:22px;border:1.5px solid var(--gold);color:var(--gold);border-radius:999px;padding:4px 11px;font-size:10px;font-weight:800;letter-spacing:.08em;text-transform:uppercase;}
+.hero .ic{font-size:34px;}
+.hero h1{font-size:34px;font-weight:850;margin:4px 0 6px;}
+.hero h1 span{color:var(--gold);}
+.hero .tag{font-size:17px;color:#dfeee4;line-height:1.45;max-width:560px;}
+.hero .quote{font-size:13.5px;color:#cfe0d4;font-style:italic;margin-top:14px;border-left:3px solid var(--gold);padding-left:12px;line-height:1.5;}
+.sec{background:var(--card);border:1px solid var(--line);border-radius:14px;padding:22px 24px;margin-top:14px;}
+.k{color:var(--gold);font-weight:800;letter-spacing:.12em;text-transform:uppercase;font-size:11px;}
+.sec h2{color:var(--green);font-size:19px;margin:6px 0 10px;}
+.sec p{color:var(--ink);font-size:14px;line-height:1.6;margin:8px 0;}
+.sec p.m{color:var(--muted);}
+.sec b{color:var(--green2);}
+.stats{display:flex;gap:12px;flex-wrap:wrap;margin:12px 0 4px;}
+.stat{flex:1;min-width:150px;background:#fcfbf7;border:1px solid var(--line);border-radius:10px;padding:12px;}
+.stat b{display:block;font-size:23px;color:var(--green2);}
+.stat span{font-size:12px;color:var(--muted);line-height:1.35;display:block;margin-top:3px;}
+table{border-collapse:collapse;width:100%;font-size:13.5px;margin-top:10px;}
+td,th{border-bottom:1px solid var(--line);padding:8px 6px;text-align:left;}
+td:last-child,th:last-child{text-align:right;font-variant-numeric:tabular-nums;}
+th{color:var(--green);font-size:11px;text-transform:uppercase;letter-spacing:.05em;}
+.tot td{font-weight:800;color:var(--green2);border-top:2px solid var(--line);}
+.btn{display:inline-block;background:var(--green);color:#fff;font-weight:800;font-size:14px;padding:11px 18px;border-radius:10px;text-decoration:none;margin-top:8px;}
+.btn:hover{background:var(--green2);}
+.pledge{background:#faf7ee;border:1px solid var(--line);border-left:4px solid var(--gold);border-radius:8px;padding:11px 14px;color:#3c4a40;font-size:13px;line-height:1.55;margin-top:12px;}
+.foot{text-align:center;color:var(--muted);font-size:12px;margin-top:22px;line-height:1.6;}
+/* ===== elevated design layer ===== */
+:root{--display:'Fraunces',Georgia,'Times New Roman',serif;--sans:'Inter',-apple-system,"Segoe UI",Helvetica,Arial,sans-serif;--sh1:0 1px 2px rgba(18,36,27,.05);}
+html{scroll-behavior:smooth;}
+body{font-family:var(--sans);background:radial-gradient(1000px 520px at 50% -220px,#fffdf6 0%,var(--paper) 58%);-webkit-font-smoothing:antialiased;text-rendering:optimizeLegibility;}
+.hero h1,.sec h2{font-family:var(--display);letter-spacing:-.015em;}
+.hero{overflow:hidden;border:1px solid rgba(200,161,58,.22);box-shadow:0 22px 46px -22px rgba(10,58,35,.62);}
+.hero::before{content:"";position:absolute;inset:0;background:radial-gradient(430px 220px at 86% -14%,rgba(200,161,58,.22),transparent 70%);pointer-events:none;z-index:0;}
+.hero::after{content:"";position:absolute;left:26px;right:26px;top:0;height:3px;background:linear-gradient(90deg,transparent,var(--gold),transparent);opacity:.75;z-index:0;}
+.hero .ic,.hero h1,.hero .tag,.hero .quote{position:relative;z-index:1;}
+.hero .seal{z-index:2;}
+.hero h1{font-size:38px;}
+.sec{box-shadow:var(--sh1);transition:box-shadow .2s;}
+.sec:hover{box-shadow:0 12px 28px -18px rgba(14,77,47,.22);}
+.btn{box-shadow:0 8px 18px -9px rgba(14,77,47,.5);transition:transform .15s,box-shadow .15s,background .15s;}
+.btn:hover{transform:translateY(-2px);box-shadow:0 12px 24px -9px rgba(14,77,47,.55);}
+.seal{box-shadow:0 2px 12px -5px rgba(200,161,58,.5);}
+@media(max-width:560px){.hero h1{font-size:31px;}}
+</style></head><body><div class="wrap">
+<a class="back" href="/social-business/hub/index.html">← HelperChain · a family of social businesses</a>
+
+<div class="hero">
+  <div class="seal">Concept + model + offtake LOI</div>
+  <div class="ic">🪰</div>
+  <h1>Feed<span>Loop</span></h1>
+  <div class="tag"><b style="color:#fff;">Black-soldier-fly insect protein</b> for animal feed + frass
+    fertilizer, grown from clean organic waste — replacing expensive imported soy.</div>
+  <div class="quote">"Bangladesh imports ~20 lakh tonnes of soybean to feed its fish and chickens. We grow
+    44%-protein insect meal from waste instead — cheaper, local, and circular."</div>
+</div>
+
+<div class="sec">
+  <div class="k">The problem</div>
+  <h2>Imported protein in, organic waste rotting</h2>
+  <p>Bangladesh's booming poultry and aquaculture sectors run on <b>imported feed protein</b> —
+    FX-exposed and rising — while mountains of organic waste rot, pollute, and emit methane.</p>
+  <div class="stats">
+    <div class="stat"><b>~20 lakh t</b><span>soybean + soymeal imported a year</span></div>
+    <div class="stat"><b>Tk 85k/t</b><span>aquafeed (poultry feed ≈ Tk 66k/t)</span></div>
+    <div class="stat"><b>44%</b><span>protein in BSF insect meal — vs declining fishmeal</span></div>
+  </div>
+</div>
+
+<div class="sec">
+  <div class="k">The solution</div>
+  <h2>Larvae turn waste into protein + fertilizer</h2>
+  <p>Black-soldier-fly larvae convert <b>clean</b> organic waste — market scraps, food-processing
+    by-product, agri-residue — into <b>44%-protein insect meal</b> and <b>frass fertilizer</b>.
+    Operators run the grow-units; we supply, train, finance, and <b>guarantee the buyer.</b></p>
+  <p class="m">Deliberately built on a <b>clean substrate</b> only (separated from any human/faecal
+    waste), so the output is feed-grade — no sanitation, religious, or pathogen baggage.</p>
+</div>
+
+<style>
+.ce-ring{display:block;width:min(460px,92vw);height:auto;margin:10px auto 18px;overflow:visible;}
+.ce-flow{stroke-dasharray:150 667;animation:ceflow 5s linear infinite;}
+@keyframes ceflow{to{stroke-dashoffset:-817;}}
+.ce-spin{transform-box:fill-box;transform-origin:center;animation:cespin 64s linear infinite;}
+@keyframes cespin{to{transform:rotate(360deg);}}
+.ce-node{transform-box:fill-box;transform-origin:center;animation:cepulse 2.8s ease-in-out infinite;}
+.ce-node circle{fill:#fff;stroke:url(#ceg);stroke-width:2.5;filter:drop-shadow(0 6px 14px rgba(10,58,35,.2));animation:celight 7s linear infinite;}
+.ce-hub{fill:#fbf7ec;stroke:#e8dcbf;stroke-width:1;animation:none;}
+.ce-emoji{font-size:27px;text-anchor:middle;dominant-baseline:central;}
+.ce-label{font-size:12.5px;font-weight:700;fill:#15402c;dominant-baseline:central;}
+.ce-c1{font-family:var(--display,'Fraunces',Georgia,serif);font-size:19px;fill:#15402c;text-anchor:middle;}
+.ce-c2{font-size:11.5px;fill:#8a7d63;font-weight:600;text-anchor:middle;}
+.ce-arrow{fill:#c8a13a;animation:cearrow 4.5s ease-in-out infinite;}
+@keyframes cearrow{0%,100%{opacity:.4;}50%{opacity:1;}}
+.ce-orb{filter:drop-shadow(0 0 5px rgba(200,161,58,.9));}
+@keyframes cepulse{0%,100%{transform:scale(1);}50%{transform:scale(1.08);}}
+@keyframes celight{0%,11%,100%{filter:drop-shadow(0 6px 14px rgba(10,58,35,.2));stroke-width:2.5;}5%{filter:drop-shadow(0 0 15px rgba(200,161,58,.95)) drop-shadow(0 6px 14px rgba(10,58,35,.2));stroke-width:4;}}
+</style>
+<div class="sec">
+  <div class="k">The circular economy</div>
+  <h2>A closed loop — nothing leaves it</h2>
+  <svg class="ce-ring" viewBox="0 0 440 448" role="img" aria-label="Soldier-fly circular economy, six stages clockwise.">
+    <defs><linearGradient id="ceg" x1="0" y1="0" x2="1" y2="1"><stop offset="0" stop-color="#15693f"/><stop offset=".5" stop-color="#c8a13a"/><stop offset="1" stop-color="#15693f"/></linearGradient>
+      <radialGradient id="cedot"><stop offset="0" stop-color="#fff7df"/><stop offset=".5" stop-color="#e8b85a"/><stop offset="1" stop-color="#c8a13a"/></radialGradient>
+      <radialGradient id="halo"><stop offset="0" stop-color="#ffe6a0" stop-opacity=".9"/><stop offset=".6" stop-color="#ffd97a" stop-opacity=".4"/><stop offset="1" stop-color="#ffd97a" stop-opacity="0"/></radialGradient>
+      <path id="cepath" d="M220,84 a130,130 0 1,1 0,260 a130,130 0 1,1 0,-260" fill="none"/></defs>
+    <circle class="ce-spin" cx="220" cy="214" r="152" fill="none" stroke="#e3ddcd" stroke-width="1.5" stroke-dasharray="2 10"/>
+    <circle cx="220" cy="214" r="130" fill="none" stroke="url(#ceg)" stroke-width="5.5" opacity=".22"/>
+    <circle class="ce-flow" cx="220" cy="214" r="130" fill="none" stroke="url(#ceg)" stroke-width="5.5" stroke-linecap="round"/>
+    <path class="ce-arrow" style="animation-delay:0.00s" d="M -5 -4.5 L 5 0 L -5 4.5 Z" transform="translate(285.0 101.4) rotate(30.0)"/>
+    <path class="ce-arrow" style="animation-delay:1.17s" d="M -5 -4.5 L 5 0 L -5 4.5 Z" transform="translate(350.0 214.0) rotate(90.0)"/>
+    <path class="ce-arrow" style="animation-delay:2.33s" d="M -5 -4.5 L 5 0 L -5 4.5 Z" transform="translate(285.0 326.6) rotate(150.0)"/>
+    <path class="ce-arrow" style="animation-delay:3.50s" d="M -5 -4.5 L 5 0 L -5 4.5 Z" transform="translate(155.0 326.6) rotate(210.0)"/>
+    <path class="ce-arrow" style="animation-delay:4.67s" d="M -5 -4.5 L 5 0 L -5 4.5 Z" transform="translate(90.0 214.0) rotate(270.0)"/>
+    <path class="ce-arrow" style="animation-delay:5.83s" d="M -5 -4.5 L 5 0 L -5 4.5 Z" transform="translate(155.0 101.4) rotate(330.0)"/>
+    <circle class="ce-hub" cx="220" cy="214" r="60"/>
+    <text x="220" y="207" class="ce-c1">Soldier-fly</text>
+    <text x="220" y="229" class="ce-c2">♻ waste → protein</text>
+    <g class="ce-node" style="animation-delay:0.00s"><circle cx="220.0" cy="84.0" r="28" style="animation-delay:0.00s"/><text x="220.0" y="84.0" class="ce-emoji">🥬</text></g>
+    <text x="220.0" y="37.0" text-anchor="middle" class="ce-label">Clean waste</text>
+    <g class="ce-node" style="animation-delay:0.30s"><circle cx="332.6" cy="149.0" r="28" style="animation-delay:1.17s"/><text x="332.6" y="149.0" class="ce-emoji">🪰</text></g>
+    <text x="369.8" y="123.5" text-anchor="start" class="ce-label">BSF larvae</text>
+    <g class="ce-node" style="animation-delay:0.60s"><circle cx="332.6" cy="279.0" r="28" style="animation-delay:2.33s"/><text x="332.6" y="279.0" class="ce-emoji">☀️</text></g>
+    <text x="369.8" y="312.5" text-anchor="start" class="ce-label">Harvest & dry</text>
+    <g class="ce-node" style="animation-delay:0.90s"><circle cx="220.0" cy="344.0" r="28" style="animation-delay:3.50s"/><text x="220.0" y="344.0" class="ce-emoji">🍗</text></g>
+    <text x="220.0" y="399.0" text-anchor="middle" class="ce-label">Protein meal</text>
+    <g class="ce-node" style="animation-delay:1.20s"><circle cx="107.4" cy="279.0" r="28" style="animation-delay:4.67s"/><text x="107.4" y="279.0" class="ce-emoji">🌱</text></g>
+    <text x="70.2" y="312.5" text-anchor="end" class="ce-label">Frass → soil</text>
+    <g class="ce-node" style="animation-delay:1.50s"><circle cx="107.4" cy="149.0" r="28" style="animation-delay:5.83s"/><text x="107.4" y="149.0" class="ce-emoji">🐟</text></g>
+    <text x="70.2" y="123.5" text-anchor="end" class="ce-label">Feed & farms</text>
+    <circle r="2.20" fill="url(#cedot)" opacity="0.22" class="ce-orb"><animateMotion dur="7s" begin="-0.24s" repeatCount="indefinite"><mpath href="#cepath"/></animateMotion></circle>
+    <circle r="2.90" fill="url(#cedot)" opacity="0.29" class="ce-orb"><animateMotion dur="7s" begin="-0.18s" repeatCount="indefinite"><mpath href="#cepath"/></animateMotion></circle>
+    <circle r="3.60" fill="url(#cedot)" opacity="0.36" class="ce-orb"><animateMotion dur="7s" begin="-0.12s" repeatCount="indefinite"><mpath href="#cepath"/></animateMotion></circle>
+    <circle r="4.30" fill="url(#cedot)" opacity="0.43" class="ce-orb"><animateMotion dur="7s" begin="-0.06s" repeatCount="indefinite"><mpath href="#cepath"/></animateMotion></circle>
+    <circle r="23" fill="url(#halo)"><animateMotion dur="7s" repeatCount="indefinite"><mpath href="#cepath"/></animateMotion></circle>
+    <text font-size="30" text-anchor="middle" dominant-baseline="central" opacity="0">🥬<animateMotion dur="7s" repeatCount="indefinite"><mpath href="#cepath"/></animateMotion><animate attributeName="opacity" dur="7s" repeatCount="indefinite" calcMode="discrete" values="1;0;0" keyTimes="0;0.1667;1"/></text>
+    <text font-size="30" text-anchor="middle" dominant-baseline="central" opacity="0">🪰<animateMotion dur="7s" repeatCount="indefinite"><mpath href="#cepath"/></animateMotion><animate attributeName="opacity" dur="7s" repeatCount="indefinite" calcMode="discrete" values="0;1;0;0" keyTimes="0;0.1667;0.3333;1"/></text>
+    <text font-size="30" text-anchor="middle" dominant-baseline="central" opacity="0">☀️<animateMotion dur="7s" repeatCount="indefinite"><mpath href="#cepath"/></animateMotion><animate attributeName="opacity" dur="7s" repeatCount="indefinite" calcMode="discrete" values="0;1;0;0" keyTimes="0;0.3333;0.5;1"/></text>
+    <text font-size="30" text-anchor="middle" dominant-baseline="central" opacity="0">🍗<animateMotion dur="7s" repeatCount="indefinite"><mpath href="#cepath"/></animateMotion><animate attributeName="opacity" dur="7s" repeatCount="indefinite" calcMode="discrete" values="0;1;0;0" keyTimes="0;0.5;0.6667;1"/></text>
+    <text font-size="30" text-anchor="middle" dominant-baseline="central" opacity="0">🌱<animateMotion dur="7s" repeatCount="indefinite"><mpath href="#cepath"/></animateMotion><animate attributeName="opacity" dur="7s" repeatCount="indefinite" calcMode="discrete" values="0;1;0;0" keyTimes="0;0.6667;0.8333;1"/></text>
+    <text font-size="30" text-anchor="middle" dominant-baseline="central" opacity="0">🐟<animateMotion dur="7s" repeatCount="indefinite"><mpath href="#cepath"/></animateMotion><animate attributeName="opacity" dur="7s" repeatCount="indefinite" calcMode="discrete" values="0;1;1" keyTimes="0;0.8333;1"/></text>
+  </svg>
+  <p class="m" style="text-align:center;max-width:560px;margin:0 auto;">Clean food waste feeds the larvae; they become <b>44%-protein meal</b> (replacing imported soy) and <b>frass fertilizer</b> for farms — whose produce feeds people, whose waste returns. <b>Nothing leaves the loop.</b></p>
+</div>
+
+<div class="sec">
+  <div class="k">The model</div>
+  <h2>Profitable without subsidy</h2>
+  <p>One pilot hub: <b>~60 tonnes of clean food waste/month</b> → ~10 t dried meal + ~25 t frass
+    (15% contingency applied). Conservative prices.</p>
+  <table>
+    <tr><th>One hub / month</th><th>BDT</th></tr>
+    <tr><td>Tipping fees (60 t × 2,500)</td><td>150,000</td></tr>
+    <tr><td>Dried meal (8.5 t net × 130,000)</td><td>1,105,000</td></tr>
+    <tr><td>Frass fertilizer (21 t net × 12,000)</td><td>255,000</td></tr>
+    <tr><td>− All costs (labour, collection, drying, colony, O&amp;M, QA…)</td><td>−624,000</td></tr>
+    <tr class="tot"><td>Net profit / month</td><td>+886,000 (~$7,400)</td></tr>
+  </table>
+  <div class="pledge"><b>Honest framing:</b> the research is blunt — BSF is profitable without subsidy.
+    So the real risk is <b>competition, not viability</b>; the moat is clean-waste supply contracts +
+    guaranteed offtake (a signed-ready LOI is in hand). <b>Upgrades:</b> decentralised PAYG rearing/drying
+    nodes lower CAPEX-at-risk and add helpers; an InsectiPro-style <b>fortified-flour</b> SKU is a gated
+    upside (~<b>+165k/mo</b> if food-grade certified).</div>
+</div>
+
+<div class="sec">
+  <div class="k">Status</div>
+  <h2>Concept + model + deck + offtake LOI</h2>
+  <p class="m">Full concept, research validation, a conservative unit-economics model, a pitch deck, and
+    a feed-mill offtake letter of intent. Next: lock a clean-waste supply contract and pilot one hub.</p>
+  <a class="btn" href="deck.pdf" target="_blank">Download the pitch deck (PDF) →</a>
+</div>
+
+<!--RESEARCH-START-->
+<style>
+.rk{font-size:11px;font-weight:800;color:var(--gold);text-transform:uppercase;letter-spacing:.08em;margin:16px 0 4px;}
+.rprose{font-size:14px;line-height:1.66;color:var(--ink);margin:0;}
+.rcw a{color:var(--gold);text-decoration:none;font-weight:800;font-size:9.5px;padding:0 1px;}
+.rcw a:hover{text-decoration:underline;}
+.cites{margin-top:16px;background:#fcfbf7;border:1px solid var(--line);border-radius:10px;padding:13px 15px;}
+.cites .ck{font-size:11px;font-weight:800;color:var(--gold);text-transform:uppercase;letter-spacing:.08em;margin-bottom:7px;}
+.cites ul{list-style:none;margin:0;padding:0;}
+.cites li{font-size:11.5px;color:var(--muted);line-height:1.5;margin-bottom:6px;}
+.cites li b{color:var(--green2);}
+.cites li a{color:var(--green2);font-weight:700;text-decoration:none;white-space:nowrap;}
+</style>
+<div class="sec">
+  <div class="k">Research &amp; evidence</div>
+  <h2>Insect-protein feed from waste can cut Bangladesh's costly fishmeal and soybean imports</h2>
+  <div class="rk">The situation in Bangladesh</div>
+  <p class="rprose">Feed is the single largest cost in Bangladeshi animal-protein production, accounting for roughly 70–75% of fish-farming costs, yet the country remains structurally dependent on imports, with much of its soybean meal, maize and fishmeal sourced from abroad <sup class="rcw"><a href="https://thefishsite.com/articles/improving-aquaculture-feed-in-bangladesh-from-feed-ingredients-to-farmer-profit-to-safe-consumption" target="_blank" rel="noopener">3</a></sup>. This leaves a rapidly expanding aquaculture sector — part of a fish industry producing around 5 million tonnes annually — exposed to global price shocks, currency swings and supply disruptions <sup class="rcw"><a href="https://thefishsite.com/articles/improving-aquaculture-feed-in-bangladesh-from-feed-ingredients-to-farmer-profit-to-safe-consumption" target="_blank" rel="noopener">3</a></sup>. Researchers are now actively evaluating locally producible protein alternatives precisely because imported fishmeal is costly, volatile and increasingly scarce <sup class="rcw"><a href="https://pmc.ncbi.nlm.nih.gov/articles/PMC12463515/" target="_blank" rel="noopener">5</a></sup>. At the same time, Bangladesh generates large volumes of untapped organic waste that currently rots in landfills, emitting methane rather than being valorized <sup class="rcw"><a href="https://www.mdpi.com/2077-0472/16/3/309" target="_blank" rel="noopener">2</a></sup>.</p>
+  <div class="rk">Our pitch</div>
+  <p class="rprose">FeedLoop closes this loop by farming black soldier fly larvae on clean organic waste, converting it within 12–15 days into a 40–47% protein larvae meal and a nutrient-rich frass fertilizer, while reducing waste mass by 50–80% <sup class="rcw"><a href="https://www.mdpi.com/2077-0472/16/3/309" target="_blank" rel="noopener">2</a></sup>. The science is proven, not speculative: BSF larvae meal has higher crude protein than soybean meal and can replace up to ~25% of soybean or fishmeal in broiler diets without harming growth <sup class="rcw"><a href="https://www.mdpi.com/2076-2615/14/3/510" target="_blank" rel="noopener">1</a></sup>, while in Nile tilapia it substitutes fishmeal up to 75% and peaks in feed-conversion (FCR 1.21) and profitability at 25% inclusion <sup class="rcw"><a href="https://www.sciencedirect.com/science/article/pii/S2468227624001686" target="_blank" rel="noopener">7</a></sup><sup class="rcw"><a href="https://pmc.ncbi.nlm.nih.gov/articles/PMC7830215/" target="_blank" rel="noopener">8</a></sup>. Regulatory tailwinds are real — the EU authorized insect proteins, including black soldier fly, in poultry and pig feed under Commission Regulation (EU) 2021/1372 <sup class="rcw"><a href="https://ipiff.org/insects-eu-legislation-general/" target="_blank" rel="noopener">4</a></sup> — and the global BSF market is forecast to reach $3.4 billion by 2030 at a 34.7% CAGR <sup class="rcw"><a href="https://www.prnewswire.co.uk/news-releases/black-soldier-fly-bsf-market-to-reach-3-4-billion-by-2030-exclusive-report-covering-pre-and-post-covid-19-market-analysis-and-forecasts-by-meticulous-research-r--811672485.html" target="_blank" rel="noopener">6</a></sup>. Our wedge is import substitution: producing feed protein domestically from waste streams Bangladesh already has <sup class="rcw"><a href="https://pmc.ncbi.nlm.nih.gov/articles/PMC12463515/" target="_blank" rel="noopener">5</a></sup><sup class="rcw"><a href="https://thefishsite.com/articles/improving-aquaculture-feed-in-bangladesh-from-feed-ingredients-to-farmer-profit-to-safe-consumption" target="_blank" rel="noopener">3</a></sup>. What remains aspirational is local scale-up and Bangladeshi regulatory clearance, which we will pursue alongside controlled local feeding trials <sup class="rcw"><a href="https://onlinelibrary.wiley.com/doi/10.1002/aff2.48" target="_blank" rel="noopener">9</a></sup>.</p>
+  <div class="cites">
+    <div class="ck">Sources (9)</div>
+    <ul>
+      <li><b>1.</b> Hender et al. / MDPI (2024). Flight toward Sustainability in Poultry Nutrition with Black Soldier Fly Larvae. Animals 14(3):510. <a href="https://www.mdpi.com/2076-2615/14/3/510" target="_blank" rel="noopener">↗ link</a></li>
+      <li><b>2.</b> MDPI (2026). Black Soldier Fly Larvae and Frass: Sustainable Organic Waste Conversion and Nutritional Valorization. Agriculture 16(3):309. <a href="https://www.mdpi.com/2077-0472/16/3/309" target="_blank" rel="noopener">↗ link</a></li>
+      <li><b>3.</b> WorldFish / The Fish Site. Improving Aquaculture Feed in Bangladesh: From Feed Ingredients to Farmer Profit. <a href="https://thefishsite.com/articles/improving-aquaculture-feed-in-bangladesh-from-feed-ingredients-to-farmer-profit-to-safe-consumption" target="_blank" rel="noopener">↗ link</a></li>
+      <li><b>4.</b> IPIFF (2021). Insects as Feed: EU Legislation — Commission Regulation (EU) 2021/1372. <a href="https://ipiff.org/insects-eu-legislation-general/" target="_blank" rel="noopener">↗ link</a></li>
+      <li><b>5.</b> Exploring Protein-Based Fishmeal Alternatives for Aquaculture Feeds in Bangladesh (2025). PMC. <a href="https://pmc.ncbi.nlm.nih.gov/articles/PMC12463515/" target="_blank" rel="noopener">↗ link</a></li>
+      <li><b>6.</b> Meticulous Research (2020). Black Soldier Fly (BSF) Market to Reach $3.4 Billion by 2030. PR Newswire. <a href="https://www.prnewswire.co.uk/news-releases/black-soldier-fly-bsf-market-to-reach-3-4-billion-by-2030-exclusive-report-covering-pre-and-post-covid-19-market-analysis-and-forecasts-by-meticulous-research-r--811672485.html" target="_blank" rel="noopener">↗ link</a></li>
+      <li><b>7.</b> Mohan et al. (2024). Partial Replacement of Fishmeal with BSF Larvae Meal in Nile Tilapia Diets. Aquaculture and Fisheries. <a href="https://www.sciencedirect.com/science/article/pii/S2468227624001686" target="_blank" rel="noopener">↗ link</a></li>
+      <li><b>8.</b> Tippayadara et al. (2021). Replacement of Fish Meal by Black Soldier Fly Larvae Meal in Nile Tilapia. Animals (PMC). <a href="https://pmc.ncbi.nlm.nih.gov/articles/PMC7830215/" target="_blank" rel="noopener">↗ link</a></li>
+      <li><b>9.</b> Limbu et al. (2022). BSF larvae meal improves growth, feed efficiency and economic returns of Nile tilapia fry. Aquaculture, Fish and Fisheries (Wiley). <a href="https://onlinelibrary.wiley.com/doi/10.1002/aff2.48" target="_blank" rel="noopener">↗ link</a></li>
+    </ul>
+  </div>
+</div>
+<!--RESEARCH-END-->
+
+<div class="foot">Part of the HelperChain family of social businesses — turn a national problem into a
+  local livelihood, funded by the people who benefit. · <a class="back" style="margin:0;" href="/social-business/hub/index.html">helperchain.vercel.app</a></div>
+</div></body></html>

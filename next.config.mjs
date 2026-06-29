@@ -27,6 +27,13 @@ const nextConfig = {
     ],
   },
   serverExternalPackages: ["@prisma/client", "@prisma/adapter-neon", "@neondatabase/serverless", "bcryptjs"],
+  async redirects() {
+    return [
+      // HelperChain venture apps reachable via the foundation domain
+      { source: "/shetu-app", destination: "https://philosopher-henna.vercel.app", permanent: false },
+      { source: "/farmhalal-app", destination: "https://farmhalal.vercel.app", permanent: false },
+    ]
+  },
   experimental: {
     webpackBuildWorker: true,
     parallelServerBuildTraces: true,

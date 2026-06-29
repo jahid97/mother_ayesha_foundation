@@ -55,6 +55,14 @@ export default async function VenturePage({ params }) {
   const smap = Object.fromEntries(v.sources.map((s) => [String(s.id), s.url]))
   const related = VENTURES.filter((x) => x.cluster === v.cluster && x.dir !== v.dir).slice(0, 3)
   const pdf = `/social-business/pdf/${v.dir}.pdf`
+  const input = (v.ring[0]?.label || "raw material").toLowerCase()
+  const SUPPORT = [
+    { e: "🧰", t: "Equipped & trained", d: `The tools, inputs and hands-on training to start — turning ${input} into a working operation. No prior capital or expertise required.` },
+    { e: "💳", t: "Funded, not indebted", d: "Pay-as-you-go, riba-free finance makes a poor person a funded operator — with no debt if a cycle fails. The network carries the downside, not the operator." },
+    { e: "🤝", t: "Supervised & supported", d: "Ongoing follow-up and quality assurance — the factor peer-reviewed evidence shows decides whether ventures survive (p<0.001). The operator is never left alone." },
+    { e: "📦", t: "Guaranteed buy-back", d: "We commit to purchase the output at a fair, pre-agreed price — so there is always a market. The operator just produces; we guarantee the offtake. This is what removes the fear of failure." },
+    { e: "♻️", t: "Surplus recycles", d: "A thin margin funds the next operator — so help compounds and the network grows stronger with every person it lifts." },
+  ]
 
   return (
     <div className="flex flex-col min-h-screen bg-[#faf6ed]">
@@ -103,6 +111,19 @@ export default async function VenturePage({ params }) {
             </AnimateOnScroll>
 
             <AnimateOnScroll variant="up">
+              <div className="grid sm:grid-cols-2 gap-4 mb-10">
+                <div className="border border-[#e3ddcd] rounded-lg p-4 bg-[#fcfbf7]">
+                  <div className="text-[11px] font-bold uppercase tracking-wide text-[#0e7a45] mb-1.5">✓ Proven precedent</div>
+                  <p className="text-sm text-[#3d3d3d] leading-snug">{v.proven}</p>
+                </div>
+                <div className="border border-[#e3ddcd] rounded-lg p-4 bg-[#fcfbf7]">
+                  <div className="text-[11px] font-bold uppercase tracking-wide text-[#4db6ac] mb-1.5">▲ Why it matters</div>
+                  <p className="text-sm text-[#3d3d3d] leading-snug">{v.matters}</p>
+                </div>
+              </div>
+            </AnimateOnScroll>
+
+            <AnimateOnScroll variant="up">
               <h3 className="text-lg font-bold text-[#3d3d3d] mb-3">The situation in Bangladesh</h3>
               <p className="text-[#444] leading-[1.75] mb-8">{cite(v.situation, smap)}</p>
             </AnimateOnScroll>
@@ -113,6 +134,13 @@ export default async function VenturePage({ params }) {
             </AnimateOnScroll>
 
             <div className="mt-10 flex flex-wrap gap-3">
+              {v.app && (
+                <a href={v.app.path}>
+                  <Button className="bg-[#3d3d3d] hover:bg-[#2c2c2c] text-white gap-2">
+                    <ExternalLink className="h-4 w-4" /> {v.app.label}
+                  </Button>
+                </a>
+              )}
               <a href={pdf} target="_blank" rel="noopener noreferrer">
                 <Button className="bg-[#4db6ac] hover:bg-[#3d9d93] text-white gap-2">
                   <Download className="h-4 w-4" /> Download the one-page brief (PDF)
@@ -123,6 +151,38 @@ export default async function VenturePage({ params }) {
                   Support this venture
                 </Button>
               </Link>
+            </div>
+          </div>
+        </section>
+
+        {/* The HelperChain promise — built so the operator never fails */}
+        <section className="py-16 bg-[#3d3d3d] text-white">
+          <div className="container mx-auto px-4 max-w-3xl">
+            <AnimateOnScroll variant="up" className="text-center mb-8">
+              <span className="inline-block bg-white/10 px-4 py-1 rounded-full text-[#4db6ac] font-medium text-sm mb-4">THE HELPERCHAIN PROMISE</span>
+              <h2 className="text-3xl font-bold mb-3">Built so the operator never fails</h2>
+              <p className="text-gray-300 leading-relaxed">
+                HelperChain doesn&apos;t hand out a loan and walk away. Every operator gets the full rail — inputs, training,
+                finance, supervision, and a <strong className="text-white">guaranteed buy-back</strong> of what they produce.
+                We carry the risk so an ordinary person can succeed.
+              </p>
+            </AnimateOnScroll>
+            <div className="space-y-4 mb-8">
+              {SUPPORT.map((s, i) => (
+                <AnimateOnScroll key={i} variant="up" delay={i * 50}>
+                  <div className="flex gap-4 bg-white/5 rounded-lg p-4">
+                    <div className="text-2xl shrink-0 leading-none">{s.e}</div>
+                    <div>
+                      <div className="font-bold">{s.t}</div>
+                      <p className="text-gray-300 text-sm leading-relaxed">{s.d}</p>
+                    </div>
+                  </div>
+                </AnimateOnScroll>
+              ))}
+            </div>
+            <div className="bg-[#4db6ac] text-white rounded-lg p-5 text-center font-medium leading-relaxed">
+              The promise: we give the operator everything needed to succeed — and we buy back the output at a fair,
+              pre-agreed price. Inputs in, output bought back, risk carried by the network — so they never fail alone.
             </div>
           </div>
         </section>

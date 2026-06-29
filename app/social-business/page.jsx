@@ -2,6 +2,7 @@ import SiteHeader from "@/components/site-header"
 import Footer from "@/components/footer"
 import PageHero from "@/components/page-hero"
 import AnimateOnScroll from "@/components/animate-on-scroll"
+import SocialBusinessDiagrams from "@/components/social-business-diagrams"
 import { Button } from "@/components/ui/button"
 import Link from "next/link"
 import {
@@ -96,6 +97,9 @@ export default function SocialBusinessPage() {
             </div>
           </div>
         </section>
+
+        {/* ─── The animated diagrams (circular engine + living system) ─── */}
+        <SocialBusinessDiagrams />
 
         {/* ─── The ventures ─── */}
         <section className="py-16 bg-[#3d3d3d] text-white">

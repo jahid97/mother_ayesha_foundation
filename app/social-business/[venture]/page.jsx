@@ -8,6 +8,7 @@ import VentureRing from "@/components/venture-ring"
 import { Button } from "@/components/ui/button"
 import { ArrowLeft, ArrowRight, Download, ExternalLink } from "lucide-react"
 import { VENTURES, VENTURE_BY_DIR, CLUSTERS } from "@/lib/social-business-data"
+import AiPsychBubble from "@/components/ai-psych-bubble"
 
 export const dynamicParams = false
 
@@ -283,6 +284,7 @@ export default async function VenturePage({ params }) {
       </main>
 
       <Footer />
+      <AiPsychBubble />
     </div>
   )
 }

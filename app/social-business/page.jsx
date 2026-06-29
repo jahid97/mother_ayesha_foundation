@@ -3,6 +3,7 @@ import Footer from "@/components/footer"
 import PageHero from "@/components/page-hero"
 import AnimateOnScroll from "@/components/animate-on-scroll"
 import SocialBusinessDiagrams from "@/components/social-business-diagrams"
+import AiPsychBubble from "@/components/ai-psych-bubble"
 import { Button } from "@/components/ui/button"
 import Link from "next/link"
 import {
@@ -175,6 +176,7 @@ export default function SocialBusinessPage() {
       </main>
 
       <Footer />
+      <AiPsychBubble />
     </div>
   )
 }

@@ -31,7 +31,7 @@ export default function AiPsychBubble() {
             allow="microphone; clipboard-write"
           />
           <div className="text-[10px] text-gray-400 text-center py-1.5 border-t border-gray-100 shrink-0 leading-snug px-2">
-            An AI companion from Mother Ayesha Foundation — not a doctor and not medical advice. AI can make mistakes and may be wrong; in a crisis, contact a professional.
+            An AI companion — not a doctor and not medical advice. AI can make mistakes and may be wrong; in a crisis, contact a professional.
           </div>
         </div>
       )}

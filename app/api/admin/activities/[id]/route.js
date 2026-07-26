@@ -42,7 +42,7 @@ export async function DELETE(request, { params }) {
   try {
     const activity = await prisma.activity.findUnique({ where: { id: parseInt(id) } })
     // Delete blob images
-    const blobUrls = [activity?.coverImage, ...(activity?.images || [])].filter(
+    const blobUrls = [activity?.coverImage, ...(activity?.images || []), ...(activity?.videos || [])].filter(
       (u) => u?.includes("blob.vercel-storage.com")
     )
     await Promise.all(blobUrls.map((u) => del(u).catch(() => {})))

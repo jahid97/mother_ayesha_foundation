@@ -3,7 +3,7 @@
 import { useState } from "react"
 import Image from "next/image"
 import { Button } from "@/components/ui/button"
-import { X, Calendar } from "lucide-react"
+import { X, Calendar, Play } from "lucide-react"
 import AnimateOnScroll from "@/components/animate-on-scroll"
 
 function getYear(dateStr) {
@@ -20,8 +20,9 @@ export default function GalleryGrid({ images }) {
   const [selectedYear,     setSelectedYear]     = useState("All")
   const [selectedImage,    setSelectedImage]    = useState(null)
   const [selectedImageAlt, setSelectedImageAlt] = useState("")
+  const [selectedType,     setSelectedType]     = useState("image")
 
-  const openImage = (src, alt) => { setSelectedImage(src); setSelectedImageAlt(alt) }
+  const openImage = (src, alt, type = "image") => { setSelectedImage(src); setSelectedImageAlt(alt); setSelectedType(type) }
 
   // Base filter by category
   const categoryFiltered = images.filter((img) =>
@@ -53,16 +54,27 @@ export default function GalleryGrid({ images }) {
     <AnimateOnScroll key={image.id} variant="scale" delay={(index % 4) * 80}>
       <div
         className="group cursor-pointer overflow-hidden rounded-lg shadow-md transition-all hover:-translate-y-1 hover:shadow-xl"
-        onClick={() => openImage(image.src, image.alt)}
+        onClick={() => openImage(image.src, image.alt, image.type)}
       >
         <div className="relative aspect-square">
-          <Image
-            src={image.src || "/placeholder.svg"}
-            alt={image.alt}
-            fill
-            sizes="(max-width: 640px) 100vw, (max-width: 1024px) 50vw, 25vw"
-            className="object-cover transition-transform duration-500 group-hover:scale-110"
-          />
+          {image.type === "video" ? (
+            <>
+              <video src={image.src} className="absolute inset-0 w-full h-full object-cover" muted preload="metadata" />
+              <div className="absolute inset-0 flex items-center justify-center">
+                <div className="bg-black/50 rounded-full p-3 transition-transform duration-300 group-hover:scale-110">
+                  <Play className="h-5 w-5 text-white fill-white" />
+                </div>
+              </div>
+            </>
+          ) : (
+            <Image
+              src={image.src || "/placeholder.svg"}
+              alt={image.alt}
+              fill
+              sizes="(max-width: 640px) 100vw, (max-width: 1024px) 50vw, 25vw"
+              className="object-cover transition-transform duration-500 group-hover:scale-110"
+            />
+          )}
           <div className="absolute inset-0 bg-gradient-to-t from-black/70 to-transparent opacity-0 transition-opacity duration-300 group-hover:opacity-100">
             <div className="absolute bottom-0 w-full p-4 text-white">
               <span className="inline-block rounded-full bg-[#4db6ac]/80 px-2 py-0.5 text-xs font-medium mb-1">
@@ -173,7 +185,11 @@ export default function GalleryGrid({ images }) {
               <X className="h-6 w-6" />
             </Button>
             <div className="relative aspect-video">
-              <Image src={selectedImage || "/placeholder.svg"} alt={selectedImageAlt} fill className="object-contain" />
+              {selectedType === "video" ? (
+                <video src={selectedImage} className="w-full h-full object-contain" controls autoPlay />
+              ) : (
+                <Image src={selectedImage || "/placeholder.svg"} alt={selectedImageAlt} fill className="object-contain" />
+              )}
             </div>
             <div className="mt-2 text-center text-white">
               <p>{selectedImageAlt}</p>

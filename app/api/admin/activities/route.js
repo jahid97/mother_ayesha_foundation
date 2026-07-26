@@ -20,6 +20,7 @@ export async function POST(request) {
 
   try {
     const { project, ...data } = await request.json()
+    if (!Array.isArray(data.videos)) data.videos = []
     const activity = await prisma.activity.create({ data })
     revalidatePath("/activities")
     return NextResponse.json(activity, { status: 201 })

@@ -20,6 +20,7 @@ export async function POST(request) {
     if (!data.excerpt) data.excerpt = description || ""
     if (data.date === null) data.date = ""
     if (!Array.isArray(data.images)) data.images = []
+    if (!Array.isArray(data.videos)) data.videos = []
     const story = await prisma.story.create({ data })
     revalidatePath("/stories")
     return NextResponse.json(story, { status: 201 })

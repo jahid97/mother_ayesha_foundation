@@ -2,8 +2,9 @@
 
 import { useState } from "react"
 import { useRouter } from "next/navigation"
+import { upload } from "@vercel/blob/client"
 import ImageUpload from "@/components/admin/image-upload"
-import { Plus, X, Loader2, Upload } from "lucide-react"
+import { Plus, X, Loader2, Upload, Video as VideoIcon } from "lucide-react"
 import BlockEditor from "@/components/admin/block-editor"
 
 function slugify(str) {
@@ -19,6 +20,7 @@ const defaultActivity = {
   category: "",
   coverImage: "",
   images: [],
+  videos: [],
   projectId: "",
   published: true,
   featured: false,
@@ -29,11 +31,14 @@ export default function ActivityForm({ activity, projects = [] }) {
   const [form, setForm] = useState(activity ? {
     ...activity,
     images: activity.images || [],
+    videos: activity.videos || [],
     projectId: activity.projectId || "",
   } : defaultActivity)
   const [loading, setLoading]         = useState(false)
   const [error, setError]             = useState("")
   const [uploadingIdx, setUploadingIdx] = useState(null)
+  const [uploadingVideoIdx, setUploadingVideoIdx] = useState(null)
+  const [videoProgress, setVideoProgress] = useState(0)
 
   const set = (field) => (e) => {
     const value = e.target.type === "checkbox" ? e.target.checked : e.target.value
@@ -72,6 +77,38 @@ export default function ActivityForm({ activity, projects = [] }) {
     setForm((prev) => ({ ...prev, images: prev.images.filter((_, i) => i !== idx) }))
   }
 
+  // Extra video upload — goes straight to Blob from the browser (server route caps at ~4.5MB)
+  const uploadExtraVideo = async (file, idx) => {
+    if (!file) return
+    if (file.size > 100 * 1024 * 1024) {
+      setError("Video must be under 100 MB.")
+      return
+    }
+    setUploadingVideoIdx(idx)
+    setVideoProgress(0)
+    try {
+      const blob = await upload(`activities/${Date.now()}-${file.name}`, file, {
+        access: "public",
+        handleUploadUrl: "/api/upload/video",
+        onUploadProgress: ({ percentage }) => setVideoProgress(percentage),
+      })
+      setForm((prev) => {
+        const videos = [...prev.videos]
+        if (idx === videos.length) videos.push(blob.url)
+        else videos[idx] = blob.url
+        return { ...prev, videos }
+      })
+    } catch (err) {
+      setError(err.message)
+    } finally {
+      setUploadingVideoIdx(null)
+    }
+  }
+
+  const removeExtraVideo = (idx) => {
+    setForm((prev) => ({ ...prev, videos: prev.videos.filter((_, i) => i !== idx) }))
+  }
+
   const handleSubmit = async (e) => {
     e.preventDefault()
     setLoading(true)
@@ -81,6 +118,7 @@ export default function ActivityForm({ activity, projects = [] }) {
       ...form,
       projectId: form.projectId || null,
       images: form.images.filter(Boolean),
+      videos: form.videos.filter(Boolean),
     }
 
     try {
@@ -240,6 +278,57 @@ export default function ActivityForm({ activity, projects = [] }) {
             </div>
           ) : null
         )}
+      </div>
+
+      {/* Videos */}
+      <div>
+        <label className="block text-sm font-medium text-gray-700 mb-2">Videos <span className="text-gray-400 font-normal">(max 100MB each — shown on the detail page)</span></label>
+        <div className="grid grid-cols-3 gap-3">
+          {form.videos.map((src, idx) => (
+            <div key={idx} className="relative aspect-square rounded-lg overflow-hidden border border-gray-200 bg-gray-50 group">
+              {src ? (
+                <>
+                  <video src={src} className="w-full h-full object-cover" muted preload="metadata" />
+                  <button
+                    type="button"
+                    onClick={() => removeExtraVideo(idx)}
+                    className="absolute top-1 right-1 bg-black/60 text-white rounded-full p-0.5 opacity-0 group-hover:opacity-100 transition-opacity"
+                  >
+                    <X className="h-3.5 w-3.5" />
+                  </button>
+                </>
+              ) : (
+                <label className="flex flex-col items-center justify-center w-full h-full cursor-pointer text-gray-400 hover:text-[#4db6ac] transition-colors">
+                  {uploadingVideoIdx === idx ? (
+                    <>
+                      <Loader2 className="h-6 w-6 animate-spin" />
+                      <span className="text-[10px] mt-1">{videoProgress}%</span>
+                    </>
+                  ) : (
+                    <VideoIcon className="h-6 w-6" />
+                  )}
+                  <input type="file" accept="video/*" className="hidden" onChange={(e) => uploadExtraVideo(e.target.files?.[0], idx)} />
+                </label>
+              )}
+            </div>
+          ))}
+
+          {/* Add new video slot */}
+          <label className="aspect-square rounded-lg border-2 border-dashed border-gray-200 bg-gray-50 flex flex-col items-center justify-center cursor-pointer hover:border-[#4db6ac] hover:text-[#4db6ac] text-gray-400 transition-colors">
+            {uploadingVideoIdx === form.videos.length ? (
+              <>
+                <Loader2 className="h-6 w-6 animate-spin" />
+                <span className="text-[10px] mt-1">{videoProgress}%</span>
+              </>
+            ) : (
+              <>
+                <Plus className="h-6 w-6" />
+                <span className="text-xs mt-1">Add video</span>
+              </>
+            )}
+            <input type="file" accept="video/*" className="hidden" onChange={(e) => uploadExtraVideo(e.target.files?.[0], form.videos.length)} />
+          </label>
+        </div>
       </div>
 
       {/* Flags */}

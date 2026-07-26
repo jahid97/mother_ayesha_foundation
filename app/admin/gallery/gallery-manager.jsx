@@ -3,7 +3,7 @@
 import { useState } from "react"
 import { useRouter } from "next/navigation"
 import Link from "next/link"
-import { Pencil, Trash2, Star, StarOff } from "lucide-react"
+import { Pencil, Trash2, Star, StarOff, Play } from "lucide-react"
 
 export default function GalleryManager({ images: initialImages }) {
   const router = useRouter()
@@ -72,12 +72,23 @@ export default function GalleryManager({ images: initialImages }) {
         <div className="grid grid-cols-2 sm:grid-cols-3 lg:grid-cols-4 gap-4">
           {filtered.map((img) => (
             <div key={img.id} className="group relative rounded-lg overflow-hidden bg-gray-200 aspect-square">
-              <img
-                src={img.src}
-                alt={img.alt}
-                className="w-full h-full object-cover"
-                onError={(e) => { e.target.src = "" }}
-              />
+              {img.type === "video" ? (
+                <>
+                  <video src={img.src} className="w-full h-full object-cover" muted preload="metadata" />
+                  <div className="absolute inset-0 flex items-center justify-center pointer-events-none">
+                    <div className="bg-black/50 rounded-full p-2">
+                      <Play className="h-4 w-4 text-white fill-white" />
+                    </div>
+                  </div>
+                </>
+              ) : (
+                <img
+                  src={img.src}
+                  alt={img.alt}
+                  className="w-full h-full object-cover"
+                  onError={(e) => { e.target.src = "" }}
+                />
+              )}
 
               {/* Overlay on hover */}
               <div className="absolute inset-0 bg-black/50 opacity-0 group-hover:opacity-100 transition-opacity flex flex-col justify-between p-2">

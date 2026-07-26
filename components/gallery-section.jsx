@@ -5,12 +5,13 @@ import Image from "next/image"
 import Link from "next/link"
 import { Button } from "@/components/ui/button"
 import { useInView } from "react-intersection-observer"
-import { X } from "lucide-react"
+import { X, Play } from "lucide-react"
 
 export default function GallerySection({ images = [] }) {
   const [ref, inView] = useInView({ triggerOnce: true, threshold: 0.1, rootMargin: "200px 0px" })
   const [selectedImage, setSelectedImage] = useState(null)
   const [selectedImageAlt, setSelectedImageAlt] = useState("")
+  const [selectedType, setSelectedType] = useState("image")
   const [isLoaded, setIsLoaded] = useState(false)
 
   useEffect(() => {
@@ -42,17 +43,28 @@ export default function GallerySection({ images = [] }) {
             <div
               key={image.id}
               className="relative group overflow-hidden rounded-lg shadow-md cursor-pointer"
-              onClick={() => { setSelectedImage(image.src); setSelectedImageAlt(image.alt) }}
+              onClick={() => { setSelectedImage(image.src); setSelectedImageAlt(image.alt); setSelectedType(image.type || "image") }}
             >
               <div className="aspect-square relative overflow-hidden">
-                <Image
-                  src={image.src || "/placeholder.svg"}
-                  alt={image.alt}
-                  fill
-                  className="object-cover transition-transform duration-500 group-hover:scale-110"
-                  sizes="(max-width: 640px) 50vw, (max-width: 1024px) 33vw, 25vw"
-                  loading="lazy"
-                />
+                {image.type === "video" ? (
+                  <>
+                    <video src={image.src} className="absolute inset-0 w-full h-full object-cover" muted preload="metadata" />
+                    <div className="absolute inset-0 flex items-center justify-center">
+                      <div className="bg-black/50 rounded-full p-3 transition-transform duration-300 group-hover:scale-110">
+                        <Play className="h-5 w-5 text-white fill-white" />
+                      </div>
+                    </div>
+                  </>
+                ) : (
+                  <Image
+                    src={image.src || "/placeholder.svg"}
+                    alt={image.alt}
+                    fill
+                    className="object-cover transition-transform duration-500 group-hover:scale-110"
+                    sizes="(max-width: 640px) 50vw, (max-width: 1024px) 33vw, 25vw"
+                    loading="lazy"
+                  />
+                )}
                 <div className="absolute inset-0 bg-gradient-to-t from-[#3d3d3d]/80 to-transparent opacity-0 group-hover:opacity-100 transition-opacity duration-300 flex items-end p-4">
                   <div>
                     <span className="text-xs font-medium text-[#4db6ac] bg-white/20 px-2 py-1 rounded-full">
@@ -86,14 +98,18 @@ export default function GallerySection({ images = [] }) {
               <X className="h-6 w-6" />
             </Button>
             <div className="relative aspect-video">
-              <Image
-                src={selectedImage || "/placeholder.svg"}
-                alt={selectedImageAlt}
-                fill
-                className="object-contain"
-                sizes="(max-width: 768px) 100vw, 1200px"
-                priority
-              />
+              {selectedType === "video" ? (
+                <video src={selectedImage} className="w-full h-full object-contain" controls autoPlay />
+              ) : (
+                <Image
+                  src={selectedImage || "/placeholder.svg"}
+                  alt={selectedImageAlt}
+                  fill
+                  className="object-contain"
+                  sizes="(max-width: 768px) 100vw, 1200px"
+                  priority
+                />
+              )}
             </div>
             <div className="mt-2 text-center text-white">
               <p>{selectedImageAlt}</p>

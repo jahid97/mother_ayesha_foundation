@@ -1,7 +1,8 @@
 "use client"
 
 import { useState, useEffect, useRef } from "react"
-import { X, Search, Upload, Loader2, Check, Images } from "lucide-react"
+import { upload } from "@vercel/blob/client"
+import { X, Search, Upload, Loader2, Check, Images, Play } from "lucide-react"
 
 function filename(url) {
   try {
@@ -12,7 +13,7 @@ function filename(url) {
   }
 }
 
-export default function MediaPicker({ onSelect, onClose, multiple = false, selected = [] }) {
+export default function MediaPicker({ onSelect, onClose, multiple = false, selected = [], mediaType = "image" }) {
   const [blobs,     setBlobs]     = useState([])
   const [loading,   setLoading]   = useState(true)
   const [error,     setError]     = useState("")
@@ -21,12 +22,14 @@ export default function MediaPicker({ onSelect, onClose, multiple = false, selec
   const [uploading, setUploading] = useState(false)
   const fileRef = useRef(null)
 
+  const noun = mediaType === "video" ? "video" : mediaType === "all" ? "media" : "image"
+
   useEffect(() => {
-    fetch("/api/admin/blob-library")
+    fetch(`/api/admin/blob-library?type=${mediaType}`)
       .then((r) => r.json())
       .then((data) => { setBlobs(Array.isArray(data) ? data : []); setLoading(false) })
       .catch(() => { setError("Could not load media library."); setLoading(false) })
-  }, [])
+  }, [mediaType])
 
   const filtered = blobs.filter((b) =>
     !search || b.pathname.toLowerCase().includes(search.toLowerCase())
@@ -49,15 +52,25 @@ export default function MediaPicker({ onSelect, onClose, multiple = false, selec
   const handleUpload = async (e) => {
     const file = e.target.files?.[0]
     if (!file) return
+    const isVideo = file.type.startsWith("video/")
     setUploading(true)
     try {
-      const body = new FormData()
-      body.append("file", file)
-      body.append("folder", "stories")
-      const res = await fetch("/api/upload", { method: "POST", body })
-      if (!res.ok) throw new Error("Upload failed")
-      const { url } = await res.json()
-      setBlobs((prev) => [{ url, pathname: filename(url), uploadedAt: new Date() }, ...prev])
+      let url
+      if (isVideo) {
+        const blob = await upload(`stories/${Date.now()}-${file.name}`, file, {
+          access: "public",
+          handleUploadUrl: "/api/upload/video",
+        })
+        url = blob.url
+      } else {
+        const body = new FormData()
+        body.append("file", file)
+        body.append("folder", "stories")
+        const res = await fetch("/api/upload", { method: "POST", body })
+        if (!res.ok) throw new Error("Upload failed")
+        ;({ url } = await res.json())
+      }
+      setBlobs((prev) => [{ url, pathname: filename(url), uploadedAt: new Date(), type: isVideo ? "video" : "image" }, ...prev])
       if (!multiple) { onSelect(url); onClose() }
       else setPicked((prev) => [...prev, url])
     } catch (err) {
@@ -102,7 +115,14 @@ export default function MediaPicker({ onSelect, onClose, multiple = false, selec
           <label className="flex items-center gap-2 px-4 py-2 bg-[#4db6ac] text-white text-sm font-medium rounded-lg hover:bg-[#3d9d93] transition-colors cursor-pointer shrink-0">
             {uploading ? <Loader2 className="h-4 w-4 animate-spin" /> : <Upload className="h-4 w-4" />}
             {uploading ? "Uploading…" : "Upload New"}
-            <input ref={fileRef} type="file" accept="image/*" className="hidden" onChange={handleUpload} disabled={uploading} />
+            <input
+              ref={fileRef}
+              type="file"
+              accept={mediaType === "video" ? "video/*" : mediaType === "all" ? "image/*,video/*" : "image/*"}
+              className="hidden"
+              onChange={handleUpload}
+              disabled={uploading}
+            />
           </label>
         </div>
 
@@ -115,7 +135,7 @@ export default function MediaPicker({ onSelect, onClose, multiple = false, selec
           ) : error ? (
             <p className="text-center text-red-500 py-12">{error}</p>
           ) : filtered.length === 0 ? (
-            <p className="text-center text-gray-400 py-12">No images found{search ? " for that search" : ""}.</p>
+            <p className="text-center text-gray-400 py-12">No {noun}s found{search ? " for that search" : ""}.</p>
           ) : (
             <div className="grid grid-cols-3 sm:grid-cols-4 md:grid-cols-5 gap-3">
               {filtered.map((blob) => {
@@ -129,7 +149,18 @@ export default function MediaPicker({ onSelect, onClose, multiple = false, selec
                       isSelected ? "border-[#4db6ac] ring-2 ring-[#4db6ac]/30" : "border-gray-200 hover:border-[#4db6ac]"
                     }`}
                   >
-                    <img src={blob.url} alt="" className="w-full h-full object-cover" />
+                    {blob.type === "video" ? (
+                      <>
+                        <video src={blob.url} className="w-full h-full object-cover" muted preload="metadata" />
+                        <div className="absolute inset-0 flex items-center justify-center bg-black/10">
+                          <div className="bg-black/50 rounded-full p-1.5">
+                            <Play className="h-4 w-4 text-white fill-white" />
+                          </div>
+                        </div>
+                      </>
+                    ) : (
+                      <img src={blob.url} alt="" className="w-full h-full object-cover" />
+                    )}
                     {isSelected && (
                       <div className="absolute inset-0 bg-[#4db6ac]/20 flex items-center justify-center">
                         <div className="bg-[#4db6ac] rounded-full p-1">
@@ -150,7 +181,7 @@ export default function MediaPicker({ onSelect, onClose, multiple = false, selec
         {/* Footer (multiple mode) */}
         {multiple && (
           <div className="flex items-center justify-between px-6 py-4 border-t border-gray-100">
-            <p className="text-sm text-gray-500">{picked.length} image{picked.length !== 1 ? "s" : ""} selected</p>
+            <p className="text-sm text-gray-500">{picked.length} {noun}{picked.length !== 1 ? "s" : ""} selected</p>
             <div className="flex gap-3">
               <button type="button" onClick={onClose} className="px-4 py-2 text-sm border border-gray-200 rounded-lg hover:bg-gray-50 transition-colors">
                 Cancel

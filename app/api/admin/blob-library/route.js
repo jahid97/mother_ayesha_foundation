@@ -9,13 +9,19 @@ export async function GET(request) {
   try {
     const { searchParams } = new URL(request.url)
     const folder = searchParams.get("folder") || ""
+    const type = searchParams.get("type") || "image" // "image" | "video" | "all"
 
     const { blobs } = await list({ prefix: folder || undefined })
-    const images = blobs
-      .filter((b) => /\.(jpg|jpeg|png|webp|gif|svg)$/i.test(b.pathname))
+    const withType = blobs
+      .map((b) => ({
+        ...b,
+        type: /\.(mp4|webm|mov|mkv|m4v)$/i.test(b.pathname) ? "video" : "image",
+      }))
+      .filter((b) => /\.(jpg|jpeg|png|webp|gif|svg|mp4|webm|mov|mkv|m4v)$/i.test(b.pathname))
+      .filter((b) => type === "all" || b.type === type)
       .sort((a, b) => new Date(b.uploadedAt) - new Date(a.uploadedAt))
 
-    return NextResponse.json(images)
+    return NextResponse.json(withType)
   } catch (err) {
     console.error(err)
     return NextResponse.json({ error: "Failed to list blobs" }, { status: 500 })

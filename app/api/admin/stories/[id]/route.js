@@ -24,6 +24,7 @@ export async function PUT(request, { params }) {
     if (!data.excerpt) data.excerpt = description || ""
     if (data.date === null) data.date = ""
     if (!Array.isArray(data.images)) data.images = []
+    if (!Array.isArray(data.videos)) data.videos = []
     const story = await prisma.story.update({ where: { id: parseInt(id) }, data })
     revalidatePath("/stories")
     revalidatePath(`/stories/${story.slug}`)
@@ -41,9 +42,10 @@ export async function DELETE(request, { params }) {
   const { id } = await params
   try {
     const story = await prisma.story.findUnique({ where: { id: parseInt(id) } })
-    if (story?.image?.includes("blob.vercel-storage.com")) {
-      await del(story.image).catch(() => {})
-    }
+    const blobUrls = [story?.image, ...(story?.images || []), ...(story?.videos || [])].filter(
+      (u) => u?.includes("blob.vercel-storage.com")
+    )
+    await Promise.all(blobUrls.map((u) => del(u).catch(() => {})))
     await prisma.story.delete({ where: { id: parseInt(id) } })
     revalidatePath("/stories")
     return NextResponse.json({ success: true })

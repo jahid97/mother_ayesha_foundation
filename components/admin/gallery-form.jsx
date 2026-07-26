@@ -3,9 +3,11 @@
 import { useState } from "react"
 import { useRouter } from "next/navigation"
 import ImageUpload from "@/components/admin/image-upload"
+import VideoUpload from "@/components/admin/video-upload"
 
 const defaultImage = {
   src: "",
+  type: "image",
   alt: "",
   category: "",
   location: "",
@@ -20,6 +22,7 @@ export default function GalleryForm({ image }) {
     ...image,
     date:  image.date  ? image.date.split("T")[0] : "",
     label: image.label || "",
+    type:  image.type || "image",
   } : defaultImage)
   const [loading, setLoading] = useState(false)
   const [error, setError] = useState("")
@@ -76,13 +79,42 @@ export default function GalleryForm({ image }) {
       {error && <p className="text-red-600 text-sm bg-red-50 p-3 rounded">{error}</p>}
 
       <div className="space-y-4">
-        <ImageUpload
-          label="Image *"
-          value={form.src}
-          onChange={(url) => setForm((p) => ({ ...p, src: url }))}
-          aspectRatio="aspect-video"
-          folder="gallery"
-        />
+        <div>
+          <label className="block text-sm font-medium text-gray-700 mb-1">Type</label>
+          <div className="flex gap-2">
+            {["image", "video"].map((t) => (
+              <button
+                key={t}
+                type="button"
+                onClick={() => setForm((p) => ({ ...p, type: t, src: p.type === t ? p.src : "" }))}
+                className={`px-4 py-1.5 rounded-lg text-sm font-medium border transition-colors capitalize ${
+                  form.type === t
+                    ? "bg-[#4db6ac] text-white border-[#4db6ac]"
+                    : "border-gray-300 text-gray-600 hover:border-[#4db6ac] hover:text-[#4db6ac]"
+                }`}
+              >
+                {t}
+              </button>
+            ))}
+          </div>
+        </div>
+
+        {form.type === "video" ? (
+          <VideoUpload
+            label="Video *"
+            value={form.src}
+            onChange={(url) => setForm((p) => ({ ...p, src: url }))}
+            folder="gallery"
+          />
+        ) : (
+          <ImageUpload
+            label="Image *"
+            value={form.src}
+            onChange={(url) => setForm((p) => ({ ...p, src: url }))}
+            aspectRatio="aspect-video"
+            folder="gallery"
+          />
+        )}
         <div>
           <label className="block text-sm font-medium text-gray-700 mb-1">Alt Text *</label>
           <input required value={form.alt} onChange={set("alt")} className="w-full border border-gray-300 rounded-lg px-3 py-2 text-sm focus:outline-none focus:ring-2 focus:ring-[#4db6ac]" />

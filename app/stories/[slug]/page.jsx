@@ -106,6 +106,20 @@ export default async function StoryPage({ params }) {
                   </div>
                 )}
 
+                {/* Videos */}
+                {story.videos?.length > 0 && (
+                  <div className="mt-10">
+                    <h3 className="text-lg font-bold text-gray-800 mb-4">Videos</h3>
+                    <div className="grid grid-cols-1 sm:grid-cols-2 gap-4">
+                      {story.videos.map((src, i) => (
+                        <div key={i} className="relative aspect-video rounded-lg overflow-hidden shadow-sm bg-black">
+                          <video src={src} controls className="w-full h-full object-contain" />
+                        </div>
+                      ))}
+                    </div>
+                  </div>
+                )}
+
                 {/* Author information and back link */}
                 <div className="mt-12 pt-6 border-t border-gray-100">
                   <div className="flex flex-wrap items-center justify-between gap-4">

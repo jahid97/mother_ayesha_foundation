@@ -112,6 +112,20 @@ export default async function ActivityDetailPage({ params }) {
                 </div>
               )}
 
+              {/* Videos */}
+              {activity.videos?.length > 0 && (
+                <div className="mb-10">
+                  <h2 className="text-xl font-bold text-[#3d3d3d] mb-4">Videos</h2>
+                  <div className="grid grid-cols-1 sm:grid-cols-2 gap-4">
+                    {activity.videos.map((src, i) => (
+                      <div key={i} className="relative aspect-video rounded-lg overflow-hidden shadow-sm bg-black">
+                        <video src={src} controls className="w-full h-full object-contain" />
+                      </div>
+                    ))}
+                  </div>
+                </div>
+              )}
+
               {/* Related project CTA */}
               {activity.project && (
                 <div className="bg-[#4db6ac]/10 border border-[#4db6ac]/20 rounded-xl p-6 mb-10 flex flex-col sm:flex-row items-center gap-4">

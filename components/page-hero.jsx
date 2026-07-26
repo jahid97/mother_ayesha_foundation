@@ -12,9 +12,9 @@ const PAGE_KEYS = {
   about:      "heroBackground_about",
 }
 
-export default async function PageHero({ title, description, badge, page }) {
-  let bgUrl = null
-  if (page && PAGE_KEYS[page]) {
+export default async function PageHero({ title, description, badge, page, bg }) {
+  let bgUrl = bg || null
+  if (!bgUrl && page && PAGE_KEYS[page]) {
     const setting = await prisma.siteSetting.findUnique({ where: { key: PAGE_KEYS[page] } })
     bgUrl = setting?.value || null
   }

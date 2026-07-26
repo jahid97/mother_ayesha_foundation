@@ -58,17 +58,19 @@ const BRAND_NAMES = {
 }
 
 const navLinks = [
-  { href: "/",            label: "Home" },
-  { href: "/about-us",   label: "About" },
-  { href: "/activities", label: "Activities" },
-  { href: "/projects",   label: "Projects" },
-  { href: "/gallery",    label: "Gallery" },
-  { href: "/contact-us", label: "Contact" },
+  { href: "/",                label: "Home" },
+  { href: "/about-us",        label: "About" },
+  { href: "/social-business", label: "Social Business" },
+  { href: "/activities",      label: "Activities" },
+  { href: "/projects",        label: "Projects" },
+  { href: "/gallery",         label: "Gallery" },
+  { href: "/contact-us",      label: "Contact" },
 ]
 
 const mobileLinks = [
   { href: "/",                   label: "Home" },
   { href: "/about-us",          label: "About" },
+  { href: "/social-business",   label: "Social Business" },
   { href: "/projects",          label: "Projects" },
   { href: "/activities",        label: "Activities" },
   { href: "/stories",           label: "Stories" },

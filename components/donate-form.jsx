@@ -4,18 +4,31 @@ import { useState } from "react"
 import { useRouter } from "next/navigation"
 import { Heart, ChevronRight, Lock, User, Mail, Phone, MessageSquare, FolderKanban } from "lucide-react"
 
-const PRESETS = [500, 1000, 2000, 5000, 10000]
+// Static approximate rates to BDT — AamarPay only settles in BDT, so these are
+// display-only conversions to let donors abroad see the taka equivalent as they
+// type. Update periodically, or swap for a live FX API if precision matters.
+const CURRENCIES = {
+  BDT: { label: "BDT (৳)", symbol: "৳", rate: 1 },
+  USD: { label: "USD ($)", symbol: "$", rate: 122 },
+  GBP: { label: "GBP (£)", symbol: "£", rate: 155 },
+  EUR: { label: "EUR (€)", symbol: "€", rate: 132 },
+  SAR: { label: "SAR (﷼)", symbol: "﷼", rate: 32.5 },
+  AED: { label: "AED (د.إ)", symbol: "د.إ", rate: 33.2 },
+}
 
 export default function DonateForm({ initialProjectId, projectDetails = null, projects = [] }) {
   const router = useRouter()
   const [selectedProjectId, setSelectedProjectId] = useState(initialProjectId || "")
-  const [amount, setAmount] = useState("")
+  const [currency, setCurrency] = useState("BDT")
   const [customAmount, setCustomAmount] = useState("")
   const [info, setInfo] = useState({ firstName: "", lastName: "", email: "", phone: "", message: "" })
   const [submitting, setSubmitting] = useState(false)
   const [error, setError] = useState("")
 
-  const finalAmount = amount === "custom" ? customAmount : amount
+  const bdtAmount = customAmount ? parseFloat(customAmount) * CURRENCIES[currency].rate : 0
+  // Donation is always recorded and charged in BDT — the currency picker only
+  // helps donors abroad see what their entered amount is worth in taka.
+  const finalAmount = bdtAmount ? bdtAmount.toFixed(2) : ""
   const selectedProject = projects.find((p) => p.id === selectedProjectId) || projectDetails
 
   const handleInfoChange = (e) =>
@@ -113,34 +126,37 @@ export default function DonateForm({ initialProjectId, projectDetails = null, pr
 
                 {/* ── Amount ── */}
                 <div>
-                  <p className="text-xs font-bold text-[#3d3d3d] uppercase tracking-widest mb-3">Select Amount (BDT)</p>
-                  <div className="grid grid-cols-3 sm:grid-cols-5 gap-2 mb-3">
-                    {PRESETS.map((a) => (
-                      <button
-                        key={a}
-                        type="button"
-                        onClick={() => { setAmount(String(a)); setCustomAmount("") }}
-                        className={`py-2.5 rounded-xl text-sm font-bold border-2 transition-all ${
-                          amount === String(a)
-                            ? "border-[#4db6ac] bg-[#4db6ac] text-white shadow-md"
-                            : "border-gray-200 text-[#3d3d3d] hover:border-[#4db6ac] hover:text-[#4db6ac]"
-                        }`}
+                  <p className="text-xs font-bold text-[#3d3d3d] uppercase tracking-widest mb-3">Enter Amount</p>
+                  <div className="flex items-center gap-2">
+                    <div className="relative">
+                      <select
+                        value={currency}
+                        onChange={(e) => setCurrency(e.target.value)}
+                        className="h-full border-2 border-gray-200 rounded-xl pl-3 pr-7 py-3 text-sm font-semibold text-[#3d3d3d] bg-white focus:outline-none focus:border-[#4db6ac] appearance-none cursor-pointer"
                       >
-                        ৳{a.toLocaleString()}
-                      </button>
-                    ))}
+                        {Object.entries(CURRENCIES).map(([code, { label }]) => (
+                          <option key={code} value={code}>{code}</option>
+                        ))}
+                      </select>
+                      <ChevronRight className="absolute right-2 top-1/2 -translate-y-1/2 w-3.5 h-3.5 text-gray-400 rotate-90 pointer-events-none" />
+                    </div>
+                    <div className="flex-1 flex items-center border-2 border-gray-200 rounded-xl px-4 py-3 transition-all focus-within:border-[#4db6ac] focus-within:bg-[#4db6ac]/5">
+                      <span className="text-[#4db6ac] font-bold mr-2 text-sm">{CURRENCIES[currency].symbol}</span>
+                      <input
+                        type="number"
+                        min="1"
+                        value={customAmount}
+                        onChange={(e) => setCustomAmount(e.target.value)}
+                        placeholder="Enter amount"
+                        className="flex-1 outline-none text-sm text-[#3d3d3d] bg-transparent placeholder:text-gray-400 min-w-0"
+                      />
+                    </div>
                   </div>
-                  <div className={`flex items-center border-2 rounded-xl px-4 py-3 transition-all ${amount === "custom" ? "border-[#4db6ac] bg-[#4db6ac]/5" : "border-gray-200"}`}>
-                    <span className="text-[#4db6ac] font-bold mr-2 text-sm">৳</span>
-                    <input
-                      type="number"
-                      min="1"
-                      value={customAmount}
-                      onChange={(e) => { setCustomAmount(e.target.value); setAmount("custom") }}
-                      placeholder="Enter custom amount"
-                      className="flex-1 outline-none text-sm text-[#3d3d3d] bg-transparent placeholder:text-gray-400"
-                    />
-                  </div>
+                  {currency !== "BDT" && bdtAmount > 0 && (
+                    <p className="text-xs text-[#5a5a5a] mt-2">
+                      ≈ <span className="font-semibold text-[#4db6ac]">৳{bdtAmount.toLocaleString(undefined, { maximumFractionDigits: 2 })}</span> BDT will be charged
+                    </p>
+                  )}
                 </div>
 
                 {/* ── Your Info ── */}
@@ -217,9 +233,9 @@ export default function DonateForm({ initialProjectId, projectDetails = null, pr
                       <p className="font-semibold text-[#3d3d3d] text-sm">{selectedProject?.title || "General Fund"}</p>
                     </div>
                     <div className="text-right">
-                      <p className="text-xs text-[#5a5a5a]">Total</p>
+                      <p className="text-xs text-[#5a5a5a]">Total {currency !== "BDT" && `(${CURRENCIES[currency].symbol}${parseFloat(customAmount).toLocaleString()} ${currency})`}</p>
                       <p className="text-2xl font-bold text-[#4db6ac]">
-                        ৳{parseFloat(finalAmount).toLocaleString()}
+                        ৳{parseFloat(finalAmount).toLocaleString(undefined, { maximumFractionDigits: 2 })}
                       </p>
                     </div>
                   </div>

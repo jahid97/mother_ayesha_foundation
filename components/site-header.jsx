@@ -191,10 +191,15 @@ export default function SiteHeader() {
 
   return (
     <header className={cn(
-      "sticky top-0 z-50 w-full transition-all duration-300",
-      isScrolled ? "bg-[#3d3d3d]/95 backdrop-blur-sm shadow-md py-2" : "bg-[#3d3d3d] py-3",
+      "sticky top-0 z-50 w-full transition-all duration-500",
+      isScrolled ? "bg-transparent pt-3 pb-1" : "bg-[#3d3d3d]",
     )}>
-      <div className="container mx-auto px-4">
+      <div className={cn(
+        "transition-all duration-500",
+        isScrolled
+          ? "mx-4 lg:mx-8 xl:mx-16 rounded-2xl bg-[#3d3d3d]/95 backdrop-blur-md shadow-2xl shadow-black/40 px-4 py-2"
+          : "container mx-auto px-4 py-3"
+      )}>
         <div className="flex items-center justify-between">
 
           {/* Logo */}

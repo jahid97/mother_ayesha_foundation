@@ -4,6 +4,7 @@ import { useState } from "react"
 import { useRouter } from "next/navigation"
 import ImageUpload from "@/components/admin/image-upload"
 import BlockEditor from "@/components/admin/block-editor"
+import { Plus, X } from "lucide-react"
 
 const defaultProject = {
   title: "",
@@ -15,9 +16,16 @@ const defaultProject = {
   image: "",
   description: "",
   longDescription: "",
+  goals: "",
+  achievements: "",
+  challenges: "",
+  milestones: [],
   featured: false,
   active: true,
 }
+
+// Goals/Achievements/Challenges are stored as String[] — edited here as one item per line
+const linesToList = (text) => text.split("\n").map((s) => s.trim()).filter(Boolean)
 
 export default function ProjectForm({ project }) {
   const router = useRouter()
@@ -25,6 +33,10 @@ export default function ProjectForm({ project }) {
     ...project,
     startDate: project.startDate ? project.startDate.split("T")[0] : "",
     endDate: project.endDate ? project.endDate.split("T")[0] : "",
+    goals: (project.goals || []).join("\n"),
+    achievements: (project.achievements || []).join("\n"),
+    challenges: (project.challenges || []).join("\n"),
+    milestones: Array.isArray(project.milestones) ? project.milestones : [],
   } : defaultProject)
   const [loading, setLoading] = useState(false)
   const [error, setError] = useState("")
@@ -33,6 +45,20 @@ export default function ProjectForm({ project }) {
     const value = e.target.type === "checkbox" ? e.target.checked : e.target.value
     setForm((prev) => ({ ...prev, [field]: value }))
   }
+
+  const updateMilestone = (idx, field, value) => {
+    setForm((prev) => {
+      const milestones = [...prev.milestones]
+      milestones[idx] = { ...milestones[idx], [field]: value }
+      return { ...prev, milestones }
+    })
+  }
+
+  const addMilestone = () =>
+    setForm((prev) => ({ ...prev, milestones: [...prev.milestones, { date: "", event: "", done: false }] }))
+
+  const removeMilestone = (idx) =>
+    setForm((prev) => ({ ...prev, milestones: prev.milestones.filter((_, i) => i !== idx) }))
 
   const handleSubmit = async (e) => {
     e.preventDefault()
@@ -43,6 +69,10 @@ export default function ProjectForm({ project }) {
       ...form,
       startDate: form.startDate || "",
       endDate: form.endDate || "",
+      goals: linesToList(form.goals),
+      achievements: linesToList(form.achievements),
+      challenges: linesToList(form.challenges),
+      milestones: form.milestones.filter((m) => m.date || m.event),
     }
 
     try {
@@ -140,6 +170,97 @@ export default function ProjectForm({ project }) {
             value={form.longDescription}
             onChange={(val) => setForm((p) => ({ ...p, longDescription: val }))}
           />
+        </div>
+
+        <div>
+          <label className="block text-sm font-medium text-gray-700 mb-1">
+            Goals <span className="text-gray-400 font-normal">(one per line)</span>
+          </label>
+          <textarea
+            value={form.goals}
+            onChange={set("goals")}
+            rows={4}
+            placeholder={"Open 5 clinics across Dhaka districts\nServe 10,000+ patients annually"}
+            className="w-full border border-gray-300 rounded-lg px-3 py-2 text-sm focus:outline-none focus:ring-2 focus:ring-[#4db6ac]"
+          />
+        </div>
+        <div>
+          <label className="block text-sm font-medium text-gray-700 mb-1">
+            Achievements <span className="text-gray-400 font-normal">(one per line)</span>
+          </label>
+          <textarea
+            value={form.achievements}
+            onChange={set("achievements")}
+            rows={4}
+            placeholder={"3 clinics operational\n6,500 patients served"}
+            className="w-full border border-gray-300 rounded-lg px-3 py-2 text-sm focus:outline-none focus:ring-2 focus:ring-[#4db6ac]"
+          />
+        </div>
+        <div className="col-span-2">
+          <label className="block text-sm font-medium text-gray-700 mb-1">
+            Challenges <span className="text-gray-400 font-normal">(one per line — shown on the About tab)</span>
+          </label>
+          <textarea
+            value={form.challenges}
+            onChange={set("challenges")}
+            rows={3}
+            placeholder={"Funding sustainability\nStaffing qualified medical personnel"}
+            className="w-full border border-gray-300 rounded-lg px-3 py-2 text-sm focus:outline-none focus:ring-2 focus:ring-[#4db6ac]"
+          />
+        </div>
+
+        {/* Timeline / milestones */}
+        <div className="col-span-2">
+          <div className="flex items-center justify-between mb-2">
+            <label className="block text-sm font-medium text-gray-700">
+              Timeline <span className="text-gray-400 font-normal">(shown on the public Timeline tab)</span>
+            </label>
+            <button
+              type="button"
+              onClick={addMilestone}
+              className="flex items-center gap-1.5 text-xs text-[#4db6ac] border border-[#4db6ac]/40 px-3 py-1.5 rounded-lg hover:bg-[#4db6ac]/5 transition-colors"
+            >
+              <Plus className="h-3.5 w-3.5" />
+              Add Milestone
+            </button>
+          </div>
+
+          {form.milestones.length > 0 ? (
+            <div className="space-y-2">
+              {form.milestones.map((m, idx) => (
+                <div key={idx} className="flex items-center gap-2 bg-gray-50 border border-gray-200 rounded-lg p-2">
+                  <input
+                    value={m.date}
+                    onChange={(e) => updateMilestone(idx, "date", e.target.value)}
+                    placeholder="Date (e.g. Jan 2024)"
+                    className="w-40 border border-gray-300 rounded-lg px-2 py-1.5 text-sm focus:outline-none focus:ring-2 focus:ring-[#4db6ac]"
+                  />
+                  <input
+                    value={m.event}
+                    onChange={(e) => updateMilestone(idx, "event", e.target.value)}
+                    placeholder="Milestone description"
+                    className="flex-1 border border-gray-300 rounded-lg px-2 py-1.5 text-sm focus:outline-none focus:ring-2 focus:ring-[#4db6ac]"
+                  />
+                  <label className="flex items-center gap-1.5 text-xs text-gray-600 shrink-0 cursor-pointer">
+                    <input
+                      type="checkbox"
+                      checked={!!m.done}
+                      onChange={(e) => updateMilestone(idx, "done", e.target.checked)}
+                      className="h-4 w-4 accent-[#4db6ac]"
+                    />
+                    Done
+                  </label>
+                  <button type="button" onClick={() => removeMilestone(idx)} className="text-gray-400 hover:text-red-500 shrink-0">
+                    <X className="h-4 w-4" />
+                  </button>
+                </div>
+              ))}
+            </div>
+          ) : (
+            <p className="text-xs text-gray-400 py-3 text-center border border-dashed border-gray-200 rounded-lg">
+              No milestones yet — the public page will fall back to Start/End Date. Click "Add Milestone" to build a custom timeline.
+            </p>
+          )}
         </div>
       </div>
 

@@ -36,10 +36,12 @@ export default async function ProjectDetailPage({ params }) {
 
   if (!project || project.active === false) notFound()
 
-  const timeline = [
-    { date: project.startDate, event: "Project launched", done: true },
-    { date: project.endDate, event: "Expected completion", done: project.status === "completed" },
-  ]
+  const timeline = Array.isArray(project.milestones) && project.milestones.length > 0
+    ? project.milestones
+    : [
+        { date: project.startDate, event: "Project launched", done: true },
+        { date: project.endDate, event: "Expected completion", done: project.status === "completed" },
+      ]
 
   return (
     <div className="flex min-h-screen flex-col bg-[#faf6ed]">
